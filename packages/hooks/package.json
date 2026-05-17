@@ -1,0 +1,18 @@
+{
+  "name": "@a02/hooks",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@a02/utils": "workspace:*",
+    "@vueuse/core": "^13.9.0"
+  }
+}

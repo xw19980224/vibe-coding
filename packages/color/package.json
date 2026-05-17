@@ -1,0 +1,18 @@
+{
+  "name": "@a02/color",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@ant-design/colors": "^8.0.1",
+    "colord": "^2.9.3"
+  }
+}

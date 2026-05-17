@@ -1,0 +1,6 @@
+export enum SetupStoreId {
+  App = 'app-store',
+  Auth = 'auth-store',
+  Theme = 'theme-store',
+  Vibe = 'vibe-store',
+}

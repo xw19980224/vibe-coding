@@ -1,0 +1,19 @@
+{
+  "name": "@a02/utils",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "klona": "^2.0.6",
+    "localforage": "^1.10.0",
+    "nanoid": "^5.1.6"
+  }
+}
