@@ -480,4 +480,32 @@ export default [
       return wrapData(paginate(list, query));
     },
   },
+  {
+    url: '/auth/send-code',
+    method: 'post',
+    response: () => wrapData(null),
+  },
+  {
+    url: '/auth/wechat-qr',
+    method: 'get',
+    response: () =>
+      wrapData(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vide-coding.dev&t=${Date.now()}`),
+  },
+  {
+    url: '/auth/login',
+    method: 'post',
+    response: () => wrapData({ token: 'mock-token-' + Date.now() }),
+  },
+  {
+    url: '/auth/user-info',
+    method: 'get',
+    response: () =>
+      wrapData({
+        id: 'u1',
+        email: 'user@vide-coding.dev',
+        nickname: 'VibeCoder',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u1',
+        phone: '138****0000',
+      }),
+  },
 ] as MockMethod[];
