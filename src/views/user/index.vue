@@ -13,14 +13,22 @@ const mockUser = {
   joinedAt: '2026-03',
   worksCount: 12,
   likesReceived: 5678,
+  following: 128,
+  followers: 356,
 };
 
 const myWorks = mockWorks.filter((w) => w.author.id === 'u1');
 
 const tabs = [
-  { id: 'works', label: '我的作品', icon: 'code' },
-  { id: 'likes', label: '我的收藏', icon: 'heart' },
-  { id: 'settings', label: '账号设置', icon: 'settings' },
+  { id: 'works', label: '作品', count: myWorks.length },
+  { id: 'likes', label: '收藏', count: 0 },
+];
+
+const stats = [
+  { label: '作品', value: mockUser.worksCount },
+  { label: '获赞', value: mockUser.likesReceived },
+  { label: '关注', value: mockUser.following },
+  { label: '粉丝', value: mockUser.followers },
 ];
 
 function goToWork(id: string) {
@@ -29,167 +37,164 @@ function goToWork(id: string) {
 </script>
 
 <template>
-  <div class="pt-20 pb-12">
-    <div>
-      <!-- Profile Header -->
-      <div class="flex flex-col md:flex-row items-start gap-6 mb-10">
-        <div
-          class="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl font-700 shrink-0"
-          style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
-        >
-          {{ mockUser.name[0] }}
-        </div>
-        <div class="flex-1">
-          <h1
-            class="text-2xl font-700 mb-1"
-            style="font-family: Orbitron, sans-serif; color: #f1f5f9"
-          >
-            {{ mockUser.name }}
-          </h1>
-          <p class="text-sm mb-3" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
-            {{ mockUser.bio }}
-          </p>
-          <div
-            class="flex items-center gap-4 text-xs"
-            style="color: #475569; font-family: 'JetBrains Mono', monospace"
-          >
-            <span>{{ mockUser.worksCount }} 作品</span>
-            <span>{{ mockUser.likesReceived }} 获赞</span>
-            <span>{{ mockUser.joinedAt }} 加入</span>
-          </div>
-        </div>
-        <button
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
-          style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
-        >
-          编辑资料
-        </button>
+  <div class="pt-24 pb-12">
+    <!-- Profile Header -->
+    <div class="flex flex-col md:flex-row items-start gap-8 mb-10">
+      <!-- Avatar -->
+      <div
+        class="w-24 h-24 rounded-2xl flex items-center justify-center text-4xl font-700 shrink-0"
+        style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
+      >
+        {{ mockUser.name[0] }}
       </div>
 
-      <!-- Tabs -->
-      <div class="flex gap-1 mb-8 p-1 rounded-xl" style="background: rgba(30, 41, 59, 0.4)">
-        <button
-          v-for="tab in tabs"
-          :key="tab.id"
-          class="flex-1 h-10 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 flex items-center justify-center gap-2"
-          :style="{
-            color: activeTab === tab.id ? '#F97316' : '#64748B',
-            background: activeTab === tab.id ? 'rgba(249, 115, 22, 0.1)' : 'transparent',
-            fontFamily: '\'JetBrains Mono\', monospace',
-          }"
-          @click="activeTab = tab.id"
-        >
-          <SvgIcon :icon="'lucide:' + tab.icon" style="font-size: 16px" />
-          {{ tab.label }}
-        </button>
-      </div>
-
-      <!-- Works Tab -->
-      <div v-if="activeTab === 'works'">
-        <div v-if="!myWorks.length" class="flex flex-col items-center py-16">
-          <p class="text-base mb-4" style="color: #94a3b8">还没有发布作品</p>
-          <button
-            class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer"
-            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
-            @click="router.push('/publish')"
-          >
-            发布你的第一个作品
-          </button>
-        </div>
-        <div v-else class="space-y-3">
-          <div
-            v-for="work in myWorks"
-            :key="work.id"
-            class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-200"
-            style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.04)"
-            @click="goToWork(work.id)"
-            @mouseenter="
-              (e: MouseEvent) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.2)';
-              }
-            "
-            @mouseleave="
-              (e: MouseEvent) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.04)';
-              }
-            "
-          >
-            <div
-              class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0"
-              style="background: rgba(15, 23, 42, 0.6)"
+      <!-- Info -->
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h1
+              class="text-2xl font-700 mb-1"
+              style="font-family: Orbitron, sans-serif; color: #f1f5f9"
             >
-              <SvgIcon icon="lucide:code" style="font-size: 20px; color: #f97316; opacity: 0.4" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-600 mb-0.5 truncate" style="color: #f1f5f9">
-                {{ work.title }}
-              </h3>
-              <p class="text-xs truncate" style="color: #64748b">{{ work.description }}</p>
-            </div>
-            <div class="flex items-center gap-3 text-xs shrink-0" style="color: #475569">
-              <span class="flex items-center gap-1"
-                ><SvgIcon icon="lucide:heart" style="font-size: 12px" />{{ work.likes }}</span
-              >
-              <span class="flex items-center gap-1"
-                ><SvgIcon icon="lucide:eye" style="font-size: 12px" />{{ work.views }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Likes Tab -->
-      <div v-if="activeTab === 'likes'" class="flex flex-col items-center py-16">
-        <p class="text-sm" style="color: #64748b">暂无收藏的作品</p>
-      </div>
-
-      <!-- Settings Tab -->
-      <div v-if="activeTab === 'settings'" class="max-w-md mx-auto">
-        <div
-          class="rounded-2xl p-6 space-y-4"
-          style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
-        >
-          <div>
-            <label class="block text-xs font-500 mb-1.5" style="color: #94a3b8">用户名</label>
-            <input
-              type="text"
-              :value="mockUser.name"
-              class="w-full h-10 px-4 rounded-lg text-sm outline-none"
-              style="
-                background: rgba(15, 23, 42, 0.6);
-                border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-              "
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-500 mb-1.5" style="color: #94a3b8">简介</label>
-            <textarea
-              rows="3"
-              :value="mockUser.bio"
-              class="w-full p-3 rounded-lg text-sm outline-none resize-none"
-              style="
-                background: rgba(15, 23, 42, 0.6);
-                border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-              "
-            />
+              {{ mockUser.name }}
+            </h1>
+            <p
+              class="text-sm mb-4"
+              style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            >
+              {{ mockUser.bio }}
+            </p>
           </div>
           <button
-            class="w-full h-10 rounded-xl text-sm font-600 cursor-pointer"
-            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+            class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
+            style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
           >
-            保存修改
+            编辑资料
           </button>
         </div>
-        <button
-          class="flex items-center gap-2 mt-4 mx-auto text-sm cursor-pointer transition-colors duration-200"
-          style="color: #ef4444"
-        >
-          <SvgIcon icon="lucide:log-out" style="font-size: 16px" />
-          退出登录
-        </button>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-8">
+          <div
+            v-for="stat in stats"
+            :key="stat.label"
+            class="text-center"
+          >
+            <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+              {{ stat.value >= 1000 ? (stat.value / 1000).toFixed(1) + 'k' : stat.value }}
+            </div>
+            <div
+              class="text-xs mt-1"
+              style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            >
+              {{ stat.label }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-0 mb-8" style="border-bottom: 1px solid rgba(148, 163, 184, 0.08)">
+      <button
+        v-for="tab in tabs"
+        :key="tab.id"
+        class="relative h-11 px-6 text-sm font-500 cursor-pointer transition-all duration-200 flex items-center gap-2"
+        :style="{
+          color: activeTab === tab.id ? '#f1f5f9' : '#64748B',
+          fontFamily: 'JetBrains Mono, monospace',
+        }"
+        @click="activeTab = tab.id"
+      >
+        {{ tab.label }}
+        <span
+          v-if="tab.count !== undefined"
+          class="text-xs"
+          :style="{ color: activeTab === tab.id ? '#F97316' : '#475569' }"
+        >
+          {{ tab.count }}
+        </span>
+        <div
+          v-if="activeTab === tab.id"
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 rounded-full"
+          style="height: 2px; background: #F97316"
+        />
+      </button>
+    </div>
+
+    <!-- Works Tab -->
+    <div v-if="activeTab === 'works'">
+      <div v-if="!myWorks.length" class="flex flex-col items-center py-16">
+        <div class="text-5xl mb-4" style="opacity: 0.15">(´･_･`)</div>
+        <p class="text-sm mb-4" style="color: #94a3b8; font-family: 'JetBrains Mono', monospace">
+          还没有发布作品
+        </p>
+        <button
+          class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
+          style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+          @click="router.push('/publish')"
+        >
+          发布你的第一个作品
+        </button>
+      </div>
+      <div v-else class="space-y-3">
+        <div
+          v-for="work in myWorks"
+          :key="work.id"
+          class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-200"
+          style="background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.04)"
+          @click="goToWork(String(work.id))"
+          @mouseenter="
+            (e: MouseEvent) => {
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.2)';
+              (e.currentTarget as HTMLElement).style.background = 'rgba(30, 41, 59, 0.5)';
+            }
+          "
+          @mouseleave="
+            (e: MouseEvent) => {
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(148, 163, 184, 0.04)';
+              (e.currentTarget as HTMLElement).style.background = 'rgba(30, 41, 59, 0.3)';
+            }
+          "
+        >
+          <div
+            class="w-12 h-12 rounded-lg overflow-hidden shrink-0"
+            style="background: rgba(15, 23, 42, 0.6)"
+          >
+            <img
+              v-if="work.coverUrl"
+              :src="work.coverUrl"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-600 mb-0.5 truncate" style="color: #cbd5e1">
+              {{ work.title }}
+            </h3>
+            <p class="text-xs truncate" style="color: #64748b">{{ work.description }}</p>
+          </div>
+          <div class="flex items-center gap-4 text-xs shrink-0" style="color: #475569">
+            <span class="flex items-center gap-1">
+              <SvgIcon icon="lucide:heart" style="font-size: 12px" />{{ work.likes }}
+            </span>
+            <span class="flex items-center gap-1">
+              <SvgIcon icon="lucide:eye" style="font-size: 12px" />{{ work.views }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Likes Tab -->
+    <div
+      v-if="activeTab === 'likes'"
+      class="flex flex-col items-center py-16"
+    >
+      <div class="text-4xl mb-3" style="opacity: 0.1">☆</div>
+      <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+        暂无收藏的作品
+      </p>
+    </div>
+
   </div>
 </template>
