@@ -2,12 +2,22 @@
 import VibeCodingWaterfall from '@/components/custom/vibe-coding-waterfall.vue';
 import { vibeWorksApi } from '@/service/api/vibe-works';
 import { useVibeStore } from '@/stores/modules/vibe';
+import { useAppStore } from '@/stores/modules/app';
 import { usePagination } from '@a02/alova/client';
 import WorkCard from './work-card.vue';
 
 defineOptions({ name: 'MasonryGrid' });
 
 const vibeStore = useVibeStore();
+const appStore = useAppStore();
+
+const column = computed(() => {
+  if (appStore.breakpoints.greaterOrEqual('xl').value) return 5;
+  if (appStore.breakpoints.greaterOrEqual('lg').value) return 4;
+  if (appStore.breakpoints.greaterOrEqual('md').value) return 3;
+  if (appStore.breakpoints.greaterOrEqual('sm').value) return 2;
+  return 1;
+});
 
 const { data, page, isLastPage, fetching, reload } = usePagination(
   (p, ps) => {
@@ -37,7 +47,7 @@ watch(
 <template>
   <VibeCodingWaterfall
     :gap="16"
-    :column="3"
+    :column="column"
     :items="data"
     :loading="fetching && data.length > 0"
     :has-more="!isLastPage"
