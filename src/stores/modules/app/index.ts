@@ -1,5 +1,5 @@
 import { SetupStoreId } from '@/enum';
-import { useTitle } from '@vueuse/core';
+import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core';
 import { $t, setLocale } from '@/locales';
 import { setDayjsLocale } from '@/locales/dayjs';
 import { router } from '@/router';
@@ -8,6 +8,9 @@ import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
   const scope = effectScope();
+  const breakpoints = useBreakpoints(breakpointsTailwind);
+
+  const isMobile = breakpoints.smaller('sm');
 
   const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
 
@@ -51,6 +54,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   init();
 
   return {
+    breakpoints,
+    isMobile,
     locale,
     localeOptions,
     changeLocale,

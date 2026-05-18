@@ -39,7 +39,8 @@ onMounted(() => {
     <div
       class="absolute inset-0"
       style="
-        background: radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
           radial-gradient(ellipse at 85% 80%, rgba(249, 115, 22, 0.04) 0%, transparent 50%);
       "
     />
@@ -48,7 +49,7 @@ onMounted(() => {
       <!-- Main Title -->
       <h1
         class="text-5xl md:text-7xl lg:text-8xl font-900 tracking-wide leading-tight"
-        style="font-family: Orbitron, sans-serif; color: #F1F5F9"
+        style="font-family: Orbitron, sans-serif; color: #f1f5f9"
       >
         <span>{{ displayText }}</span>
         <span
@@ -66,10 +67,10 @@ onMounted(() => {
         <p
           v-if="showSubtitle"
           class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          style="color: #94A3B8; font-family: 'JetBrains Mono', monospace"
+          style="color: #94a3b8; font-family: 'JetBrains Mono', monospace"
         >
-          在这里，每一行代码都是一次灵感的碰撞。<br>
-          用 AI 创造，用 Vibe 连接——<span style="color: #F97316">属于创作者的代码星图</span>。
+          在这里，每一行代码都是一次灵感的碰撞。<br />
+          用 AI 创造，用 Vibe 连接——<span style="color: #f97316">属于创作者的代码星图</span>。
         </p>
       </Transition>
 
@@ -79,22 +80,29 @@ onMounted(() => {
         enter-from-class="opacity-0 translate-y-6"
         enter-to-class="opacity-100 translate-y-0"
       >
-        <div v-if="showCTA" class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div
+          v-if="showCTA"
+          class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <button
             class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 flex items-center gap-2"
             style="
-              background: linear-gradient(135deg, #F97316, #FB923C);
+              background: linear-gradient(135deg, #f97316, #fb923c);
               color: #fff;
               box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
             "
-            @mouseenter="(e: MouseEvent) => {
-              (e.target as HTMLElement).style.boxShadow = '0 0 50px rgba(249, 115, 22, 0.6)';
-              (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-            }"
-            @mouseleave="(e: MouseEvent) => {
-              (e.target as HTMLElement).style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.4)';
-              (e.target as HTMLElement).style.transform = 'translateY(0)';
-            }"
+            @mouseenter="
+              (e: MouseEvent) => {
+                (e.target as HTMLElement).style.boxShadow = '0 0 50px rgba(249, 115, 22, 0.6)';
+                (e.target as HTMLElement).style.transform = 'translateY(-2px)';
+              }
+            "
+            @mouseleave="
+              (e: MouseEvent) => {
+                (e.target as HTMLElement).style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.4)';
+                (e.target as HTMLElement).style.transform = 'translateY(0)';
+              }
+            "
           >
             <SvgIcon icon="lucide:code" style="font-size: 20px" />
             开始创作
@@ -103,20 +111,24 @@ onMounted(() => {
             class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200"
             style="
               background: transparent;
-              color: #F1F5F9;
+              color: #f1f5f9;
               border: 1px solid rgba(249, 115, 22, 0.3);
               font-family: 'JetBrains Mono', monospace;
             "
-            @mouseenter="(e: MouseEvent) => {
-              (e.target as HTMLElement).style.borderColor = '#F97316';
-              (e.target as HTMLElement).style.background = 'rgba(249, 115, 22, 0.08)';
-            }"
-            @mouseleave="(e: MouseEvent) => {
-              (e.target as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.3)';
-              (e.target as HTMLElement).style.background = 'transparent';
-            }"
+            @mouseenter="
+              (e: MouseEvent) => {
+                (e.target as HTMLElement).style.borderColor = '#F97316';
+                (e.target as HTMLElement).style.background = 'rgba(249, 115, 22, 0.08)';
+              }
+            "
+            @mouseleave="
+              (e: MouseEvent) => {
+                (e.target as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.3)';
+                (e.target as HTMLElement).style.background = 'transparent';
+              }
+            "
           >
-            探索作品
+            发布作品
           </button>
         </div>
       </Transition>
@@ -136,7 +148,7 @@ onMounted(() => {
       >
         <div
           class="w-1 h-2 rounded-full"
-          style="background: #F97316; animation: scrollPulse 1.5s ease-in-out infinite"
+          style="background: #f97316; animation: scrollPulse 1.5s ease-in-out infinite"
         />
       </div>
     </div>
@@ -145,12 +157,24 @@ onMounted(() => {
 
 <style scoped>
 @keyframes float {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -8px); }
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -8px);
+  }
 }
 @keyframes scrollPulse {
-  0%, 100% { opacity: 1; transform: translateY(0); }
-  50% { opacity: 0.3; transform: translateY(8px); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(8px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

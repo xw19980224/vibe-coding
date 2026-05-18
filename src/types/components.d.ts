@@ -12,6 +12,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
@@ -25,6 +26,7 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
   const DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
   const NButton: typeof import('naive-ui')['NButton']
   const ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
