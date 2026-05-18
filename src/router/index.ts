@@ -43,12 +43,6 @@ export const router = createRouter({
       component: () => import('@/views/_builtin/login/index.vue'),
       meta: { title: '登录' },
     },
-    {
-      path: '/register',
-      name: 'Register',
-      component: () => import('@/views/_builtin/register/index.vue'),
-      meta: { title: '注册' },
-    },
   ],
 });
 
