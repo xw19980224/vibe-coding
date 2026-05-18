@@ -19,14 +19,13 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     setToken(userToken);
   }
 
-  function logout() {
-    setToken('');
+  function resetStore() {
   }
 
   return {
     token,
     isLoggedIn,
     login,
-    logout,
+    resetStore,
   };
 });

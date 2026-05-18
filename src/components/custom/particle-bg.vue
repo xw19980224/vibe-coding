@@ -9,8 +9,8 @@ const props = withDefaults(
     speed?: number;
   }>(),
   {
-    particleCount: 80,
-    speed: 1,
+    particleCount: 60,
+    speed: 0.6,
   },
 );
 
@@ -101,9 +101,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <canvas
-    id="particle-canvas"
-    class="fixed inset-0 pointer-events-none"
-    style="z-index: 0"
-  />
+  <canvas id="particle-canvas" class="fixed inset-0 pointer-events-none" style="z-index: 0" />
 </template>
