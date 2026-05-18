@@ -4,13 +4,13 @@ defineOptions({ name: 'GlobalFooter' });
 
 <template>
   <footer
-    class="relative z-10 py-12 px-4 md:px-8"
+    class="relative z-10 py-12"
     style="
       border-top: 1px solid rgba(249, 115, 22, 0.08);
       background: rgba(15, 23, 42, 0.6);
     "
   >
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto px-4 md:px-8" style="max-width: min(90%, 1920px)">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-2">
           <div

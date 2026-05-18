@@ -2,39 +2,23 @@
 import GlobalHeader from '@/layouts/modules/global-header/index.vue';
 import GlobalFooter from '@/layouts/modules/global-footer/index.vue';
 import ParticleBg from '@/components/custom/particle-bg.vue';
+import GlobalContent from '@/layouts/modules/global-content/index.vue';
 
 defineOptions({ name: 'BaseLayout' });
-
-const props = withDefaults(
-  defineProps<{
-    showFooter?: boolean;
-    showParticles?: boolean;
-    particleCount?: number;
-    particleSpeed?: number;
-  }>(),
-  {
-    showFooter: true,
-    showParticles: true,
-    particleCount: 50,
-    particleSpeed: 0.6,
-  },
-);
-
- </script>
+</script>
 
 <template>
-  <div class="min-h-screen flex flex-col relative" style="background: #0F172A">
-    <ParticleBg
-      v-if="showParticles"
-      :particle-count="particleCount"
-      :speed="particleSpeed"
-    />
+  <div class="min-h-screen flex flex-col relative" style="background: #0f172a">
+    <ParticleBg />
     <GlobalHeader />
 
-    <div class="relative z-10 flex-1">
-      <slot />
+    <div
+      class="relative z-10 flex-1 mx-auto w-full px-4 md:px-8"
+      style="max-width: min(90%, 1920px)"
+    >
+      <GlobalContent />
     </div>
 
-    <GlobalFooter v-if="showFooter" />
+    <GlobalFooter />
   </div>
 </template>

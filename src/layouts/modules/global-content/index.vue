@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineOptions({ name: 'App' });
+defineOptions({ name: 'GlobalContent' });
 </script>
 
 <template>
