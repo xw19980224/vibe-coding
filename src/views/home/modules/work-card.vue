@@ -1,15 +1,19 @@
 <script setup lang="ts">
 defineOptions({ name: 'WorkCard' });
 
-const props = defineProps<{
-  work: VibeCoding.VibeWork;
+interface Props {
+  work: Api.VibeCoding.VibeProject;
   index: number;
-}>();
+}
 
-const emit = defineEmits<{
-  click: [work: VibeCoding.VibeWork];
-  like: [workId: string];
-}>();
+const props = defineProps<Props>();
+
+interface Emits {
+  (e: 'click', work: Api.VibeCoding.VibeProject): void;
+  (e: 'like', workId: number): void;
+}
+
+const emit = defineEmits<Emits>();
 
 const tagColors = [
   { bg: 'rgba(249, 115, 22, 0.12)', text: '#FB923C' },
@@ -39,48 +43,44 @@ function formatNumber(n: number): string {
     "
     :style="{ animationDelay: `${index * 60}ms` }"
     @click="emit('click', work)"
-    @mouseenter="(e: MouseEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      el.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-      el.style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.08)';
-      el.style.transform = 'translateY(-4px)';
-    }"
-    @mouseleave="(e: MouseEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      el.style.borderColor = 'rgba(249, 115, 22, 0.06)';
-      el.style.boxShadow = 'none';
-      el.style.transform = 'translateY(0)';
-    }"
+    @mouseenter="
+      (e: MouseEvent) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = 'rgba(249, 115, 22, 0.25)';
+        el.style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.08)';
+        el.style.transform = 'translateY(-4px)';
+      }
+    "
+    @mouseleave="
+      (e: MouseEvent) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = 'rgba(249, 115, 22, 0.06)';
+        el.style.boxShadow = 'none';
+        el.style.transform = 'translateY(0)';
+      }
+    "
   >
-    <!-- Cover area --- code-like visual -->
+    <!-- Cover image -->
     <div
-      class="relative h-48 overflow-hidden flex items-center justify-center"
-      style="background: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%)"
+      class="relative h-48 overflow-hidden"
+      style="
+        background: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%);
+      "
     >
-      <!-- Code snippet preview -->
-      <div
-        v-if="work.codeSnippet"
-        class="w-full h-full p-4 overflow-hidden"
-        style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #94A3B8; opacity: 0.6"
-      >
-        <pre class="whitespace-pre-wrap line-clamp-6">{{ work.codeSnippet }}</pre>
-      </div>
-      <div
-        v-else
-        class="text-6xl"
-        style="opacity: 0.15; color: #F97316"
-      >
-        { }
-
-      </div>
+      <img
+        :src="work.coverUrl"
+        :alt="work.title"
+        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
 
       <!-- Featured badge -->
       <div
         v-if="work.featured"
         class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex items-center"
         style="
-          background: linear-gradient(135deg, #F97316, #FB923C);
-          color: #0F172A;
+          background: linear-gradient(135deg, #f97316, #fb923c);
+          color: #0f172a;
           font-family: Orbitron, sans-serif;
           font-size: 10px;
           letter-spacing: 0.05em;
@@ -92,15 +92,12 @@ function formatNumber(n: number): string {
 
     <!-- Content -->
     <div class="p-4">
-      <h3
-        class="text-base font-600 mb-2 line-clamp-1"
-        style="color: #F1F5F9"
-      >
+      <h3 class="text-base font-600 mb-2 line-clamp-1" style="color: #f1f5f9">
         {{ work.title }}
       </h3>
       <p
         class="text-xs mb-3 line-clamp-2 leading-relaxed"
-        style="color: #64748B; font-family: 'JetBrains Mono', monospace"
+        style="color: #64748b; font-family: 'JetBrains Mono', monospace"
       >
         {{ work.description }}
       </p>
@@ -126,24 +123,25 @@ function formatNumber(n: number): string {
         <div class="flex items-center gap-2">
           <div
             class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-700"
-            style="
-              background: linear-gradient(135deg, #F97316, #FB923C);
-              color: #0F172A;
-            "
+            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
           >
             {{ work.author.name[0] }}
           </div>
-          <span class="text-xs" style="color: #64748B">
+          <span class="text-xs" style="color: #64748b">
             {{ work.author.name }}
           </span>
         </div>
         <div class="flex items-center gap-3">
           <button
             class="flex items-center gap-1 text-xs cursor-pointer transition-colors duration-200"
-            style="color: #64748B"
+            style="color: #64748b"
             @click.stop="emit('like', work.id)"
-            @mouseenter="(e: MouseEvent) => (e.currentTarget as HTMLElement).style.color = '#F97316'"
-            @mouseleave="(e: MouseEvent) => (e.currentTarget as HTMLElement).style.color = '#64748B'"
+            @mouseenter="
+              (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
+            "
+            @mouseleave="
+              (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#64748B')
+            "
           >
             <SvgIcon icon="lucide:heart" style="font-size: 14px" />
             {{ formatNumber(work.likes) }}
