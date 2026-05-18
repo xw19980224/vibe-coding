@@ -1,47 +1,42 @@
 import adapterFetch from '@a02/alova/fetch';
-import featureUsers from '../mocks/feature-users';
 import type { RequestInstanceState } from './type';
-import { createAlovaMockAdapter } from '@a02/alova/mock';
 import { createAlovaRequest } from '@a02/alova';
 import { getAuthorization, showErrorMsg } from './share';
 import { useAuthStore } from '@/stores/modules/auth';
-import { $t } from '@/locales';
+import { getServiceBaseURL } from '@/utils/service';
 
-const baseURL = import.meta.env.VITE_SERVICE_BASE_URL;
+const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
+const { baseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
+const useMockInDev = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === 'Y';
+const requestBaseURL = useMockInDev ? '' : baseURL;
+
 
 const state: RequestInstanceState = {
   errMsgStack: [],
 };
 
-const mockAdapter = createAlovaMockAdapter([featureUsers], {
-  // using requestAdapter if not match mock request
-  httpAdapter: adapterFetch(),
-
-  // response delay time
-  delay: 1000,
-
-  // global mock toggle
-  enable: true,
-  matchMode: 'methodurl',
-});
-
 export const alova = createAlovaRequest(
   {
-    baseURL,
-    requestAdapter: import.meta.env.DEV ? mockAdapter : adapterFetch(),
+    baseURL: requestBaseURL,
+    requestAdapter: adapterFetch(),
   },
   {
     onRequest({ config }) {
-      config.headers.Authorization = getAuthorization();
+      const authorization = getAuthorization();
+      if (authorization) {
+        config.headers.Authorization = authorization;
+      }
     },
     async isBackendSuccess(response) {
       const resp = response.clone();
       const data = await resp.json();
-      return data.code === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
+      const successCode = Number(import.meta.env.VITE_SERVICE_SUCCESS_CODE);
+      return Number(data.code) === successCode;
     },
 
     async transformBackendResponse(response) {
-      return (await response.clone().json()).data;
+      const data: App.Service.Response = await response.clone().json();
+      return data.data;
     },
 
     async onError(error, response) {
@@ -50,7 +45,7 @@ export const alova = createAlovaRequest(
       let responseCode = undefined;
       let message = error.message;
       if (response) {
-        const data = await response?.clone().json();
+        const data: Partial<App.Service.Response> = await response?.clone().json();
         responseCode = data.code;
         message = data.message;
       }
@@ -58,12 +53,6 @@ export const alova = createAlovaRequest(
       function handleLogout() {
         showErrorMsg(state, message);
         authStore.resetStore();
-      }
-
-      function logoutAndCleanup() {
-        handleLogout();
-        window.removeEventListener('beforeunload', handleLogout);
-        state.errMsgStack = state.errMsgStack.filter((msg) => msg !== message);
       }
 
       // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
@@ -80,20 +69,6 @@ export const alova = createAlovaRequest(
 
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
-
-        window.$dialog?.error({
-          title: $t('common.error'),
-          content: message,
-          positiveText: $t('common.confirm'),
-          maskClosable: false,
-          closeOnEsc: false,
-          onPositiveClick() {
-            logoutAndCleanup();
-          },
-          onClose() {
-            logoutAndCleanup();
-          },
-        });
         throw error;
       }
       showErrorMsg(state, message);
