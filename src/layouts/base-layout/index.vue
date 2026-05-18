@@ -3,8 +3,12 @@ import GlobalHeader from '@/layouts/modules/global-header/index.vue';
 import GlobalFooter from '@/layouts/modules/global-footer/index.vue';
 import ParticleBg from '@/components/custom/particle-bg.vue';
 import GlobalContent from '@/layouts/modules/global-content/index.vue';
+import AuthModal from '@/components/custom/auth-modal.vue';
+import { useAuthModalStore } from '@/stores/modules/auth-modal';
 
 defineOptions({ name: 'BaseLayout' });
+
+const authModal = useAuthModalStore();
 </script>
 
 <template>
@@ -20,5 +24,6 @@ defineOptions({ name: 'BaseLayout' });
     </div>
 
     <GlobalFooter />
+    <AuthModal v-model:visible="authModal.visible" />
   </div>
 </template>
