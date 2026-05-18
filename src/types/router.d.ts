@@ -5,7 +5,5 @@ declare module 'vue-router' {
     title: string;
     i18nKey?: App.I18n.I18nKey | null;
     roles?: string[];
-    layout?: 'base' | 'blank';
-    layoutProps?: Record<string, unknown>;
   }
 }

@@ -12,31 +12,25 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    CategoryBar: typeof import('./../components/custom/category-bar.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
-    MasonryGrid: typeof import('./../components/custom/masonry-grid.vue')['default']
+    NButton: typeof import('naive-ui')['NButton']
     ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
     SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
-    VibeHero: typeof import('./../components/custom/vibe-hero.vue')['default']
-    VibeIcon: typeof import('./../components/vibe-coding/VibeIcon.vue')['default']
-    WorkCard: typeof import('./../components/custom/work-card.vue')['default']
+    VibeCodingWaterfall: typeof import('./../components/custom/vibe-coding-waterfall.vue')['default']
   }
 }
 
 // For TSX support
 declare global {
-  const CategoryBar: typeof import('./../components/custom/category-bar.vue')['default']
   const DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
-  const MasonryGrid: typeof import('./../components/custom/masonry-grid.vue')['default']
+  const NButton: typeof import('naive-ui')['NButton']
   const ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
   const SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
   const SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
-  const VibeHero: typeof import('./../components/custom/vibe-hero.vue')['default']
-  const VibeIcon: typeof import('./../components/vibe-coding/VibeIcon.vue')['default']
-  const WorkCard: typeof import('./../components/custom/work-card.vue')['default']
+  const VibeCodingWaterfall: typeof import('./../components/custom/vibe-coding-waterfall.vue')['default']
 }

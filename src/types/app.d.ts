@@ -1,5 +1,32 @@
 declare namespace App {
 
+  namespace Service {
+    type OtherBaseURLKey = 'demo';
+
+    interface ServiceConfigItem {
+      baseURL: string;
+      proxyPattern: string;
+    }
+
+    interface OtherServiceConfigItem extends ServiceConfigItem {
+      key: OtherBaseURLKey;
+    }
+
+    interface ServiceConfig extends ServiceConfigItem {
+      other: OtherServiceConfigItem[];
+    }
+
+    interface SimpleServiceConfig extends Pick<ServiceConfigItem, 'baseURL'> {
+      other: Record<OtherBaseURLKey, string>;
+    }
+
+    type Response<T = unknown> = {
+      code: number;
+      message: string;
+      data: T;
+    };
+  }
+
   namespace Theme {
     type ColorPaletteNumber = import('@a02/color').ColorPaletteNumber;
 
@@ -96,8 +123,8 @@ declare namespace App {
       K extends keyof T = keyof T,
     > = K extends string
       ? T[K] extends Record<string, unknown>
-        ? `${K}.${GetI18nKey<T[K]>}`
-        : K
+      ? `${K}.${GetI18nKey<T[K]>}`
+      : K
       : never;
 
     type I18nKey = GetI18nKey<Schema>;

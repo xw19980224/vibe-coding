@@ -20,6 +20,17 @@ declare namespace Api {
       records: T[];
     }
 
+    type CommonWaterfallItem<T = any> = {
+      id: number;
+      width: number;
+      height: number;
+      image: string;
+    }
+      & T;
+
+    type WaterfallFunction<T = any> =
+      (...args: any[]) => PaginatingQueryRecord<CommonWaterfallItem<T>>;
+
     /** common search params of table */
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
 
@@ -30,21 +41,5 @@ declare namespace Api {
      * - "2": disabled
      */
     type EnableStatus = '1' | '2';
-
-    /** common record */
-    type CommonRecord<T = any> = {
-      /** record id */
-      id: number;
-      /** record creator */
-      createBy: string;
-      /** record create time */
-      createTime: string;
-      /** record updater */
-      updateBy: string;
-      /** record update time */
-      updateTime: string;
-      /** record status */
-      status: EnableStatus | null;
-    } & T;
   }
 }

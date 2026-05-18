@@ -9,10 +9,6 @@ declare namespace Env {
      */
     readonly VITE_APP_PORT: number;
     /**
-     * API 基础路径
-     */
-    readonly VITE_APP_BASE_API: string;
-    /**
      * 后端服务器的 URL
      */
     readonly VITE_SERVICE_BASE_URL: string;
@@ -29,9 +25,17 @@ declare namespace Env {
      */
     readonly VITE_ICON_LOCAL_PREFIX: string;
     /**
+     * 是否启用 Mock
+     */
+    readonly VITE_USE_MOCK: CommonType.YesOrNo;
+    /**
+     * 是否启用开发代理（通常为 "Y" | "N"）
+    */
+    readonly VITE_HTTP_PROXY?: CommonType.YesOrNo;
+    /**
      * 是否启用 source map（"Y" | "N"）
      */
-    readonly VITE_SOURCE_MAP: string;
+    readonly VITE_SOURCE_MAP: CommonType.YesOrNo;
     /**
      * Iconify API Provider URL
      *
@@ -40,6 +44,14 @@ declare namespace Env {
      * @link https://docs.iconify.design/api/providers.html
      */
     readonly VITE_ICONIFY_URL?: string;
+    /**
+     * 存储后缀
+     */
+    readonly VITE_STORAGE_SUFFIX?: string;
+    /**
+     * 是否打印代理日志（通常为 "Y" | "N"）
+     */
+    readonly VITE_PROXY_LOG?: CommonType.YesOrNo;
     /**
      * Vue DevTools 启动编辑器配置
      */
