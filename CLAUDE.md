@@ -24,13 +24,13 @@ pnpm format           # Prettier format src/
 
 The root project (`vide-coding`) depends on 5 internal packages under `packages/`:
 
-| Package | Purpose |
-|---------|---------|
-| `@a02/alova` | Request client wrapping [alova](https://alova.js.org). Provides `createAlovaRequest`, a fetch adapter (`adapterFetch`), and a mock adapter (`createAlovaMockAdapter`). Exports subpaths: `.`, `./fetch`, `./client`, `./mock` |
-| `@a02/color` | Color palette generation using `@ant-design/colors` (generates 10-step scales from a base color) and `colord` for RGB conversion |
-| `@a02/hooks` | shared Vue composables: `useBoolean`, `useCountDown`, `useLoading`, `useSvgIconRender`, `useTable` |
-| `@a02/uno-preset` | Custom UnoCSS shortcuts (`flex-center`, `absolute-center`, `ellipsis-text`, etc.) and positioning helpers |
-| `@a02/utils` | Re-exports `nanoid`, `klona` (deep clone), and typed storage helpers (`createStorage`, `createLocalforage`) |
+| Package           | Purpose                                                                                                                                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@a02/alova`      | Request client wrapping [alova](https://alova.js.org). Provides `createAlovaRequest`, a fetch adapter (`adapterFetch`), and a mock adapter (`createAlovaMockAdapter`). Exports subpaths: `.`, `./fetch`, `./client`, `./mock` |
+| `@a02/color`      | Color palette generation using `@ant-design/colors` (generates 10-step scales from a base color) and `colord` for RGB conversion                                                                                              |
+| `@a02/hooks`      | shared Vue composables: `useBoolean`, `useCountDown`, `useLoading`, `useSvgIconRender`, `useTable`                                                                                                                            |
+| `@a02/uno-preset` | Custom UnoCSS shortcuts (`flex-center`, `absolute-center`, `ellipsis-text`, etc.) and positioning helpers                                                                                                                     |
+| `@a02/utils`      | Re-exports `nanoid`, `klona` (deep clone), and typed storage helpers (`createStorage`, `createLocalforage`)                                                                                                                   |
 
 ### Application Bootstrap (`src/main.ts`)
 
@@ -43,6 +43,7 @@ The root project (`vide-coding`) depends on 5 internal packages under `packages/
 ### Request Layer (`src/service/request/`)
 
 The request client (`alova`) is created in `src/service/request/index.ts`:
+
 - **Dev mode**: uses `mockAdapter` (Alova mock) with `featureUsers` mock data
 - **Prod mode**: uses `adapterFetch()` directly
 - `onRequest`: attaches Authorization header via `getAuthorization()`
@@ -55,6 +56,7 @@ API service modules should be placed in `src/service/api/`.
 ### Routing (`src/router/`)
 
 Single route defined so far (`/` → Home page). Routes use `createWebHistory`. Route guards:
+
 - `createProgressGuard` — NProgress bar on navigation
 - `createDocumentTitleGuard` — sets `document.title` from route meta (`title` or `i18nKey`)
 
@@ -73,6 +75,7 @@ The `resetSetupStore` Pinia plugin snapshots initial state and provides `$reset(
 ### Theming System
 
 Theme tokens are defined as CSS custom properties injected via `<style id="theme-vars">`. Flow:
+
 1. `themeSettings` (default config in `src/theme/setting.ts`) defines primary color, semantic colors, radius, tokens
 2. `createThemeToken()` generates color palettes and merges token overrides
 3. `addThemeVarsToGlobal()` writes `:root` and `html.dark` CSS variables to the DOM
@@ -110,7 +113,7 @@ Configured via `unplugin-vue-components`: Naive UI components and local icon com
 ### Env Variables
 
 All Vite env vars must be prefixed with `VITE_`. Key vars:
-- `VITE_APP_BASE_API` — API path prefix for proxy (`/dev-api` dev, `/prod-api` prod)
+
 - `VITE_SERVICE_BASE_URL` — backend server URL
 - `VITE_SERVICE_SUCCESS_CODE` — expected success response code
 - `VITE_ICON_PREFIX` / `VITE_ICON_LOCAL_PREFIX` — icon class prefixes

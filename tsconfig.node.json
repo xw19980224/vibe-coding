@@ -8,7 +8,9 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "eslint.config.*",
-    "src/types/vite-env.d.ts"
+    "src/types/vite-env.d.ts",
+    "src/types/app.d.ts",
+    "src/types/common.d.ts"
   ],
   "compilerOptions": {
     // Most tools use transpilation instead of Node.js's native type-stripping.

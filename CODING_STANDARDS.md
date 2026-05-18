@@ -2,19 +2,19 @@
 
 ## 技术栈
 
-| 类别 | 技术 |
-|------|------|
-| 框架 | Vue 3 (Composition API) |
-| 语言 | TypeScript (strict mode) |
-| 构建 | Vite 7 + pnpm (monorepo) |
-| 状态管理 | Pinia (setup-syntax) |
-| 路由 | vue-router (createWebHistory) |
-| CSS | UnoCSS (presetWind4) + presetIcons |
-| 组件库 | Naive UI (auto-import) |
-| 请求 | Alova |
-| 图标 | @iconify/vue (在线图标) |
-| 格式化 | Prettier + ESLint + Oxlint |
-| 包管理 | pnpm (workspaces) |
+| 类别     | 技术                               |
+| -------- | ---------------------------------- |
+| 框架     | Vue 3 (Composition API)            |
+| 语言     | TypeScript (strict mode)           |
+| 构建     | Vite 7 + pnpm (monorepo)           |
+| 状态管理 | Pinia (setup-syntax)               |
+| 路由     | vue-router (createWebHistory)      |
+| CSS      | UnoCSS (presetWind4) + presetIcons |
+| 组件库   | Naive UI (auto-import)             |
+| 请求     | Alova                              |
+| 图标     | @iconify/vue (在线图标)            |
+| 格式化   | Prettier + ESLint + Oxlint         |
+| 包管理   | pnpm (workspaces)                  |
 
 ---
 
@@ -152,7 +152,7 @@ declare namespace VibeCoding {
 - ESLint 规则 `@typescript-eslint/no-explicit-any` 设为 warn
 - 事件处理中使用具体类型：
   ```ts
-  (e: MouseEvent) => (e.currentTarget as HTMLElement).style.color = '#F97316'
+  (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316');
   ```
 
 ### 3.3 路径别名
@@ -179,10 +179,11 @@ watch(count, (val) => { ... });
 ```
 
 自动导入范围：
+
 - Vue Composition API：`ref`、`computed`、`watch`、`reactive`、`onMounted` 等
-- Naive UI：`useDialog`、`useMessage`、`useNotification`、`useLoadingBar`
 
 以下需要手动 import：
+
 - `vue-router`：`useRouter`、`useRoute`
 - Pinia stores
 - 自定义组件和工具函数
@@ -228,8 +229,10 @@ Vibe-coding 相关页面使用内联 `style` 绑定，便于维护独立的赛�
 ```html
 <!-- 使用 Tailwind 兼容的 utility classes -->
 <div class="flex items-center justify-between">
-<div class="max-w-7xl mx-auto w-full">
-<h1 class="text-3xl md:text-4xl font-700 mb-4">
+  <div class="max-w-7xl mx-auto w-full">
+    <h1 class="text-3xl md:text-4xl font-700 mb-4"></h1>
+  </div>
+</div>
 ```
 
 ### 5.3 CSS 变量（Admin Panel）
@@ -249,18 +252,18 @@ html.dark {
 
 统一的设计变量，不可随意修改：
 
-| Token | 值 | 用途 |
-|-------|------|------|
-| 主色 | `#F97316` | 按钮、高亮、强调 |
-| 主色浅 | `#FB923C` | 渐变、hover |
-| 背景深 | `#0F172A` | 页面背景 |
-| 卡片背景 | `rgba(30, 41, 59, 0.6)` | 卡片、弹窗 |
-| 边框 | `rgba(249, 115, 22, 0.08)` | 默认边框 |
-| 边框高亮 | `rgba(249, 115, 22, 0.2)` | hover 边框 |
-| 文字主 | `#F1F5F9` | 标题 |
-| 文字次 | `#94A3B8` | 正文 |
-| 文字辅 | `#64748B` | 辅助信息 |
-| 字体 | `Orbitron` / `JetBrains Mono` | 标题/代码 |
+| Token    | 值                            | 用途             |
+| -------- | ----------------------------- | ---------------- |
+| 主色     | `#F97316`                     | 按钮、高亮、强调 |
+| 主色浅   | `#FB923C`                     | 渐变、hover      |
+| 背景深   | `#0F172A`                     | 页面背景         |
+| 卡片背景 | `rgba(30, 41, 59, 0.6)`       | 卡片、弹窗       |
+| 边框     | `rgba(249, 115, 22, 0.08)`    | 默认边框         |
+| 边框高亮 | `rgba(249, 115, 22, 0.2)`     | hover 边框       |
+| 文字主   | `#F1F5F9`                     | 标题             |
+| 文字次   | `#94A3B8`                     | 正文             |
+| 文字辅   | `#64748B`                     | 辅助信息         |
+| 字体     | `Orbitron` / `JetBrains Mono` | 标题/代码        |
 
 ---
 
@@ -292,8 +295,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 ```ts
 const auth = useAuthStore();
 // 直接访问
-auth.isLoggedIn
-auth.login(token)
+auth.isLoggedIn;
+auth.login(token);
 ```
 
 ---
@@ -321,16 +324,17 @@ auth.login(token)
 
 ## 8. 格式化规范
 
-| 规则 | 值 |
-|------|------|
-| 缩进 | 2 空格（禁止 Tab） |
-| 换行符 | LF |
-| 引号 | 单引号 |
-| 分号 | 必须 |
-| 行宽 | 100 字符 |
-| 尾逗号 | 按 Prettier 默认 |
+| 规则   | 值                 |
+| ------ | ------------------ |
+| 缩进   | 2 空格（禁止 Tab） |
+| 换行符 | LF                 |
+| 引号   | 单引号             |
+| 分号   | 必须               |
+| 行宽   | 100 字符           |
+| 尾逗号 | 按 Prettier 默认   |
 
 提交前运行：
+
 ```sh
 pnpm format      # Prettier 格式化
 pnpm lint        # Oxlint + ESLint 检查
