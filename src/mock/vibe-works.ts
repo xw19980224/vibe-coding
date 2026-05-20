@@ -1,6 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock';
-
-const SUCCESS_CODE = 200;
+import { wrapData } from './shared';
 
 export const mockCategories: Api.VibeCoding.Category[] = [
   { id: 'web', name: 'Web 应用', nameEn: 'Web App' },
@@ -393,14 +392,6 @@ export const mockWorks: Api.VibeCoding.VibeProject[] = mockWorksBase.map((work, 
   };
 });
 
-function wrapData<T>(data: T) {
-  return {
-    code: SUCCESS_CODE,
-    message: 'success',
-    data,
-  };
-}
-
 function filterWorks(query: Record<string, string | string[] | undefined>) {
   const category = query.category as string | undefined;
   const title = (query.title as string | undefined)?.trim().toLowerCase();
@@ -481,29 +472,6 @@ export default [
     method: 'get',
     response: ({ query }: { query: Record<string, string | string[] | undefined> }) => {
       const list = filterWorks(query);
-      return wrapData(paginate(list, query));
-    },
-  },
-  {
-    url: '/user/stats',
-    method: 'get',
-    response: () =>
-      wrapData({
-        works: mockWorks.length,
-        likes: mockWorks.reduce((sum, w) => sum + w.likes, 0),
-        following: 128,
-        followers: 356,
-      }),
-  },
-  {
-    url: '/user/works',
-    method: 'get',
-    response: ({ query }: { query: Record<string, string | string[] | undefined> }) => {
-      let list = [...mockWorks];
-      const status = query.status ? Number(query.status) : undefined;
-      if (status) {
-        list = list.filter((w) => w.status === status);
-      }
       return wrapData(paginate(list, query));
     },
   },

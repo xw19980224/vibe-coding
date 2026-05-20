@@ -1,8 +1,12 @@
 import { alova } from '@/service/request';
 
-export const UserApi = {
-  getStats() {
-    return alova.Get<Api.User.UserStats>('/user/stats')
+export const UserAPI = {
+  getUserInfo() {
+    return alova.Get<Api.User.UserInfo>('/user/info')
+  },
+
+  getUserDetail(nickname: Api.User.UserInfo['nickname']) {
+    return alova.Get<Api.User.UserDetail>('/user/detail', { params: { nickname } })
   },
 
   getUserWorks(params: Api.User.UserWorksSearchParams) {
