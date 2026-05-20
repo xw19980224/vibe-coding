@@ -12,6 +12,7 @@ import process from 'node:process';
 import { loadEnv } from 'vite';
 import { themeVars } from './src/theme/vars.ts';
 import type { Theme } from '@unocss/preset-wind4';
+import { presetScrollbarHide } from 'unocss-preset-scrollbar-hide';
 
 const mode = process.env.NODE_ENV || 'development';
 const env = loadEnv(mode, process.cwd(), '') as unknown as Env.ImportMeta;
@@ -52,6 +53,7 @@ export default defineConfig<Theme>({
       warn: true,
       autoInstall: true,
     }),
+    presetScrollbarHide(),
     presetA02(),
   ],
 });

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatCompact } from '@/utils/common';
+
 defineOptions({ name: 'WorkCard' });
 
 interface Props {
@@ -27,10 +29,6 @@ function getTagStyle(idx: number) {
   return tagColors[idx % tagColors.length];
 }
 
-function formatNumber(n: number): string {
-  if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
-  return String(n);
-}
 </script>
 
 <template>
@@ -144,11 +142,11 @@ function formatNumber(n: number): string {
             "
           >
             <SvgIcon icon="lucide:heart" style="font-size: 14px" />
-            {{ formatNumber(work.likes) }}
+            {{ formatCompact(work.likes) }}
           </button>
           <div class="flex-y-center gap-1 text-xs" style="color: #475569">
             <SvgIcon icon="lucide:eye" style="font-size: 14px" />
-            {{ formatNumber(work.views) }}
+            {{ formatCompact(work.views) }}
           </div>
         </div>
       </div>

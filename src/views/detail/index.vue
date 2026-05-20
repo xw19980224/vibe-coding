@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useVibeStore } from '@/stores/modules/vibe';
+import { formatCompact } from '@/utils/common';
 
 defineOptions({ name: 'WorkDetailPage' });
 
@@ -21,10 +22,6 @@ function getTagStyle(idx: number) {
   return tagColors[idx % tagColors.length];
 }
 
-function formatNumber(n: number): string {
-  if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
-  return String(n);
-}
 
 onMounted(() => {
   const id = route.params.id as string;
@@ -94,11 +91,11 @@ onMounted(() => {
           <span class="text-sm" style="color: #475569">|</span>
           <div class="flex items-center gap-1 text-sm" style="color: #64748B">
             <SvgIcon icon="lucide:eye" style="font-size: 16px" />
-            {{ formatNumber(vibeStore.currentWork.views) }}
+            {{ formatCompact(vibeStore.currentWork.views) }}
           </div>
           <div class="flex items-center gap-1 text-sm" style="color: #F97316">
             <SvgIcon icon="lucide:heart" style="font-size: 16px" />
-            {{ formatNumber(vibeStore.currentWork.likes) }}
+            {{ formatCompact(vibeStore.currentWork.likes) }}
           </div>
         </div>
 
