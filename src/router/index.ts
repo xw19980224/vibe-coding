@@ -15,13 +15,15 @@ export const router = createRouter({
           path: '/home',
           name: 'Home',
           component: () => import('@/views/home/index.vue'),
-          meta: { title: '首页' },
+          meta: { title: '首页', constants: true },
         },
         {
           path: '/work/:id',
           name: 'WorkDetail',
           component: () => import('@/views/detail/index.vue'),
-          meta: { title: '作品详情' },
+          meta: {
+            title: '作品详情'
+          },
         },
         {
           path: '/publish',
@@ -30,9 +32,9 @@ export const router = createRouter({
           meta: { title: '发布作品' },
         },
         {
-          path: '/user/:tab?',
+          path: '/user-center',
           name: 'UserCenter',
-          component: () => import('@/views/user/index.vue'),
+          component: () => import('@/views/user-center/index.vue'),
           meta: { title: '个人中心' },
         },
       ],
@@ -41,7 +43,13 @@ export const router = createRouter({
       path: '/login',
       name: 'Login',
       component: () => import('@/views/_builtin/login/index.vue'),
-      meta: { title: '登录' },
+      meta: { title: '登录', constants: true },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('@/views/_builtin/not-found/index.vue'),
+      meta: { title: '404', constants: true },
     },
   ],
 });
