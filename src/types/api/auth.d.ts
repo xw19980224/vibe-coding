@@ -14,6 +14,7 @@ declare namespace Api {
       id: string;
       email: string;
       nickname: string;
+      introduction: string;
       avatar: string;
       phone: string;
 

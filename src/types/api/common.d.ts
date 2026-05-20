@@ -8,9 +8,9 @@ declare namespace Api {
     /** common params of paginating */
     interface PaginatingCommonParams {
       /** current page number */
-      current: number;
+      pageNumber: number;
       /** page size */
-      size: number;
+      pageSize: number;
       /** total count */
       total: number;
     }
@@ -32,7 +32,7 @@ declare namespace Api {
       (...args: any[]) => PaginatingQueryRecord<CommonWaterfallItem<T>>;
 
     /** common search params of table */
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'pageNumber' | 'pageSize'>;
 
     /**
      * enable status

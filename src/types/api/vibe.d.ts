@@ -20,6 +20,7 @@ declare namespace Api {
       codeSnippet?: string;
       link?: string;
       featured: boolean;
+      status: WorkStatus;
     }>;
 
     type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
@@ -30,6 +31,21 @@ declare namespace Api {
         sort?: SortMode;
       }
     >;
+
+    /**
+     * 作品状态
+     * - 1: 草稿
+     * - 2: 待审核
+     * - 3: 审核中
+     * - 4: 通过
+     * - 5: 驳回
+     * - 6: 待调整
+     * - 7: 已发布
+     * - 8: 下架
+     * - 9: 删除
+     * - 10: 封禁
+     */
+    type WorkStatus = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
     interface Category {
       id: string;
