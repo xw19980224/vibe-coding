@@ -6,7 +6,7 @@ interface Props {
   index: number;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 interface Emits {
   (e: 'click', work: Api.VibeCoding.VibeProject): void;
@@ -77,7 +77,7 @@ function formatNumber(n: number): string {
       <!-- Featured badge -->
       <div
         v-if="work.featured"
-        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex items-center"
+        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center"
         style="
           background: linear-gradient(135deg, #f97316, #fb923c);
           color: #0f172a;
@@ -107,7 +107,7 @@ function formatNumber(n: number): string {
         <span
           v-for="(tag, ti) in work.tags.slice(0, 3)"
           :key="tag"
-          class="h-5 px-2 rounded text-xs font-500 flex items-center"
+          class="h-5 px-2 rounded text-xs font-500 flex-y-center"
           :style="{
             background: getTagStyle(ti).bg,
             color: getTagStyle(ti).text,
@@ -119,10 +119,10 @@ function formatNumber(n: number): string {
       </div>
 
       <!-- Meta -->
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
+      <div class="flex-y-center justify-between">
+        <div class="flex-y-center gap-2">
           <div
-            class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-700"
+            class="w-6 h-6 rounded-full flex-center text-xs font-700"
             style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
           >
             {{ work.author.name[0] }}
@@ -133,7 +133,7 @@ function formatNumber(n: number): string {
         </div>
         <div class="flex items-center gap-3">
           <button
-            class="flex items-center gap-1 text-xs cursor-pointer transition-colors duration-200"
+            class="flex-y-center gap-1 text-xs cursor-pointer transition-colors duration-200"
             style="color: #64748b"
             @click.stop="emit('like', work.id)"
             @mouseenter="
@@ -146,7 +146,7 @@ function formatNumber(n: number): string {
             <SvgIcon icon="lucide:heart" style="font-size: 14px" />
             {{ formatNumber(work.likes) }}
           </button>
-          <div class="flex items-center gap-1 text-xs" style="color: #475569">
+          <div class="flex-y-center gap-1 text-xs" style="color: #475569">
             <SvgIcon icon="lucide:eye" style="font-size: 14px" />
             {{ formatNumber(work.views) }}
           </div>
