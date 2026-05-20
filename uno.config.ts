@@ -11,6 +11,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { loadEnv } from 'vite';
 import { themeVars } from './src/theme/vars.ts';
+import type { Theme } from '@unocss/preset-wind4';
 
 const mode = process.env.NODE_ENV || 'development';
 const env = loadEnv(mode, process.cwd(), '') as unknown as Env.ImportMeta;

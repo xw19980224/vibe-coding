@@ -194,13 +194,13 @@ onMounted(async () => {
                 type="text"
                 placeholder="请输入验证码"
                 maxlength="6"
-                class="h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200"
+                class="min-w-0 h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200"
                 :style="inputStyle"
                 @focus="onFocus"
                 @blur="onBlur"
               />
               <button
-                class="h-12 px-5 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0"
+                class="h-12 px-3 md:px-5 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0 whitespace-nowrap"
                 style="
                   background: rgba(148, 163, 184, 0.06);
                   border: 1px solid rgba(148, 163, 184, 0.15);
@@ -240,20 +240,15 @@ onMounted(async () => {
           </div>
 
           <!-- Divider -->
-          <div class="flex items-center justify-center py-5 md:py-0 md:px-8">
+          <div class="hidden md:flex items-center justify-center py-5 md:py-0 md:px-8">
             <div
               class="hidden md:block"
               style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
             />
-            <span
-              class="text-sm md:hidden"
-              style="color: #475569; font-family: 'JetBrains Mono', monospace"
-              >— 其他方式 —</span
-            >
           </div>
 
           <!-- Right: WeChat QR -->
-          <div class="flex flex-col items-center justify-center md:w-64 md:pl-5">
+          <div class="hidden md:flex flex-col items-center justify-center md:w-64 md:pl-5">
             <h3
               class="text-lg font-600 mb-5"
               style="color: #cbd5e1; font-family: 'Noto Sans SC', sans-serif"

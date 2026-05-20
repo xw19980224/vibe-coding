@@ -2,19 +2,20 @@
 
 ## 技术栈
 
-| 类别     | 技术                               |
-| -------- | ---------------------------------- |
-| 框架     | Vue 3 (Composition API)            |
-| 语言     | TypeScript (strict mode)           |
-| 构建     | Vite 7 + pnpm (monorepo)           |
-| 状态管理 | Pinia (setup-syntax)               |
-| 路由     | vue-router (createWebHistory)      |
-| CSS      | UnoCSS (presetWind4) + presetIcons |
-| 组件库   | Naive UI (auto-import)             |
-| 请求     | Alova                              |
-| 图标     | @iconify/vue (在线图标)            |
-| 格式化   | Prettier + ESLint + Oxlint         |
-| 包管理   | pnpm (workspaces)                  |
+| 类别     | 技术                                                  |
+| -------- | ----------------------------------------------------- |
+| 框架     | Vue 3 (Composition API)                               |
+| 语言     | TypeScript (strict mode)                              |
+| 构建     | Vite 7 + pnpm (monorepo)                              |
+| 状态管理 | Pinia (setup-syntax)                                  |
+| 路由     | vue-router (createWebHistory)                         |
+| CSS      | UnoCSS (presetWind4) + presetIcons + presetA02        |
+| 请求     | alova (usePagination / useCaptcha)                    |
+| Mock     | vite-plugin-mock (src/mock/)                          |
+| 工具     | @vueuse/core (useBreakpoints / useMediaQuery)         |
+| 图标     | lucide 在线图标 (`<SvgIcon icon="lucide:xxx" />`)     |
+| 格式化   | Prettier + ESLint + Oxlint                            |
+| 包管理   | pnpm (workspaces)                                     |
 
 ---
 
@@ -24,33 +25,32 @@
 
 ```
 src/views/
-  home/index.vue                    # 首页
-  home/modules/                     # 首页专属组件
-    vibe-hero.vue
-    category-bar.vue
-    masonry-grid.vue
-    work-card.vue
-  detail/index.vue                  # 详情页
-  publish/index.vue                  # 发布页
-  user/index.vue                    # 用户中心
-  auth/login/index.vue              # 登录页
-  auth/register/index.vue           # 注册页
+├── model/                          # 业务模块（如 home、user-center）
+│   ├── index.vue
+│   └── modules/                    # 模块专属组件
+│       ├── xxx-search.vue
+│       └── xxx-operation-dialog.vue
+└── _builtin/                       # 内置页面（登录、404 等）
+    └── model/
+        └── index.vue
 ```
 
 - 每个页面独立文件夹，入口文件为 `index.vue`
 - 页面专属子组件放在 `modules/` 子目录，使用相对路径导入
 - 跨页面共享组件放在 `src/components/custom/`
-- 路由 path 使用 kebab-case：`/user/:tab?`、`/work/:id`
-- 路由 name 使用 PascalCase：`'WorkDetail'`、`'UserCenter'`
-- 组件文件统一使用 **kebab-case** 命名，如 `work-card.vue`、`vibe-hero.vue`
+- 路由 path 使用 kebab-case，路由 name 使用 PascalCase
+- 组件文件统一使用 **kebab-case** 命名
 
 ```
 src/
-  layouts/base-layout/index.vue      # layout 组件：kebab-case + index.vue
-  layouts/modules/global-header/      # layout 子模块：kebab-case
-  stores/modules/auth/index.ts        # store 模块
-  service/mocks/vibe-works.ts         # mock 数据
-  types/vibe-coding.d.ts              # 类型声明
+├── layouts/base-layout/index.vue   # layout 组件
+├── layouts/modules/                # layout 子模块
+├── stores/modules/                 # store 模块
+│   └── xxx/                        # 按职责拆分（app / auth / vibe 等）
+├── mock/                           # vite-plugin-mock 数据
+├── service/api/                    # API 定义（按模块拆分）
+├── types/api/                      # 类型声明（按模块拆分）
+└── components/custom/              # 跨页面共享组件
 ```
 
 ---
@@ -64,7 +64,7 @@ src/
 defineOptions({ name: 'ComponentName' });
 
 // 1. imports
-// 2. props / emits
+// 2. props / emits / defineModel
 // 3. composables / stores
 // 4. reactive state
 // 5. computed
@@ -89,7 +89,7 @@ defineOptions({ name: 'ComponentName' });
 ### 2.2 Props 定义
 
 ```ts
-// ✅ 推荐：interface + defineProps
+// ✅ interface + withDefaults
 interface Props {
   showFooter?: boolean;
   particleCount?: number;
@@ -99,28 +99,42 @@ const props = withDefaults(defineProps<Props>(), {
   particleCount: 50,
 });
 
-// ✅ 也可以：内联泛型
+// ✅ 内联泛型
 const props = defineProps<{
-  work: VibeCoding.VibeWork;
-  index: number;
+  works: any[];
+  loading?: boolean;
 }>();
 ```
 
 ### 2.3 Emits 定义
 
 ```ts
-// ✅ 推荐：类型字面量
 const emit = defineEmits<{
   search: [query: string];
-  click: [work: VibeCoding.VibeWork];
-  like: [workId: string];
+  click: [work: Api.VibeCoding.VibeProject];
 }>();
 ```
 
-### 2.4 事件处理
+### 2.4 defineModel（v-model 双向绑定）
 
-- 使用 `@click`、`@input` 等 Vue 指令
-- 复杂 hover 效果可用内联 `@mouseenter`/`@mouseleave`，但优先使用 CSS `:hover`
+```ts
+// ✅ 替代 props + emit('update:xxx') 的简化写法
+const visible = defineModel<boolean>('visible', { required: true });
+const activeStatus = defineModel<number | 'all'>('activeStatus', { required: true });
+
+// 子组件直接赋值：visible.value = false  → 父组件 v-model:visible 自动同步
+```
+
+### 2.5 泛型组件
+
+```vue
+<script setup lang="ts" generic="T">
+interface Props {
+  items: T[];
+  itemKey: (item: T) => string | number;
+}
+</script>
+```
 
 ---
 
@@ -129,38 +143,46 @@ const emit = defineEmits<{
 ### 3.1 类型声明
 
 - 全局命名空间类型放在 `src/types/` 目录的 `.d.ts` 文件中
-- 使用 `declare namespace` 组织（如 `VibeCoding.Work`、`Api.Common`）
-- `.d.ts` 文件不要包含 `export`，否则会变成模块而非全局声明
+- 使用 `declare namespace Api { namespace Xxx }` 组织
+- `.d.ts` 文件不要包含 `export`
 
 ```ts
-// ✅ src/types/vibe-coding.d.ts
-declare namespace VibeCoding {
-  interface Author {
-    id: string;
-    name: string;
-  }
-  interface VibeWork {
-    id: string;
-    title: string;
+// ✅ src/types/api/vibe.d.ts
+declare namespace Api {
+  namespace VibeCoding {
+    type VibeProject = Common.CommonWaterfallItem & { ... };
+    type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
+    type WorkStatus = 1 | 2 | 3 | ... | 10;
     // ...
   }
 }
 ```
 
-### 3.2 避免 any
+### 3.2 主要类型命名空间
 
-- ESLint 规则 `@typescript-eslint/no-explicit-any` 设为 warn
+| 命名空间 | 文件 | 用途 |
+|----------|------|------|
+| `Api.VibeCoding` | `types/api/vibe.d.ts` | 作品、分类、状态 |
+| `Api.Auth` | `types/api/auth.d.ts` | 登录参数、Token、用户 |
+| `Api.User` | `types/api/user.d.ts` | 用户统计 |
+| `Api.Common` | `types/api/common.d.ts` | 分页、通用字段 |
+| `App` | `types/app.d.ts` | 主题、i18n |
+| `Env.ImportMeta` | `types/vite-env.d.ts` | Vite 环境变量 |
+
+### 3.3 避免 any
+
+- ESRint 规则 `@typescript-eslint/no-explicit-any` 设为 warn
 - 事件处理中使用具体类型：
   ```ts
   (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316');
   ```
 
-### 3.3 路径别名
+### 3.4 路径别名
 
 - `@/` 映射到 `src/`，始终使用别名导入
   ```ts
   import { useAuthStore } from '@/stores/modules/auth';
-  import BaseLayout from '@/layouts/base-layout/index.vue';
+  import ModalDialog from '@/components/custom/modal-dialog.vue';
   ```
 
 ---
@@ -171,16 +193,7 @@ declare namespace VibeCoding {
 
 以下 API 由 `unplugin-auto-import` 自动注入，**无需手动 import**：
 
-```ts
-// 直接使用，无需 import
-const count = ref(0);
-const doubled = computed(() => count.value * 2);
-watch(count, (val) => { ... });
-```
-
-自动导入范围：
-
-- Vue Composition API：`ref`、`computed`、`watch`、`reactive`、`onMounted` 等
+- Vue Composition API：`ref`、`computed`、`watch`、`reactive`、`onMounted`、`onBeforeUnmount`、`nextTick` 等
 
 以下需要手动 import：
 
@@ -192,7 +205,7 @@ watch(count, (val) => { ... });
 
 ```
 1. Vue 相关（vue、vue-router）
-2. 第三方库
+2. 第三方库（@vueuse/core、alova 等）
 3. 项目内部（@/ 开头）
 4. 相对路径
 ```
@@ -200,18 +213,19 @@ watch(count, (val) => { ... });
 ```ts
 // ✅ 示例
 import { useRouter } from 'vue-router';
+import { useBreakpoints } from '@vueuse/core';
+import { usePagination } from '@a02/alova/client';
 import { useAuthStore } from '@/stores/modules/auth';
-import VibeIcon from '@/components/vibe-coding/VibeIcon.vue';
-import { mockWorks } from '@/service/mocks/vibe-works';
+import WorkCard from './modules/work-card.vue';
 ```
 
 ---
 
 ## 5. 样式规范
 
-### 5.1 优先使用 Inline Style（vibe-coding 页面）
+### 5.1 优先使用 Inline Style
 
-Vibe-coding 相关页面使用内联 `style` 绑定，便于维护独立的赛博暖色调体系：
+VibeCoding 页面使用内联 `style` 绑定，便于维护独立的赛博暖色调体系：
 
 ```vue
 <button
@@ -224,33 +238,18 @@ Vibe-coding 相关页面使用内联 `style` 绑定，便于维护独立的赛�
 >
 ```
 
-### 5.2 布局使用 UnoCSS
+### 5.2 布局使用 UnoCSS + presetA02 快捷方式
 
 ```html
-<!-- 使用 Tailwind 兼容的 utility classes -->
-<div class="flex items-center justify-between">
-  <div class="max-w-7xl mx-auto w-full">
-    <h1 class="text-3xl md:text-4xl font-700 mb-4"></h1>
-  </div>
-</div>
+<!-- presetA02 快捷方式 -->
+<div class="flex-center">          <!-- flex justify-center items-center -->
+<div class="flex-y-center">        <!-- flex items-center -->
+<div class="flex-col-center">      <!-- flex flex-col justify-center items-center -->
+<div class="absolute-center">      <!-- absolute inset-0 flex-center -->
+<div class="ellipsis-text">        <!-- overflow-hidden whitespace-nowrap text-ellipsis -->
 ```
 
-### 5.3 CSS 变量（Admin Panel）
-
-Admin 面板基础设施使用项目主题 CSS 变量：
-
-```css
-:root {
-  --primary-color: 249 115 22;
-}
-html.dark {
-  --primary-color: 249 115 22;
-}
-```
-
-### 5.4 设计 Token（Vibe-Coding）
-
-统一的设计变量，不可随意修改：
+### 5.3 设计 Token
 
 | Token    | 值                            | 用途             |
 | -------- | ----------------------------- | ---------------- |
@@ -258,9 +257,9 @@ html.dark {
 | 主色浅   | `#FB923C`                     | 渐变、hover      |
 | 背景深   | `#0F172A`                     | 页面背景         |
 | 卡片背景 | `rgba(30, 41, 59, 0.6)`       | 卡片、弹窗       |
-| 边框     | `rgba(249, 115, 22, 0.08)`    | 默认边框         |
-| 边框高亮 | `rgba(249, 115, 22, 0.2)`     | hover 边框       |
-| 文字主   | `#F1F5F9`                     | 标题             |
+| 边框     | `rgba(148, 163, 184, 0.08)`   | 默认边框（灰色系）|
+| 边框高亮 | `rgba(249, 115, 22, 0.25)`    | hover 边框       |
+| 文字主   | `#cbd5e1`                     | 标题             |
 | 文字次   | `#94A3B8`                     | 正文             |
 | 文字辅   | `#64748B`                     | 辅助信息         |
 | 字体     | `Orbitron` / `JetBrains Mono` | 标题/代码        |
@@ -272,31 +271,37 @@ html.dark {
 ### 6.1 定义 Store
 
 ```ts
-// ✅ setup-syntax
 import { SetupStoreId } from '@/enum';
 import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
-  const token = ref(localStorage.getItem('vibe_token') || '');
-  const isLoggedIn = computed(() => !!token.value);
+export const useXxxStore = defineStore(SetupStoreId.Xxx, () => {
+  // reactive state
+  // computed
+  // methods
 
-  function login(userToken: string) { ... }
-  function logout() { ... }
-
-  return { token, isLoggedIn, login, logout };
+  return { ... };
 });
 ```
 
 - 使用 setup-syntax，store ID 从 `SetupStoreId` 枚举取
 - `SetupStoreId` 新增项统一在 `src/enum/store.ts` 中添加
 
-### 6.2 使用 Store
+### 6.2 现有 Store
+
+| Store                | ID               | 职责                                           |
+|----------------------|------------------|------------------------------------------------|
+| `useAppStore`        | `app-store`      | 语言切换、breakpoints、isMobile                |
+| `useAuthStore`       | `auth-store`     | token/jwt、login/logout、userInfo、loginLoading |
+| `useAuthModalStore`  | `auth-modal-store` | AuthModal 弹窗显隐                             |
+| `useThemeStore`      | `theme-store`    | 主题、CSS 变量                                 |
+| `useVibeStore`       | `vibe-store`     | 筛选条件、分类列表                              |
+
+### 6.3 使用 Store
 
 ```ts
 const auth = useAuthStore();
-// 直接访问
-auth.isLoggedIn;
-auth.login(token);
+auth.isLogin;
+auth.login({ email, code });
 ```
 
 ---
@@ -319,6 +324,7 @@ auth.login(token);
 - `name` 使用 PascalCase
 - `meta.title` 用于设置页面标题
 - 懒加载使用动态 import
+- 嵌套路由：BaseLayout 作为父路由包裹子页面
 
 ---
 
@@ -375,4 +381,4 @@ type 类型：`feat`、`fix`、`refactor`、`style`、`docs`、`chore`
 - 不要提交 `console.log` 调试代码
 - 不要引入项目未使用的依赖
 - 不要跳过 git hooks（`--no-verify`）
-- 不要将 mock 数据与真实 API 混用
+- API 方法按职责放在对应模块：作品→vibe-works、用户→user、认证→auth

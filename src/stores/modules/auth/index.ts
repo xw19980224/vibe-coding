@@ -12,7 +12,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const token = ref(getToken());
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  const user = ref<Api.Auth.User | null>(null);
+  const userInfo = ref<Api.Auth.User | null>(null);
 
   const isLogin = computed(() => Boolean(token.value));
 
@@ -42,6 +42,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     const pass = await getUserInfo();
 
+    console.log("userInfo", userInfo.value);
+
     if (pass) {
       token.value = loginToken.token;
       return true;
@@ -52,10 +54,22 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   async function getUserInfo() {
     try {
-      user.value = await AuthAPI.getUserInfo();
+      userInfo.value = await AuthAPI.getUserInfo();
       return true;
     } catch {
       return false;
+    }
+  }
+
+  async function initUserInfo() {
+    const hasToken = getToken();
+
+    if (hasToken) {
+      const pass = await getUserInfo();
+
+      if (!pass) {
+        resetStore();
+      }
     }
   }
 
@@ -65,10 +79,11 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   return {
     token,
-    user,
+    userInfo,
     isLogin,
     loginLoading,
     login,
     resetStore,
+    initUserInfo
   };
 });

@@ -21,7 +21,7 @@ function goToPublish() {
 }
 
 function goToUser() {
-  router.push('/user');
+  router.push('/user-center');
 }
 
 function openAuth() {

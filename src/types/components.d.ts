@@ -13,26 +13,40 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
+    BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
+    Emo: typeof import('./../components/custom/emo.vue')['default']
+    ImageWaterfall: typeof import('./../components/custom/image-waterfall.vue')['default']
+    MasonryLayout: typeof import('./../components/custom/masonry-layout.vue')['default']
+    ModalDialog: typeof import('./../components/custom/modal-dialog.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollTabs: typeof import('./../components/custom/scroll-tabs.vue')['default']
     SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
     SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
-    VibeCodingWaterfall: typeof import('./../components/custom/vibe-coding-waterfall.vue')['default']
+    VibeCodingWaterfall: typeo../components/custom / image - waterfall.vuefall.vue')['default ']
+    Waterfall: typeof import('./../components/custom/waterfall.vue')['default']
   }
 }
 
 // For TSX support
 declare global {
   const AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
+  const BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
   const DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
+  const Emo: typeof import('./../components/custom/emo.vue')['default']
+  const ImageWaterfall: typeof import('./../components/custom/image-waterfall.vue')['default']
+  const MasonryLayout: typeof import('./../components/custom/masonry-layout.vue')['default']
+  const ModalDialog: typeof import('./../components/custom/modal-dialog.vue')['default']
   const NButton: typeof import('naive-ui')['NButton']
   const ParticleBg: typeof import('./../components/custom/particle-bg.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
+  const ScrollTabs: typeof import('./../components/custom/scroll-tabs.vue')['default']
   const SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
   const SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
-  const VibeCodingWaterfall: typeof import('./../components/custom/vibe-coding-waterfall.vue')['default']
+  const VibeCodingWaterfall: typeo../components/custom / image - waterfall.vuefall.vue')['default ']
+  const Waterfall: typeof import('./../components/custom/waterfall.vue')['default']
 }
