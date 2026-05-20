@@ -12,8 +12,4 @@ export const AuthAPI = {
   getWechatQR() {
     return alova.Get<string>('/auth/wechat-qr')
   },
-
-  getUserInfo() {
-    return alova.Get<Api.Auth.User>('/auth/user-info')
-  },
 };

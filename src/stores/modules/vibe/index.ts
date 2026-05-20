@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { SetupStoreId } from '@/enum';
-import { VibeWorksApi } from '@/service/api/vibe-works';
+import { VibeWorksAPI } from '@/service/api/vibe-works';
 
 export const useVibeStore = defineStore(SetupStoreId.Vibe, () => {
   const categories = ref<Api.VibeCoding.Category[]>([]);
@@ -16,7 +16,7 @@ export const useVibeStore = defineStore(SetupStoreId.Vibe, () => {
   async function fetchCategories() {
     categoriesLoading.value = true;
     try {
-      categories.value = await VibeWorksApi.getCategories().send();
+      categories.value = await VibeWorksAPI.getCategories().send();
     } finally {
       categoriesLoading.value = false;
     }
@@ -26,7 +26,7 @@ export const useVibeStore = defineStore(SetupStoreId.Vibe, () => {
     loading.value = true;
     currentWork.value = null;
     try {
-      currentWork.value = await VibeWorksApi.getWorkById(id).send();
+      currentWork.value = await VibeWorksAPI.getWorkById(id).send();
     } finally {
       loading.value = false;
     }

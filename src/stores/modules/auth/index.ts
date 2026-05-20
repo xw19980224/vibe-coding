@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { getToken } from './shared';
 import { useLoading } from '@a02/hooks';
 import { AuthAPI } from '@/service/api/auth';
+import { UserAPI } from '@/service/api/user';
 import { localStg } from '@/utils/storage';
 import { useRouter } from 'vue-router';
 
@@ -12,7 +13,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const token = ref(getToken());
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  const userInfo = ref<Api.Auth.User | null>(null);
+  const userInfo = ref<Api.User.UserInfo | null>(null);
 
   const isLogin = computed(() => Boolean(token.value));
 
@@ -42,8 +43,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     const pass = await getUserInfo();
 
-    console.log("userInfo", userInfo.value);
-
     if (pass) {
       token.value = loginToken.token;
       return true;
@@ -54,7 +53,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   async function getUserInfo() {
     try {
-      userInfo.value = await AuthAPI.getUserInfo();
+      userInfo.value = await UserAPI.getUserInfo();
       return true;
     } catch {
       return false;

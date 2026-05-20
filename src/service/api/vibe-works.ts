@@ -1,6 +1,6 @@
 import { alova } from '@/service/request';
 
-export const VibeWorksApi = {
+export const VibeWorksAPI = {
   getWorks(params: Api.VibeCoding.VibeProjectSearchParams) {
     return alova.Get<Api.VibeCoding.VibeProjectPage>('/vibe-works', {
       params,

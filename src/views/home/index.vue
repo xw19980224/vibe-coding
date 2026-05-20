@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VibeHero from './modules/vibe-hero.vue';
 import { usePagination, useRequest } from '@a02/alova/client';
-import { VibeWorksApi } from '@/service/api/vibe-works';
+import { VibeWorksAPI } from '@/service/api/vibe-works';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
 import { useAppStore } from '@/stores/modules/app';
 import WorkCard from './modules/work-card.vue';
@@ -29,7 +29,7 @@ const {
   reload,
 } = usePagination(
   (pageNum, size) => {
-    return VibeWorksApi.getWorks({ ...searchParams, pageNumber: pageNum, pageSize: size });
+    return VibeWorksAPI.getWorks({ ...searchParams, pageNumber: pageNum, pageSize: size });
   },
   {
     append: true,
@@ -50,7 +50,7 @@ const categories = computed(() => [
   ...(categoriesRes.value?.map((c) => ({ value: c.id, label: c.name })) || []),
 ]);
 
-const { data: categoriesRes } = useRequest(() => VibeWorksApi.getCategories(), {
+const { data: categoriesRes } = useRequest(() => VibeWorksAPI.getCategories(), {
   immediate: true,
 });
 function handleCategoryChange(category: string | undefined) {
