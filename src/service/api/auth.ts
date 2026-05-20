@@ -1,11 +1,19 @@
 import { alova } from '@/service/request';
 
 export const AuthAPI = {
-  login: (data: Api.Auth.LoginParams) => alova.Post<Api.Auth.LoginToken>('/auth/login', data),
+  login(data: Api.Auth.LoginParams) {
+    return alova.Post<Api.Auth.LoginToken>('/auth/login', data)
+  },
 
-  sendCode: (email: string) => alova.Post('/auth/send-code', { email }),
+  sendCode(email: string) {
+    return alova.Post('/auth/send-code', { email })
+  },
 
-  getWechatQR: () => alova.Get<string>('/auth/wechat-qr'),
+  getWechatQR() {
+    return alova.Get<string>('/auth/wechat-qr')
+  },
 
-  getUserInfo: () => alova.Get<Api.Auth.User>('/auth/user-info'),
+  getUserInfo() {
+    return alova.Get<Api.Auth.User>('/auth/user-info')
+  },
 };

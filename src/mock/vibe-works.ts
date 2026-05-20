@@ -3,7 +3,6 @@ import type { MockMethod } from 'vite-plugin-mock';
 const SUCCESS_CODE = 200;
 
 export const mockCategories: Api.VibeCoding.Category[] = [
-  { id: 'all', name: '全部', nameEn: 'All' },
   { id: 'web', name: 'Web 应用', nameEn: 'Web App' },
   { id: 'mobile', name: '移动端', nameEn: 'Mobile' },
   { id: 'ai', name: 'AI 创作', nameEn: 'AI' },
@@ -73,6 +72,7 @@ const mockWorksBase: MockWorkBase[] = [
     codeSnippet: 'pnpm create vite vibe-coding --template vue-ts',
     link: 'https://github.com',
     featured: true,
+    status: 7,
   },
   {
     id: 2,
@@ -87,6 +87,7 @@ const mockWorksBase: MockWorkBase[] = [
     createdAt: '2026-05-14T08:30:00Z',
     vibePrompt: '做一个节点编辑器风格的 Prompt 编排工具，支持拖拽连线',
     featured: true,
+    status: 7,
   },
   {
     id: 3,
@@ -128,6 +129,7 @@ const mockWorksBase: MockWorkBase[] = [
     vibePrompt: '用 AST 解析 git diff，生成侧边栏文件树 + 行级高亮',
     codeSnippet: 'git diff HEAD~1 | vibe-diff --format json',
     featured: true,
+    status: 7,
   },
   {
     id: 6,
@@ -168,6 +170,7 @@ const mockWorksBase: MockWorkBase[] = [
     createdAt: '2026-05-08T11:30:00Z',
     vibePrompt: '用 Electron + 本地向量库做一个离线知识库问答工具',
     featured: true,
+    status: 7,
   },
   {
     id: 9,
@@ -220,6 +223,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 13400,
     createdAt: '2026-05-04T22:00:00Z',
     featured: true,
+    status: 7,
   },
   {
     id: 13,
@@ -437,15 +441,15 @@ function filterWorks(query: Record<string, string | string[] | undefined>) {
 }
 
 function paginate<T>(list: T[], query: Record<string, string | string[] | undefined>) {
-  const current = Math.max(1, Number(query.current) || 1);
-  const size = Math.max(1, Number(query.size) || 12);
-  const start = (current - 1) * size;
-  const records = list.slice(start, start + size);
+  const pageNumber = Math.max(1, Number(query.pageNumber) || 1);
+  const pageSize = Math.max(1, Number(query.pageSize) || 12);
+  const start = (pageNumber - 1) * pageSize;
+  const records = list.slice(start, start + pageSize);
 
   return {
     records,
-    current,
-    size,
+    pageNumber,
+    pageSize,
     total: list.length,
   };
 }
@@ -481,31 +485,26 @@ export default [
     },
   },
   {
-    url: '/auth/send-code',
-    method: 'post',
-    response: () => wrapData(null),
-  },
-  {
-    url: '/auth/wechat-qr',
-    method: 'get',
-    response: () =>
-      wrapData(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vide-coding.dev&t=${Date.now()}`),
-  },
-  {
-    url: '/auth/login',
-    method: 'post',
-    response: () => wrapData({ token: 'mock-token-' + Date.now() }),
-  },
-  {
-    url: '/auth/user-info',
+    url: '/user/stats',
     method: 'get',
     response: () =>
       wrapData({
-        id: 'u1',
-        email: 'user@vide-coding.dev',
-        nickname: 'VibeCoder',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u1',
-        phone: '138****0000',
+        works: mockWorks.length,
+        likes: mockWorks.reduce((sum, w) => sum + w.likes, 0),
+        following: 128,
+        followers: 356,
       }),
+  },
+  {
+    url: '/user/works',
+    method: 'get',
+    response: ({ query }: { query: Record<string, string | string[] | undefined> }) => {
+      let list = [...mockWorks];
+      const status = query.status ? Number(query.status) : undefined;
+      if (status) {
+        list = list.filter((w) => w.status === status);
+      }
+      return wrapData(paginate(list, query));
+    },
   },
 ] as MockMethod[];
