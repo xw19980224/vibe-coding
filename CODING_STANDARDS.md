@@ -47,8 +47,8 @@ src/
 ├── layouts/modules/                # layout 子模块
 ├── stores/modules/                 # store 模块
 │   └── xxx/                        # 按职责拆分（app / auth / vibe 等）
-├── mock/                           # vite-plugin-mock 数据
-├── service/api/                    # API 定义（按模块拆分）
+├── mock/                           # vite-plugin-mock（按业务模块：auth / user / vibe-works）
+├── service/api/                    # API 定义（按业务模块：auth / user / vibe-works）
 ├── types/api/                      # 类型声明（按模块拆分）
 └── components/custom/              # 跨页面共享组件
 ```
@@ -381,4 +381,4 @@ type 类型：`feat`、`fix`、`refactor`、`style`、`docs`、`chore`
 - 不要提交 `console.log` 调试代码
 - 不要引入项目未使用的依赖
 - 不要跳过 git hooks（`--no-verify`）
-- API 方法按职责放在对应模块：作品→vibe-works、用户→user、认证→auth
+- API / Mock 按业务模块拆分：认证→`auth`、用户→`user`、作品→`vibe-works`；禁止把用户或认证接口写在 `vibe-works.ts` 中

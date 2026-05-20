@@ -48,7 +48,13 @@ dev 模式支持两种 mock 方式：
 `isBackendSuccess`: `Number(response.code) === Number(VITE_SERVICE_SUCCESS_CODE)`
 `transformBackendResponse`: 返回 `response.data.data`
 
-API 模块放在 `src/service/api/`。
+API 模块放在 `src/service/api/`，**按业务模块拆分**（文件名与职责一一对应）：
+
+| 文件 | 职责 |
+| ---- | ---- |
+| `auth.ts` | 登录、验证码、微信扫码等认证接口 |
+| `user.ts` | 当前用户信息、用户详情、用户作品列表 |
+| `vibe-works.ts` | 作品广场列表、分类、作品详情 |
 
 ### Routing (`src/router/`)
 
@@ -87,7 +93,8 @@ Pinia 插件 `resetSetupStore` 为 setup-syntax store 提供 `$reset()`。
 ### Type System (`src/types/`)
 
 - `Api.VibeCoding` — VibeProject (继承 CommonWaterfallItem)、VibeProjectPage、VibeProjectSearchParams、Category、SortMode
-- `Api.Auth` — LoginParams、LoginToken、User
+- `Api.Auth` — LoginParams、LoginToken
+- `Api.User` — UserInfo、UserDetail、UserWorksSearchParams
 - `Api.Common` — PaginatingCommonParams、PaginatingQueryRecord、CommonWaterfallItem、CommonSearchParams
 - `App` — 主题设置、i18n schema
 - `Env.ImportMeta` — Vite 环境变量类型
@@ -95,15 +102,16 @@ Pinia 插件 `resetSetupStore` 为 setup-syntax store 提供 `$reset()`。
 
 ### Mock Layer (`src/mock/`)
 
-使用 `vite-plugin-mock`，mock 文件放在 `src/mock/`。当前 `vibe-works.ts` 包含：
+使用 `vite-plugin-mock`，**按业务模块拆分**（与 `src/service/api/` 对应）：
 
-- `/vibe-works` (GET) — 分页作品列表，支持 category/sort/title 筛选
-- `/vibe-works/categories` (GET) — 分类列表
-- `/vibe-works/:id` (GET) — 作品详情
-- `/auth/send-code` (POST) — 发送验证码
-- `/auth/wechat-qr` (GET) — 获取微信二维码
-- `/auth/login` (POST) — 登录返回 token
-- `/auth/user-info` (GET) — 用户信息
+| 文件 | 接口 |
+| ---- | ---- |
+| `auth.ts` | `/auth/send-code` (POST)、`/auth/wechat-qr` (GET)、`/auth/login` (POST) |
+| `user.ts` | `/user/info` (GET)、`/user/detail` (GET)、`/user/works` (GET) |
+| `vibe-works.ts` | `/vibe-works` (GET)、`/vibe-works/categories` (GET)、`/vibe-works/:id` (GET) |
+| `shared.ts` | 公共 `wrapData` 响应包装（非路由文件） |
+
+新增接口时，放入对应业务模块文件，不要混写在其他模块的 mock 中。
 
 ### Key Components
 
