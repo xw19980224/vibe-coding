@@ -13,8 +13,8 @@ const emit = defineEmits<{
   login: [];
 }>();
 
-const email = ref('');
-const code = ref('');
+const email = ref('1035071992xw@gmail.com');
+const code = ref('123456');
 const error = ref('');
 const errorShakeKey = ref(0);
 const qrImages = ref('');
@@ -120,11 +120,7 @@ watch(
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div
-        v-if="visible"
-        class="fixed inset-0 z-200 flex items-center justify-center p-4"
-        @click="handleBackdrop"
-      >
+      <div v-if="visible" class="fixed inset-0 z-200 flex-center p-4" @click="handleBackdrop">
         <!-- Backdrop -->
         <div
           class="absolute inset-0"
@@ -142,7 +138,7 @@ watch(
         >
           <!-- Close -->
           <button
-            class="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 z-10"
+            class="absolute top-4 right-4 w-8 h-8 rounded-lg flex-center cursor-pointer transition-all duration-200 z-10"
             style="color: #64748b"
             @click="visible = false"
             @mouseenter="
@@ -167,7 +163,7 @@ watch(
           <div class="px-10 pt-10 pb-5">
             <div class="flex items-center gap-3">
               <div
-                class="w-12 h-12 rounded-xl flex items-center justify-center font-bold"
+                class="w-12 h-12 rounded-xl flex-center font-bold"
                 style="
                   background: linear-gradient(135deg, #f97316, #fb923c);
                   color: #0f172a;
@@ -226,13 +222,13 @@ watch(
                   type="text"
                   placeholder="请输入验证码"
                   maxlength="6"
-                  class="h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200"
+                  class="min-w-0 h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200"
                   :style="inputStyle"
                   @focus="onFocus"
                   @blur="onBlur"
                 />
                 <button
-                  class="h-12 px-5 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0"
+                  class="h-12 px-3 md:px-5 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0 whitespace-nowrap"
                   style="
                     background: rgba(148, 163, 184, 0.06);
                     border: 1px solid rgba(148, 163, 184, 0.15);
@@ -253,9 +249,11 @@ watch(
               </div>
 
               <button
-                class="w-full h-12 rounded-lg text-base font-600 cursor-pointer transition-all duration-200 flex items-center justify-center gap-2"
+                class="w-full h-12 rounded-lg text-base font-600 cursor-pointer transition-all duration-200 flex-center gap-2"
                 :style="{
-                  background: authStore.loginLoading ? '#334155' : 'linear-gradient(135deg, #F97316, #FB923C)',
+                  background: authStore.loginLoading
+                    ? '#334155'
+                    : 'linear-gradient(135deg, #F97316, #FB923C)',
                   color: authStore.loginLoading ? '#94A3B8' : '#fff',
                   boxShadow: authStore.loginLoading ? 'none' : '0 2px 8px rgba(249, 115, 22, 0.15)',
                 }"
@@ -272,7 +270,7 @@ watch(
             </div>
 
             <!-- Divider -->
-            <div class="flex items-center justify-center py-5 md:py-0 md:px-8">
+            <div class="hidden md:flex flex-center py-5 md:py-0 md:px-8">
               <div
                 class="hidden md:block"
                 style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
@@ -286,7 +284,7 @@ watch(
             </div>
 
             <!-- Right: WeChat QR -->
-            <div class="flex flex-col items-center justify-center md:w-64 md:pl-5">
+            <div class="hidden md:flex flex-col items-center justify-center md:w-64 md:pl-5">
               <h3
                 class="text-lg font-600 mb-5"
                 style="color: #cbd5e1; font-family: 'Noto Sans SC', sans-serif"
@@ -294,7 +292,7 @@ watch(
                 微信扫码登录
               </h3>
               <div
-                class="relative w-48 h-48 rounded-xl flex items-center justify-center mb-4 overflow-hidden p-2"
+                class="relative w-48 h-48 rounded-xl flex-center mb-4 overflow-hidden p-2"
                 style="
                   background: rgba(15, 23, 42, 0.4);
                   border: 2px solid rgba(148, 163, 184, 0.2);
@@ -347,7 +345,7 @@ watch(
 
           <!-- ====== Footer ====== -->
           <div
-            class="px-10 pb-10 pt-5 flex items-center justify-center gap-2 text-sm flex-wrap"
+            class="px-10 pb-10 pt-5 flex-center gap-2 text-sm flex-wrap"
             style="border-top: 1px solid rgba(148, 163, 184, 0.06); color: #64748b"
           >
             <span>登录即代表同意</span>
