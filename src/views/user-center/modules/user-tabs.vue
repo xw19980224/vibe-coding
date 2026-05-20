@@ -1,15 +1,17 @@
 <script setup lang="ts">
 defineOptions({ name: 'UserTabs' });
 
-interface Tab {
-  id: string;
-  label: string;
-  count?: number;
+interface Props {
+  tabs: {
+    id: string;
+    label: string;
+    count?: number;
+  }[];
 }
 
-defineProps<{
-  tabs: Tab[];
-}>();
+const props = withDefaults(defineProps<Props>(), {
+  tabs: () => [],
+});
 
 const activeTab = defineModel<string>('activeTab', { required: true });
 </script>
@@ -17,7 +19,7 @@ const activeTab = defineModel<string>('activeTab', { required: true });
 <template>
   <div class="flex gap-0 mb-8" style="border-bottom: 1px solid rgba(148, 163, 184, 0.08)">
     <button
-      v-for="tab in tabs"
+      v-for="tab in props.tabs"
       :key="tab.id"
       class="relative h-11 px-6 text-sm font-500 cursor-pointer transition-all duration-200 flex items-center gap-2"
       :style="{

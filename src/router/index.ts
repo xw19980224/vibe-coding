@@ -32,7 +32,7 @@ export const router = createRouter({
           meta: { title: '发布作品' },
         },
         {
-          path: '/user-center',
+          path: '/user-center/:nickname?',
           name: 'UserCenter',
           component: () => import('@/views/user-center/index.vue'),
           meta: { title: '个人中心' },

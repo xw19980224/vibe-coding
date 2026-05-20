@@ -1,0 +1,340 @@
+<script setup lang="ts">
+import { UserAPI } from '@/service/api/user';
+import { usePagination } from '@a02/alova/client';
+import { useAppStore } from '@/stores/modules/app';
+import { useBoolean, useIntersectionObserver } from '@a02/hooks';
+import WorkCardItem from './work-card-item.vue';
+
+defineOptions({ name: 'WorksSection' });
+
+interface Props {
+  nickname: string;
+}
+
+const props = defineProps<Props>();
+
+const appStore = useAppStore();
+const isMobile = computed(() => appStore.isMobile);
+
+const searchParams = reactive({
+  keyword: '',
+  status: undefined as number | undefined,
+  category: undefined as string | undefined,
+  sort: 'latest' as string,
+  nickname: props.nickname,
+});
+
+const { bool: filterVisible, toggle: toggleFilter } = useBoolean(false);
+
+const statusLabels: Record<number, string> = {
+  1: '草稿',
+  2: '待审核',
+  3: '审核中',
+  4: '通过',
+  5: '驳回',
+  6: '待调整',
+  7: '已发布',
+  8: '下架',
+  9: '删除',
+  10: '封禁',
+};
+
+const statusOptions = computed(() => [
+  { value: undefined, label: '全部状态' },
+  ...Object.entries(statusLabels).map(([value, label]) => ({
+    value: Number(value),
+    label,
+  })),
+]);
+
+const categoryOptions = [
+  { value: undefined, label: '全部分类' },
+  { value: 'web', label: 'Web 应用' },
+  { value: 'mobile', label: '移动端' },
+  { value: 'ai', label: 'AI 创作' },
+  { value: 'game', label: '游戏' },
+  { value: 'tool', label: '开发工具' },
+  { value: 'art', label: '视觉艺术' },
+];
+
+const sortOptions = [
+  { value: 'latest', label: '最新发布' },
+  { value: 'popular', label: '最多喜欢' },
+  { value: 'views', label: '最多浏览' },
+];
+
+const loadingRef = ref<HTMLElement>();
+
+const {
+  send: sendGetUserWorks,
+  data: works,
+  page,
+  pageSize,
+  isLastPage,
+  loading,
+  reload,
+} = usePagination(
+  (p, ps) =>
+    UserAPI.getUserWorks({
+      pageNumber: p,
+      pageSize: ps,
+      ...searchParams,
+    }),
+  {
+    append: true,
+    data: ({ records }) => records,
+    initialPageSize: isMobile.value ? 3 : 9,
+    immediate: false,
+  },
+);
+
+const { observe, unobserve } = useIntersectionObserver(loadingRef, (isIntersecting) => {
+  if (isIntersecting) {
+    if (!isLastPage.value && !loading.value) {
+      page.value++;
+      sendGetUserWorks(page.value, pageSize.value);
+    }
+  }
+});
+
+function applyFilter(patch: Partial<typeof searchParams>) {
+  Object.assign(searchParams, patch);
+  filterVisible.value = false;
+  reload();
+}
+
+function handleSearch() {
+  filterVisible.value = false;
+  reload();
+}
+
+watch(
+  () => props.nickname,
+  (newNickname) => {
+    searchParams.nickname = newNickname;
+    reload();
+  },
+);
+
+onMounted(() => {
+  observe();
+  sendGetUserWorks();
+});
+
+onUnmounted(() => {
+  unobserve();
+});
+</script>
+
+<template>
+  <div>
+    <!-- 作品筛选 -->
+    <div class="mb-4 flex items-center justify-between gap-4">
+      <div class="flex-1 max-w-100 relative">
+        <SvgIcon
+          icon="lucide:search"
+          class="absolute left-3 top-1/2 -translate-y-1/2"
+          style="color: #64748b; font-size: 14px"
+        />
+        <input
+          v-model="searchParams.keyword"
+          type="text"
+          placeholder="搜索作品名称、描述..."
+          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200"
+          style="
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            color: #f1f5f9;
+            font-family: 'JetBrains Mono', monospace;
+          "
+          @keyup.enter="handleSearch"
+        />
+        <button
+          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex-center cursor-pointer transition-all duration-200"
+          style="background: rgba(249, 115, 22, 0.15); color: #f97316"
+          @click="handleSearch"
+          @mouseenter="
+            (e: MouseEvent) => {
+              (e.currentTarget as HTMLElement).style.color = '#fff';
+              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.35)';
+            }
+          "
+          @mouseleave="
+            (e: MouseEvent) => {
+              (e.currentTarget as HTMLElement).style.color = '#f97316';
+              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.15)';
+            }
+          "
+        >
+          <SvgIcon icon="lucide:arrow-right" style="font-size: 14px" />
+        </button>
+      </div>
+
+      <!-- Right: Filter -->
+      <div class="relative shrink-0">
+        <button
+          class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5"
+          style="
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+          "
+          @click="toggleFilter"
+        >
+          <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
+          筛选
+        </button>
+        <Transition name="menu">
+          <div
+            v-if="filterVisible"
+            class="absolute right-0 top-11 w-72 sm:w-84 md:w-100 rounded-xl overflow-hidden z-20 p-3 space-y-4"
+            style="
+              background: rgba(30, 41, 59, 0.98);
+              border: 1px solid rgba(148, 163, 184, 0.12);
+              box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            "
+          >
+            <div v-is-self="props.nickname">
+              <p
+                class="text-xs mb-2"
+                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+              >
+                状态
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <button
+                  v-for="opt in statusOptions"
+                  :key="opt.value"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
+                  :style="{
+                    color: searchParams.status === opt.value ? '#f97316' : '#94a3b8',
+                    background:
+                      searchParams.status === opt.value
+                        ? 'rgba(249, 115, 22, 0.12)'
+                        : 'rgba(148, 163, 184, 0.06)',
+                    fontFamily: 'JetBrains Mono, monospace',
+                  }"
+                  @click="applyFilter({ status: opt.value })"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+            <div>
+              <p
+                class="text-xs mb-2"
+                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+              >
+                分类
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <button
+                  v-for="opt in categoryOptions"
+                  :key="opt.value"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
+                  :style="{
+                    color: searchParams.category === opt.value ? '#f97316' : '#94a3b8',
+                    background:
+                      searchParams.category === opt.value
+                        ? 'rgba(249, 115, 22, 0.12)'
+                        : 'rgba(148, 163, 184, 0.06)',
+                    fontFamily: 'JetBrains Mono, monospace',
+                  }"
+                  @click="applyFilter({ category: opt.value })"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+            <div>
+              <p
+                class="text-xs mb-2"
+                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+              >
+                排序
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <button
+                  v-for="opt in sortOptions"
+                  :key="opt.value"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
+                  :style="{
+                    color: searchParams.sort === opt.value ? '#f97316' : '#94a3b8',
+                    background:
+                      searchParams.sort === opt.value
+                        ? 'rgba(249, 115, 22, 0.12)'
+                        : 'rgba(148, 163, 184, 0.06)',
+                    fontFamily: 'JetBrains Mono, monospace',
+                  }"
+                  @click="applyFilter({ sort: opt.value })"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div v-if="!works.length" class="flex flex-col items-center py-16">
+      <div class="text-5xl mb-4" style="opacity: 0.15">(´･_･`)</div>
+      <p class="text-sm mb-4" style="color: #94a3b8; font-family: 'JetBrains Mono', monospace">
+        还没有发布作品
+      </p>
+      <button
+        v-is-self="props.nickname"
+        class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
+        style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+        @click="$router.push('/publish')"
+      >
+        发布你的第一个作品
+      </button>
+    </div>
+
+    <!-- Works Grid -->
+    <template v-else>
+      <div class="w-full min-h-300px overflow-hidden">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
+        >
+          <WorkCardItem
+            v-for="work in works"
+            :key="work.id"
+            :work="work"
+            :nickname="props.nickname"
+          />
+        </div>
+        <div
+          v-if="loading || (!isLastPage && works.length)"
+          class="flex-center py-8"
+          ref="loadingRef"
+        >
+          <div
+            class="w-6 h-6 rounded-full border-2 border-transparent animate-spin"
+            style="border-top-color: #f97316"
+          />
+        </div>
+        <div v-if="!loading && isLastPage" class="flex-center py-10">
+          <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+            已加载全部作品
+          </p>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+.menu-enter-active,
+.menu-leave-active {
+  transition: all 0.15s ease;
+}
+.menu-enter-from,
+.menu-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+</style>

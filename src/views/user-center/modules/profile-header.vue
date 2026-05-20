@@ -2,27 +2,42 @@
 defineOptions({ name: 'ProfileHeader' });
 
 interface Props {
-  userInfo: Api.Auth.User | null;
-  stats: { label: string; value: number }[];
+  userDetail: Api.User.UserDetail;
+  nickname: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  userInfo: () => null,
-  stats: () => [],
-});
+const props = defineProps<Props>();
 
 interface Emits {
   (e: 'editUserProfile'): void;
 }
 
 const emit = defineEmits<Emits>();
+
+const socialPlatforms = computed(() => {
+  const platforms = [
+    { key: 'githubUrl' as const, label: 'GitHub', icon: 'github' },
+    { key: 'rednoteUrl' as const, label: '小红书', icon: 'rednote' },
+    { key: 'bilibiliUrl' as const, label: 'Bilibili', icon: 'bilibili' },
+    { key: 'juejinUrl' as const, label: '掘金', icon: 'juejin' },
+    { key: 'weiboUrl' as const, label: '微博', icon: 'weibo' },
+    { key: 'portalUrl' as const, label: '个人网站', icon: 'portal' },
+  ];
+  return platforms.filter((p) => props.userDetail?.[p.key]);
+});
+
+import { formatCompact } from '@/utils/common';
+
+function openLink(url: string) {
+  window.open(url, '_blank', 'noopener');
+}
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row items-start gap-8 mb-10">
+  <div class="flex flex-col md:flex-row items-start gap-8 mb-5">
     <!-- Avatar -->
     <div class="size-24 flex-center shrink-0">
-      <img :src="props.userInfo?.avatar" class="size-full object-cover rd-full" />
+      <img :src="props.userDetail?.avatar" class="size-full object-cover rd-full" />
     </div>
 
     <!-- Info -->
@@ -33,13 +48,26 @@ const emit = defineEmits<Emits>();
             class="text-2xl font-700 mb-1"
             style="font-family: Orbitron, sans-serif; color: #f1f5f9"
           >
-            {{ props.userInfo?.nickname }}
+            {{ props.userDetail?.nickname }}
           </h1>
-          <p class="text-sm mb-4" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
-            {{ props.userInfo?.introduction }}
+          <p class="text-sm mb-1" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+            {{ props.userDetail?.introduction }}
           </p>
+          <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mb-2">
+            <button
+              v-for="platform in socialPlatforms"
+              :key="platform.key"
+              :title="platform.label"
+              class="w-8 h-8 rounded-lg flex-center cursor-pointer transition-all duration-200"
+              style="color: #94a3b8"
+              @click="openLink(props.userDetail?.[platform.key]!)"
+            >
+              <SvgIcon :local-icon="platform.icon" class="size-5" />
+            </button>
+          </div>
         </div>
         <button
+          v-is-self="props.nickname"
           class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
           style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
           @click="emit('editUserProfile')"
@@ -48,17 +76,52 @@ const emit = defineEmits<Emits>();
         </button>
       </div>
 
+      <!-- Social Links -->
+
       <!-- Stats -->
-      <div class="flex items-center gap-8">
-        <div v-for="stat in props.stats" :key="stat.label" class="text-center">
+      <div class="flex-y-center gap-8">
+        <div class="text-center">
           <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
-            {{ stat.value >= 1000 ? (stat.value / 1000).toFixed(1) + 'k' : stat.value }}
+            {{ formatCompact(props.userDetail?.works ?? 0) }}
           </div>
           <div
             class="text-xs mt-1"
             style="color: #64748b; font-family: 'JetBrains Mono', monospace"
           >
-            {{ stat.label }}
+            作品
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+            {{ formatCompact(props.userDetail?.likes ?? 0) }}
+          </div>
+          <div
+            class="text-xs mt-1"
+            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+          >
+            获赞
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+            {{ formatCompact(props.userDetail?.following ?? 0) }}
+          </div>
+          <div
+            class="text-xs mt-1"
+            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+          >
+            关注
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+            {{ formatCompact(props.userDetail?.followers ?? 0) }}
+          </div>
+          <div
+            class="text-xs mt-1"
+            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+          >
+            粉丝
           </div>
         </div>
       </div>
