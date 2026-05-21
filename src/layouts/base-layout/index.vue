@@ -5,6 +5,7 @@ import ParticleBg from '@/components/custom/particle-bg.vue';
 import GlobalContent from '@/layouts/modules/global-content/index.vue';
 import AuthModal from '@/components/custom/auth-modal.vue';
 import { useAuthModalStore } from '@/stores/modules/auth-modal';
+import ImagePreview from '@/components/custom/image-preview.vue';
 
 defineOptions({ name: 'BaseLayout' });
 
@@ -18,12 +19,13 @@ const authModal = useAuthModalStore();
 
     <div
       class="relative z-10 flex-1 mx-auto w-full px-4 md:px-8"
-      style="max-width: min(90%, 1920px)"
+      style="max-width: min(80%, 1920px)"
     >
       <GlobalContent />
     </div>
 
     <GlobalFooter />
     <AuthModal v-model:visible="authModal.visible" />
+    <ImagePreview />
   </div>
 </template>

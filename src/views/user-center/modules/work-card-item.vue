@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { formatCompact } from '@/utils/common';
+import LazyImage from '@/components/custom/lazy-image.vue';
 
 defineOptions({ name: 'WorkCardItem' });
 
 interface Props {
   work: Api.VibeCoding.VibeProject;
-  nickname: string;
+  isSelf: boolean;
 }
 
 const props = defineProps<Props>();
@@ -64,18 +65,19 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
     "
   >
     <!-- Cover -->
-    <div class="relative aspect-16/9 overflow-hidden" style="background: rgba(15, 23, 42, 0.6)">
-      <img
-        v-if="work.coverUrl"
+    <div
+      class="relative aspect-16/9 overflow-hidden"
+      style="background: rgba(15, 23, 42, 0.6)"
+    >
+      <LazyImage
         :src="work.coverUrl"
         :alt="work.title"
         class="w-full h-full object-cover"
-        loading="lazy"
       />
 
       <!-- Top-right: More icon -->
       <button
-        v-is-self="props.nickname"
+        v-if="props.isSelf"
         class="absolute top-2 right-2 w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 z-10"
         style="background: rgba(15, 23, 42, 0.7); color: #94a3b8; backdrop-filter: blur(4px)"
         @click.stop="toggleMenu"

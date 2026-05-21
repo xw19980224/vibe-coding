@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatCompact } from '@/utils/common';
+import LazyImage from '@/components/custom/lazy-image.vue';
 
 defineOptions({ name: 'WorkCard' });
 
@@ -8,7 +9,7 @@ interface Props {
   index: number;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 interface Emits {
   (e: 'click', work: Api.VibeCoding.VibeProject): void;
@@ -28,7 +29,6 @@ const tagColors = [
 function getTagStyle(idx: number) {
   return tagColors[idx % tagColors.length];
 }
-
 </script>
 
 <template>
@@ -65,11 +65,10 @@ function getTagStyle(idx: number) {
         background: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%);
       "
     >
-      <img
+      <LazyImage
         :src="work.coverUrl"
         :alt="work.title"
         class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-        loading="lazy"
       />
 
       <!-- Featured badge -->
