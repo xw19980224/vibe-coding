@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Coding Standards
+
+**`CODING_STANDARDS.md` is the canonical coding standards file for this project.** Follow it when writing, reviewing, or refactoring code.
+
+| File | Role |
+| ---- | ---- |
+| `CLAUDE.md` | Project architecture, directory layout, tech stack, and business context (this file) |
+| `CODING_STANDARDS.md` | Coding standards: naming, component structure, styling, stores, API/Mock module split, commit conventions, prohibitions, etc. |
+
+Rules:
+
+- For code style, naming, directory layout, API/Mock module boundaries, and similar details, **`CODING_STANDARDS.md` takes precedence**. This file is architecture-level guidance only; on conflict, follow the standards file.
+- When unsure about a convention before adding or changing code, read the relevant section in `CODING_STANDARDS.md` first.
+- Do not duplicate in `CLAUDE.md` rules already defined in `CODING_STANDARDS.md`.
+
 ## Project Overview
 
 VibeCoding 作品展示网站 — 赛博暖色调暗色主题的创作者社区平台，基于 Vue 3 + Vite 7 + TypeScript + UnoCSS，pnpm monorepo 架构。
@@ -126,8 +141,8 @@ Pinia 插件 `resetSetupStore` 为 setup-syntax store 提供 `$reset()`。
 
 ### Coding Conventions
 
-- 2-space 缩进，LF 换行，UTF-8 编码
-- Vue 组件: `<script setup lang="ts">` + `<template>` + `<style scoped>`
-- 组件名 PascalCase，文件名 kebab-case
-- 页面按模块开发 (`views/<page>/modules/<component>.vue`)
-- Node version: `^20.19.0 || >=22.12.0`
+See **`CODING_STANDARDS.md`** for full conventions. Quick reference for this repo:
+
+- Vue 3 Composition API + `<script setup lang="ts">`
+- Page subcomponents: `views/<page>/modules/<component>.vue`
+- Node: `^20.19.0 || >=22.12.0`

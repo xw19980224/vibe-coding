@@ -2,20 +2,20 @@
 
 ## 技术栈
 
-| 类别     | 技术                                                  |
-| -------- | ----------------------------------------------------- |
-| 框架     | Vue 3 (Composition API)                               |
-| 语言     | TypeScript (strict mode)                              |
-| 构建     | Vite 7 + pnpm (monorepo)                              |
-| 状态管理 | Pinia (setup-syntax)                                  |
-| 路由     | vue-router (createWebHistory)                         |
-| CSS      | UnoCSS (presetWind4) + presetIcons + presetA02        |
-| 请求     | alova (usePagination / useCaptcha)                    |
-| Mock     | vite-plugin-mock (src/mock/)                          |
-| 工具     | @vueuse/core (useBreakpoints / useMediaQuery)         |
-| 图标     | lucide 在线图标 (`<SvgIcon icon="lucide:xxx" />`)     |
-| 格式化   | Prettier + ESLint + Oxlint                            |
-| 包管理   | pnpm (workspaces)                                     |
+| 类别     | 技术                                              |
+| -------- | ------------------------------------------------- |
+| 框架     | Vue 3 (Composition API)                           |
+| 语言     | TypeScript (strict mode)                          |
+| 构建     | Vite 7 + pnpm (monorepo)                          |
+| 状态管理 | Pinia (setup-syntax)                              |
+| 路由     | vue-router (createWebHistory)                     |
+| CSS      | UnoCSS (presetWind4) + presetIcons + presetA02    |
+| 请求     | alova (usePagination / useCaptcha)                |
+| Mock     | vite-plugin-mock (src/mock/)                      |
+| 工具     | @vueuse/core (useBreakpoints / useMediaQuery)     |
+| 图标     | lucide 在线图标 (`<SvgIcon icon="lucide:xxx" />`) |
+| 格式化   | Prettier + ESLint + Oxlint                        |
+| 包管理   | pnpm (workspaces)                                 |
 
 ---
 
@@ -160,14 +160,14 @@ declare namespace Api {
 
 ### 3.2 主要类型命名空间
 
-| 命名空间 | 文件 | 用途 |
-|----------|------|------|
-| `Api.VibeCoding` | `types/api/vibe.d.ts` | 作品、分类、状态 |
-| `Api.Auth` | `types/api/auth.d.ts` | 登录参数、Token、用户 |
-| `Api.User` | `types/api/user.d.ts` | 用户统计 |
-| `Api.Common` | `types/api/common.d.ts` | 分页、通用字段 |
-| `App` | `types/app.d.ts` | 主题、i18n |
-| `Env.ImportMeta` | `types/vite-env.d.ts` | Vite 环境变量 |
+| 命名空间         | 文件                    | 用途           |
+| ---------------- | ----------------------- | -------------- |
+| `Api.VibeCoding` | `types/api/vibe.d.ts`   | 作品相关       |
+| `Api.Auth`       | `types/api/auth.d.ts`   | 授权相关       |
+| `Api.User`       | `types/api/user.d.ts`   | 用户相关       |
+| `Api.Common`     | `types/api/common.d.ts` | 分页、通用字段 |
+| `App`            | `types/app.d.ts`        | 主题、i18n     |
+| `Env.ImportMeta` | `types/vite-env.d.ts`   | Vite 环境变量  |
 
 ### 3.3 避免 any
 
@@ -235,34 +235,42 @@ VibeCoding 页面使用内联 `style` 绑定，便于维护独立的赛博暖色
     color: #fff;
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
   "
->
+>xxx</button>
 ```
 
 ### 5.2 布局使用 UnoCSS + presetA02 快捷方式
 
 ```html
 <!-- presetA02 快捷方式 -->
-<div class="flex-center">          <!-- flex justify-center items-center -->
-<div class="flex-y-center">        <!-- flex items-center -->
-<div class="flex-col-center">      <!-- flex flex-col justify-center items-center -->
-<div class="absolute-center">      <!-- absolute inset-0 flex-center -->
-<div class="ellipsis-text">        <!-- overflow-hidden whitespace-nowrap text-ellipsis -->
+<div class="flex-center">
+  <!-- flex justify-center items-center -->
+  <div class="flex-y-center">
+    <!-- flex items-center -->
+    <div class="flex-col-center">
+      <!-- flex flex-col justify-center items-center -->
+      <div class="absolute-center">
+        <!-- absolute inset-0 flex-center -->
+        <div class="ellipsis-text"><!-- overflow-hidden whitespace-nowrap text-ellipsis --></div>
+      </div>
+    </div>
+  </div>
+</div>
 ```
 
 ### 5.3 设计 Token
 
-| Token    | 值                            | 用途             |
-| -------- | ----------------------------- | ---------------- |
-| 主色     | `#F97316`                     | 按钮、高亮、强调 |
-| 主色浅   | `#FB923C`                     | 渐变、hover      |
-| 背景深   | `#0F172A`                     | 页面背景         |
-| 卡片背景 | `rgba(30, 41, 59, 0.6)`       | 卡片、弹窗       |
-| 边框     | `rgba(148, 163, 184, 0.08)`   | 默认边框（灰色系）|
-| 边框高亮 | `rgba(249, 115, 22, 0.25)`    | hover 边框       |
-| 文字主   | `#cbd5e1`                     | 标题             |
-| 文字次   | `#94A3B8`                     | 正文             |
-| 文字辅   | `#64748B`                     | 辅助信息         |
-| 字体     | `Orbitron` / `JetBrains Mono` | 标题/代码        |
+| Token    | 值                            | 用途               |
+| -------- | ----------------------------- | ------------------ |
+| 主色     | `#F97316`                     | 按钮、高亮、强调   |
+| 主色浅   | `#FB923C`                     | 渐变、hover        |
+| 背景深   | `#0F172A`                     | 页面背景           |
+| 卡片背景 | `rgba(30, 41, 59, 0.6)`       | 卡片、弹窗         |
+| 边框     | `rgba(148, 163, 184, 0.08)`   | 默认边框（灰色系） |
+| 边框高亮 | `rgba(249, 115, 22, 0.25)`    | hover 边框         |
+| 文字主   | `#cbd5e1`                     | 标题               |
+| 文字次   | `#94A3B8`                     | 正文               |
+| 文字辅   | `#64748B`                     | 辅助信息           |
+| 字体     | `Orbitron` / `JetBrains Mono` | 标题/代码          |
 
 ---
 
@@ -288,13 +296,13 @@ export const useXxxStore = defineStore(SetupStoreId.Xxx, () => {
 
 ### 6.2 现有 Store
 
-| Store                | ID               | 职责                                           |
-|----------------------|------------------|------------------------------------------------|
-| `useAppStore`        | `app-store`      | 语言切换、breakpoints、isMobile                |
-| `useAuthStore`       | `auth-store`     | token/jwt、login/logout、userInfo、loginLoading |
-| `useAuthModalStore`  | `auth-modal-store` | AuthModal 弹窗显隐                             |
-| `useThemeStore`      | `theme-store`    | 主题、CSS 变量                                 |
-| `useVibeStore`       | `vibe-store`     | 筛选条件、分类列表                              |
+| Store               | ID                 | 职责                                            |
+| ------------------- | ------------------ | ----------------------------------------------- |
+| `useAppStore`       | `app-store`        | 语言切换、breakpoints、isMobile                 |
+| `useAuthStore`      | `auth-store`       | token/jwt、login/logout、userInfo、loginLoading |
+| `useAuthModalStore` | `auth-modal-store` | AuthModal 弹窗显隐                              |
+| `useThemeStore`     | `theme-store`      | 主题、CSS 变量                                  |
+| `useVibeStore`      | `vibe-store`       | 筛选条件、分类列表                              |
 
 ### 6.3 使用 Store
 
