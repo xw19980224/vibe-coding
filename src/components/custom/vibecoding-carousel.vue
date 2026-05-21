@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
               imgAspect,
               'flex-1 rounded-xl overflow-hidden bg-gray-100 shadow-md size-full object-cover',
             ]"
-            :disable-preview="true"
+            disable-preview
             @click="(src: string) => onImageClick(src)"
           />
           <div

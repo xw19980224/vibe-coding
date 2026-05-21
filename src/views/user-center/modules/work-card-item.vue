@@ -65,14 +65,12 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
     "
   >
     <!-- Cover -->
-    <div
-      class="relative aspect-16/9 overflow-hidden"
-      style="background: rgba(15, 23, 42, 0.6)"
-    >
+    <div class="relative aspect-16/9 overflow-hidden" style="background: rgba(15, 23, 42, 0.6)">
       <LazyImage
         :src="work.coverUrl"
         :alt="work.title"
         class="w-full h-full object-cover"
+        disable-preview
       />
 
       <!-- Top-right: More icon -->

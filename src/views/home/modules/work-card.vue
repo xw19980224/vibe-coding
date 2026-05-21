@@ -68,6 +68,7 @@ function getTagStyle(idx: number) {
       <LazyImage
         :src="work.coverUrl"
         :alt="work.title"
+        disable-preview
         class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
       />
 
