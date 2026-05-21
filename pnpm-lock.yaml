@@ -20,6 +20,12 @@ importers:
       '@a02/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@better-scroll/core':
+        specifier: ^2.5.1
+        version: 2.5.1
+      '@better-scroll/slide':
+        specifier: ^2.5.1
+        version: 2.5.1
       '@vueuse/core':
         specifier: ^14.2.1
         version: 14.2.1(vue@3.5.29(typescript@5.9.3))
@@ -372,6 +378,15 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==, tarball: https://registry.npmmirror.com/@babel/types/-/types-7.29.0.tgz}
     engines: {node: '>=6.9.0'}
+
+  '@better-scroll/core@2.5.1':
+    resolution: {integrity: sha512-koKOuYA55dQ04FJRIVUpMGDr1hbCfWmfX0MGp1hKagkQSWSRpwblqACiwtggVauoj9aaJRJZ9hDsTM4weaavlg==, tarball: https://registry.npmmirror.com/@better-scroll/core/-/core-2.5.1.tgz}
+
+  '@better-scroll/shared-utils@2.5.1':
+    resolution: {integrity: sha512-AplkfSjXVYP9LZiD6JsKgmgQJ/mG4uuLmBuwLz8W5OsYc7AYTfN8kw6GqZ5OwCGoXkVhBGyd8NeC4xwYItp0aw==, tarball: https://registry.npmmirror.com/@better-scroll/shared-utils/-/shared-utils-2.5.1.tgz}
+
+  '@better-scroll/slide@2.5.1':
+    resolution: {integrity: sha512-aDOrfsmjAcz6DXN7mDX3tPieAn195R43Yn9e3waI19TIEok/mQlI1a/kb5quqWOoxkiaZQ8xe3vx5ZTj9C+F6Q==, tarball: https://registry.npmmirror.com/@better-scroll/slide/-/slide-2.5.1.tgz}
 
   '@emnapi/core@1.10.0':
     resolution: {integrity: sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw==, tarball: https://registry.npmmirror.com/@emnapi/core/-/core-1.10.0.tgz}
@@ -3653,6 +3668,16 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@better-scroll/core@2.5.1':
+    dependencies:
+      '@better-scroll/shared-utils': 2.5.1
+
+  '@better-scroll/shared-utils@2.5.1': {}
+
+  '@better-scroll/slide@2.5.1':
+    dependencies:
+      '@better-scroll/core': 2.5.1
 
   '@emnapi/core@1.10.0':
     dependencies:
