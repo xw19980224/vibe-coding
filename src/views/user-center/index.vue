@@ -21,28 +21,38 @@ const effectiveNickname = computed(
 const { bool: editDialogVisible, setTrue: openEditDialog } = useBoolean(false);
 const activeTab = ref('works');
 
-const { data: userDetail } = useRequest(() => UserAPI.getUserDetail(effectiveNickname.value), {
-  immediate: true,
+const { data: userDetail, send: fetchUserDetail } = useRequest(
+  () => UserAPI.getUserDetail(effectiveNickname.value),
+  { immediate: true },
+);
+
+watch(effectiveNickname, () => {
+  fetchUserDetail();
 });
 
-const tabs = computed(() => [
-  { id: 'works', label: '作品', count: userDetail.value?.works ?? 0 },
-  { id: 'likes', label: '收藏', count: userDetail.value?.collections ?? 0 },
-]);
+const isSelf = computed(() => authStore.userInfo?.nickname === effectiveNickname.value);
+
+const tabs = computed(() => {
+  const list = [{ id: 'works', label: '作品', count: userDetail.value?.works ?? 0 }];
+  if (isSelf.value) {
+    list.push({ id: 'likes', label: '收藏', count: userDetail.value?.collections ?? 0 });
+  }
+  return list;
+});
 </script>
 
 <template>
-  <div class="pt-24 pb-12">
+  <div class="pt-24">
     <ProfileHeader
       :user-detail="userDetail"
+      :is-self="isSelf"
       @edit-user-profile="openEditDialog"
-      :nickname="effectiveNickname"
     />
 
     <UserTabs v-model:active-tab="activeTab" :tabs="tabs" />
 
     <template v-if="activeTab === 'works'">
-      <WorksSection :nickname="effectiveNickname" />
+      <WorksSection :nickname="effectiveNickname" :is-self="isSelf" />
     </template>
 
     <template v-if="activeTab === 'likes'">

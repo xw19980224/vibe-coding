@@ -3,7 +3,7 @@ defineOptions({ name: 'ProfileHeader' });
 
 interface Props {
   userDetail: Api.User.UserDetail;
-  nickname: string;
+  isSelf: boolean;
 }
 
 const props = defineProps<Props>();
@@ -67,7 +67,7 @@ function openLink(url: string) {
           </div>
         </div>
         <button
-          v-is-self="props.nickname"
+          v-if="props.isSelf"
           class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
           style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
           @click="emit('editUserProfile')"

@@ -5,7 +5,7 @@ import './plugins/assets';
 import { setupRouter } from './router';
 import { setupStore } from '@/stores';
 import { getLocale, setupI18n } from './locales';
-import { setupDayjs, setupDirectives, setupIconifyOffline, setupNProgress } from './plugins';
+import { setupDayjs, setupIconifyOffline, setupNProgress } from './plugins';
 import { setupVueRootValidator } from 'vite-plugin-vue-transition-root-validator/client';
 
 async function setupApp() {
@@ -16,8 +16,6 @@ async function setupApp() {
   setupDayjs();
 
   const app = createApp(App);
-
-  setupDirectives(app);
 
   setupStore(app);
 

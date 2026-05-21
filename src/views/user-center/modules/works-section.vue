@@ -9,6 +9,7 @@ defineOptions({ name: 'WorksSection' });
 
 interface Props {
   nickname: string;
+  isSelf: boolean;
 }
 
 const props = defineProps<Props>();
@@ -195,7 +196,7 @@ onUnmounted(() => {
               box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
             "
           >
-            <div v-is-self="props.nickname">
+            <div v-if="props.isSelf">
               <p
                 class="text-xs mb-2"
                 style="color: #64748b; font-family: 'JetBrains Mono', monospace"
@@ -285,7 +286,7 @@ onUnmounted(() => {
         还没有发布作品
       </p>
       <button
-        v-is-self="props.nickname"
+        v-if="props.isSelf"
         class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
         style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
         @click="$router.push('/publish')"
@@ -304,7 +305,7 @@ onUnmounted(() => {
             v-for="work in works"
             :key="work.id"
             :work="work"
-            :nickname="props.nickname"
+            :is-self="props.isSelf"
           />
         </div>
         <div
