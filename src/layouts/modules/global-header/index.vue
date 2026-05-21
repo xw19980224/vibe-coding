@@ -48,7 +48,7 @@ function onSearchInput() {
   >
     <div
       class="mx-auto w-full h-full flex items-center justify-between px-4 md:px-8"
-      style="max-width: min(90%, 1920px)"
+      style="max-width: min(80%, 1920px)"
     >
       <!-- Left: Logo + Search -->
       <div class="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
