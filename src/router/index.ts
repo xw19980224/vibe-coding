@@ -18,9 +18,9 @@ export const router = createRouter({
           meta: { title: '首页', constants: true },
         },
         {
-          path: '/work/:id',
-          name: 'WorkDetail',
-          component: () => import('@/views/detail/index.vue'),
+          path: '/vibecoding/:id',
+          name: 'VibeCodingDetail',
+          component: () => import('@/views/vibecoding-detail/index.vue'),
           meta: {
             title: '作品详情'
           },

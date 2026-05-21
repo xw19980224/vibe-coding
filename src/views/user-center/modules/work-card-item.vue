@@ -23,7 +23,7 @@ const router = useRouter();
 const menuVisible = ref(false);
 
 function goToWork(id: number) {
-  router.push(`/work/${id}`);
+  router.push(`/vibecoding/${id}`);
 }
 
 function toggleMenu() {

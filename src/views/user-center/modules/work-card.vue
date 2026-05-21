@@ -13,7 +13,7 @@ const router = useRouter();
 const showActions = ref(false);
 
 function goToWork(id: string) {
-  router.push(`/work/${id}`);
+  router.push(`/vibecoding/${id}`);
 }
 
 function toggleActions() {
