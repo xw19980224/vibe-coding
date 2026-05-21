@@ -16,30 +16,63 @@ const authors: Api.VibeCoding.Author[] = [
     name: 'VibeCoder',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u1',
     bio: '全栈开发者，热爱用 AI 写代码',
+    githubUrl: 'https://github.com/vibecoder',
+    rednoteUrl: '',
+    bilibiliUrl: '',
+    juejinUrl: '',
+    weiboUrl: '',
+    portalUrl: 'https://vibecoder.dev',
+    works: 20,
+    likes: 1280,
+    following: 128,
+    followers: 356,
   },
   {
     id: 'u2',
     name: 'NeoDev',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u2',
     bio: '前端工程师 · 设计系统爱好者',
+    githubUrl: 'https://github.com/neodev',
+    juejinUrl: 'https://juejin.cn/user/neodev',
+    works: 6,
+    likes: 3240,
+    following: 89,
+    followers: 201,
   },
   {
     id: 'u3',
     name: 'PixelMage',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u3',
     bio: '独立游戏开发者',
+    rednoteUrl: 'https://www.xiaohongshu.com/user/pixelmage',
+    bilibiliUrl: 'https://space.bilibili.com/pixelmage',
+    portalUrl: 'https://pixelmage.io',
+    works: 5,
+    likes: 2510,
+    following: 56,
+    followers: 142,
   },
   {
     id: 'u4',
     name: 'PromptSmith',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u4',
     bio: 'AI 工作流搭建师',
+    githubUrl: 'https://github.com/promptsmith',
+    works: 4,
+    likes: 986,
+    following: 35,
+    followers: 78,
   },
   {
     id: 'u5',
     name: 'ShaderCat',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u5',
     bio: '创意编程 & 视觉艺术',
+    bilibiliUrl: 'https://space.bilibili.com/shaderCat',
+    works: 4,
+    likes: 1204,
+    following: 42,
+    followers: 96,
   },
 ];
 
@@ -92,7 +125,60 @@ const mockWorksBaseEntries = [
   {
     id: 1,
     title: 'VibeCoding 作品广场',
-    description: '赛博暖色风格的作品展示平台，支持分类筛选与无限滚动加载。',
+    description: `赛博暖色风格的创作者作品展示与发现平台。
+
+## 核心特性
+
+- **作品广场** — 分类筛选 + 推荐/最新/热门排序 + 无限滚动加载
+- **作品详情** — Markdown 项目介绍 + 轮播截图 + 在线演示/源码仓库
+- **个人中心** — 编辑资料/社交链接/作品管理/状态筛选/收藏管理
+- **一键发布** — 标题/描述/标签/Vibe Prompt/代码片段/外部链接
+
+## 技术亮点
+
+- 基于 **Vue 3 + Vite 7 + TypeScript** 构建，pnpm monorepo 架构
+- 赛博暖色暗色主题，主色 \`#F97316\`，Orbitron + JetBrains Mono 字体
+- UnoCSS + presetWind4 + presetIcons + 自定义 presetA02 快捷方式
+- alova 请求层，支持 usePagination 分页 + useRequest 缓存
+- BetterScroll + Slide 插件驱动轮播组件
+- IntersectionObserver 图片懒加载 + MasonryLayout 瀑布流
+- vite-plugin-mock 全接口 Mock，按业务模块拆分
+- ImagePreview 全屏预览，支持多图切换与键盘导航
+
+## 代码示例
+
+\`\`\`vue
+<!-- 图片懒加载：默认占位图，进入视口自动加载 -->
+<LazyImage
+  :src="work.coverUrl"
+  :alt="work.title"
+  class="w-full h-full object-cover"
+/>
+\`\`\`
+
+\`\`\`vue
+<!-- 轮播组件：single 切换 1图(4/3) / 2图(3/4) 模式 -->
+<VibecodingCarousel
+  :single="isMobile"
+  :images="coverImages"
+  :loop="false"
+/>
+\`\`\`
+
+\`\`\`ts
+// 个人中心数据权限：isSelf computed 控制操作按钮显隐
+const isSelf = computed(
+  () => authStore.userInfo?.nickname === effectiveNickname.value
+);
+\`\`\`
+
+\`\`\`ts
+// alova usePagination 无限滚动分页
+const { data, page, isLastPage, loading, reload } = usePagination(
+  (p, ps) => UserAPI.getUserWorks({ pageNumber: p, pageSize: ps, ...filters }),
+  { append: true, data: ({ records }) => records }
+);
+\`\`\``,
     coverUrl: 'https://picsum.photos/seed/vibe-1/640/400',
     author: authors[0],
     tags: ['Vue3', 'Vite', 'UnoCSS'],
@@ -101,7 +187,18 @@ const mockWorksBaseEntries = [
     views: 15600,
     createdAt: '2026-05-15T10:00:00Z',
     vibePrompt: '用 Vue3 + Naive UI 做一个暗色作品展示站，主色橙色，带粒子背景',
-    link: 'https://github.com',
+    demoUrl: 'https://vibecoding.dev',
+    repoUrl: 'https://github.com/vibecoder/vibecoding',
+    instructions: '```bash\npnpm install\npnpm dev\n```\n\n1. 克隆仓库\n2. 安装依赖 `pnpm install`\n3. 启动开发服务器 `pnpm dev`',
+    license: 'MIT',
+    languages: ['TypeScript', 'Vue 3', 'CSS'],
+    model: 'Claude Opus 4.7',
+    duration: '2025-12 ~ 2026-05',
+    isOnline: true,
+    onlineDate: '2026-03',
+    tools: ['VS Code', 'Vite 7', 'pnpm', 'UnoCSS', 'Alova', 'BetterScroll'],
+    mcps: ['fetch', 'filesystem', 'sqlite'],
+    skills: ['ui-ux-pro-max', 'creative-frontend-master', 'frontend-design', 'git-functional-commits'],
     featured: true,
     status: 7,
   },
@@ -160,6 +257,9 @@ const mockWorksBaseEntries = [
     views: 8900,
     createdAt: '2026-05-11T09:45:00Z',
     vibePrompt: '用 AST 解析 git diff，生成侧边栏文件树 + 行级高亮',
+    demoUrl: 'https://demo.vibecoding.dev/git-diff-viz',
+    instructions: '```bash\ngit diff HEAD~1 | pnpm vibe-diff --serve\n```\n\n或直接粘贴 diff 内容到 Web 界面进行可视化分析。',
+    license: 'Apache-2.0',
     featured: true,
     status: 7,
   },
@@ -443,6 +543,10 @@ const mockWorksBaseEntries = [
     views: 19800,
     createdAt: '2026-04-21T09:30:00Z',
     vibePrompt: '做一个多人实时协作白板，像 Figma 一样流畅',
+    demoUrl: 'https://demo.vibecoding.dev/whiteboard',
+    repoUrl: 'https://github.com/vibecoder/collab-whiteboard',
+    instructions: '```bash\ngit clone ...\npnpm install\npnpm dev\n```\n\n启动后打开浏览器访问 `http://localhost:5173`，创建房间并分享链接给协作者。',
+    license: 'MIT',
     featured: true,
     status: 7,
   },
