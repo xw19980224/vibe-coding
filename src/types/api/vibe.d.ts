@@ -5,6 +5,18 @@ declare namespace Api {
       name: string;
       avatar: string;
       bio?: string;
+      /** 社交链接 */
+      githubUrl?: string;
+      rednoteUrl?: string;
+      bilibiliUrl?: string;
+      juejinUrl?: string;
+      weiboUrl?: string;
+      portalUrl?: string;
+      /** 统计数据 */
+      works?: number;
+      likes?: number;
+      following?: number;
+      followers?: number;
     }
 
     type VibeProject = {
@@ -21,7 +33,29 @@ declare namespace Api {
       views: number;
       screenshots: string[];
       vibePrompt?: string;
-      link?: string;
+      /** 在线演示地址 */
+      demoUrl?: string;
+      /** 源码仓库地址 */
+      repoUrl?: string;
+      /** 开发语言 */
+      languages?: string[];
+      /** 开发周期 */
+      duration?: string;
+      /** 开发工具 */
+      tools?: string[];
+      /** 使用的 AI 模型 */
+      model?: string;
+      /** 使用的 MCP 工具 */
+      mcps?: string[];
+      /** 使用的 Skills */
+      skills?: string[];
+      instructions?: string;
+      /** 是否已上线 */
+      isOnline?: boolean;
+      /** 上线日期 */
+      onlineDate?: string;
+      /** 许可证类型 */
+      license?: string;
       featured: boolean;
       status: WorkStatus;
       createdAt: string;
