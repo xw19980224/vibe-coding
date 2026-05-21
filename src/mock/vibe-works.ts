@@ -53,9 +53,42 @@ const COVER_SIZE_PRESETS = [
   { width: 640, height: 450 },
 ] as const;
 
-type MockWorkBase = Omit<Api.VibeCoding.VibeProject, 'width' | 'height'>;
+/** 详情轮播截图尺寸（3:4，与 Carousel aspect-3/4 一致） */
+const SCREENSHOT_SIZE_PRESETS = [
+  { width: 600, height: 800 },
+  { width: 640, height: 853 },
+  { width: 540, height: 720 },
+  { width: 600, height: 800 },
+] as const;
 
-const mockWorksBase: MockWorkBase[] = [
+/** 作品截图 mock URL（每件 4 张，seed 与作品 id 绑定保证稳定） */
+function screenshotsFor(workId: number): string[] {
+  return SCREENSHOT_SIZE_PRESETS.map(
+    ({ width, height }, i) =>
+      `https://picsum.photos/seed/vibe-${workId}-ss-${i + 1}/${width}/${height}`,
+  );
+}
+
+/** 按分类与 id 生成运行平台 mock */
+function platformFor(category: string, workId: number): Api.VibeCoding.RuntimePlatform {
+  switch (category) {
+    case 'mobile':
+      return workId % 2 === 0 ? 'ios' : 'android';
+    case 'game':
+      return (['cross', 'web', 'desktop'] as const)[workId % 3];
+    case 'tool':
+      return workId % 2 === 0 ? 'desktop' : 'web';
+    case 'ai':
+      return workId % 3 === 0 ? 'cross' : 'web';
+    case 'art':
+      return workId % 4 === 0 ? 'desktop' : 'web';
+    case 'web':
+    default:
+      return workId % 5 === 0 ? 'mini-program' : 'web';
+  }
+}
+
+const mockWorksBaseEntries = [
   {
     id: 1,
     title: 'VibeCoding 作品广场',
@@ -68,7 +101,6 @@ const mockWorksBase: MockWorkBase[] = [
     views: 15600,
     createdAt: '2026-05-15T10:00:00Z',
     vibePrompt: '用 Vue3 + Naive UI 做一个暗色作品展示站，主色橙色，带粒子背景',
-    codeSnippet: 'pnpm create vite vibe-coding --template vue-ts',
     link: 'https://github.com',
     featured: true,
     status: 7,
@@ -100,6 +132,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 9800,
     createdAt: '2026-05-13T16:20:00Z',
     featured: false,
+    status: 1,
   },
   {
     id: 4,
@@ -113,6 +146,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 6700,
     createdAt: '2026-05-12T12:00:00Z',
     featured: false,
+    status: 1,
   },
   {
     id: 5,
@@ -126,7 +160,6 @@ const mockWorksBase: MockWorkBase[] = [
     views: 8900,
     createdAt: '2026-05-11T09:45:00Z',
     vibePrompt: '用 AST 解析 git diff，生成侧边栏文件树 + 行级高亮',
-    codeSnippet: 'git diff HEAD~1 | vibe-diff --format json',
     featured: true,
     status: 7,
   },
@@ -142,6 +175,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 10200,
     createdAt: '2026-05-10T20:10:00Z',
     featured: false,
+    status: 1,
   },
   {
     id: 7,
@@ -155,6 +189,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 4200,
     createdAt: '2026-05-09T14:00:00Z',
     featured: false,
+    status: 3,
   },
   {
     id: 8,
@@ -183,6 +218,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 5600,
     createdAt: '2026-05-07T18:00:00Z',
     featured: false,
+    status: 3,
   },
   {
     id: 10,
@@ -196,6 +232,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 7100,
     createdAt: '2026-05-06T10:20:00Z',
     featured: false,
+    status: 1,
   },
   {
     id: 11,
@@ -209,6 +246,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 8400,
     createdAt: '2026-05-05T15:40:00Z',
     featured: false,
+    status: 5,
   },
   {
     id: 12,
@@ -236,6 +274,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 3900,
     createdAt: '2026-05-03T09:00:00Z',
     featured: false,
+    status: 5,
   },
   {
     id: 14,
@@ -249,6 +288,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 9500,
     createdAt: '2026-05-02T13:15:00Z',
     featured: false,
+    status: 2,
   },
   {
     id: 15,
@@ -262,6 +302,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 6200,
     createdAt: '2026-05-01T19:30:00Z',
     featured: false,
+    status: 2,
   },
   {
     id: 16,
@@ -275,6 +316,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 5800,
     createdAt: '2026-04-30T11:00:00Z',
     featured: false,
+    status: 2,
   },
   {
     id: 17,
@@ -288,6 +330,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 3100,
     createdAt: '2026-04-29T07:45:00Z',
     featured: false,
+    status: 4,
   },
   {
     id: 18,
@@ -301,6 +344,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 7200,
     createdAt: '2026-04-28T21:20:00Z',
     featured: false,
+    status: 4,
   },
   {
     id: 19,
@@ -314,6 +358,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 4800,
     createdAt: '2026-04-27T16:00:00Z',
     featured: false,
+    status: 4,
   },
   {
     id: 20,
@@ -327,6 +372,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 4100,
     createdAt: '2026-04-26T12:30:00Z',
     featured: false,
+    status: 8,
   },
   {
     id: 21,
@@ -340,6 +386,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 5900,
     createdAt: '2026-04-25T14:50:00Z',
     featured: false,
+    status: 8,
   },
   {
     id: 22,
@@ -353,6 +400,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 2200,
     createdAt: '2026-04-24T10:10:00Z',
     featured: false,
+    status: 10,
   },
   {
     id: 23,
@@ -366,6 +414,7 @@ const mockWorksBase: MockWorkBase[] = [
     views: 9100,
     createdAt: '2026-04-23T18:40:00Z',
     featured: false,
+    status: 7,
   },
   {
     id: 24,
@@ -379,16 +428,239 @@ const mockWorksBase: MockWorkBase[] = [
     views: 8700,
     createdAt: '2026-04-22T20:00:00Z',
     featured: false,
+    status: 10,
+  },
+  // --- VibeCoder 额外作品 (ids 25-39，合计 20 个) ---
+  {
+    id: 25,
+    title: '实时协作白板',
+    description: '基于 WebSocket 的多人实时绘图白板，支持画笔、形状、文字与图层管理。',
+    coverUrl: 'https://picsum.photos/seed/vibe-25/640/400',
+    author: authors[0],
+    tags: ['WebSocket', 'Canvas', 'Collaboration'],
+    category: 'tool',
+    likes: 1560,
+    views: 19800,
+    createdAt: '2026-04-21T09:30:00Z',
+    vibePrompt: '做一个多人实时协作白板，像 Figma 一样流畅',
+    featured: true,
+    status: 7,
+  },
+  {
+    id: 26,
+    title: '代码片段管理器',
+    description: '收藏、标签分类、语法高亮预览，支持 VS Code 扩展同步。',
+    coverUrl: 'https://picsum.photos/seed/vibe-26/640/400',
+    author: authors[0],
+    tags: ['Snippet', 'VS Code', 'Productivity'],
+    category: 'tool',
+    likes: 834,
+    views: 10200,
+    createdAt: '2026-04-20T14:00:00Z',
+    featured: false,
+    status: 7,
+  },
+  {
+    id: 27,
+    title: 'AI Logo 生成器',
+    description: '输入品牌名和行业关键词，一键生成 SVG Logo 方案并支持微调。',
+    coverUrl: 'https://picsum.photos/seed/vibe-27/640/400',
+    author: authors[0],
+    tags: ['AI', 'SVG', 'Branding'],
+    category: 'ai',
+    likes: 2103,
+    views: 25600,
+    createdAt: '2026-04-19T11:20:00Z',
+    vibePrompt: '用 AI 做一个 Logo 生成器，输入名字就能出图',
+    featured: true,
+    status: 7,
+  },
+  {
+    id: 28,
+    title: 'Markdown 简历生成器',
+    description: 'Markdown 撰写简历，一键导出多套模板的 PDF/HTML。',
+    coverUrl: 'https://picsum.photos/seed/vibe-28/640/400',
+    author: authors[0],
+    tags: ['Markdown', 'PDF', 'Resume'],
+    category: 'web',
+    likes: 567,
+    views: 7800,
+    createdAt: '2026-04-18T08:45:00Z',
+    featured: false,
+    status: 4,
+  },
+  {
+    id: 29,
+    title: '终端色彩主题工坊',
+    description: '可视化配置终端配色方案，实时预览并导出 iTerm2/Kitty/Warp 配置。',
+    coverUrl: 'https://picsum.photos/seed/vibe-29/640/400',
+    author: authors[0],
+    tags: ['Terminal', 'Color', 'Theme'],
+    category: 'tool',
+    likes: 423,
+    views: 5600,
+    createdAt: '2026-04-17T16:30:00Z',
+    featured: false,
+    status: 3,
+  },
+  {
+    id: 30,
+    title: 'NPM 包体积分析',
+    description: '上传 package.json 可视化依赖树与各包体积占比，标记可优化项。',
+    coverUrl: 'https://picsum.photos/seed/vibe-30/640/400',
+    author: authors[0],
+    tags: ['NPM', 'Bundle', 'Analysis'],
+    category: 'web',
+    likes: 678,
+    views: 8900,
+    createdAt: '2026-04-16T10:10:00Z',
+    featured: false,
+    status: 1,
+  },
+  {
+    id: 31,
+    title: 'CSS 动画灵感库',
+    description: '收录 200+ 纯 CSS 动画效果，一键复制代码，支持参数调节预览。',
+    coverUrl: 'https://picsum.photos/seed/vibe-31/640/400',
+    author: authors[0],
+    tags: ['CSS', 'Animation', 'UI'],
+    category: 'web',
+    likes: 1890,
+    views: 32100,
+    createdAt: '2026-04-15T13:00:00Z',
+    vibePrompt: '做一个 CSS 动画展示站，各种炫酷效果都能预览和复制',
+    featured: true,
+    status: 7,
+  },
+  {
+    id: 32,
+    title: '环境变量校验器',
+    description: '定义 .env schema，启动时自动校验缺失变量并生成类型声明。',
+    coverUrl: 'https://picsum.photos/seed/vibe-32/640/400',
+    author: authors[0],
+    tags: ['DevOps', 'Config', 'TypeScript'],
+    category: 'tool',
+    likes: 345,
+    views: 4300,
+    createdAt: '2026-04-14T09:15:00Z',
+    featured: false,
+    status: 2,
+  },
+  {
+    id: 33,
+    title: '微信机器人助手',
+    description: '基于 Wechaty 的群管理机器人，自动回复、入群欢迎、定时消息。',
+    coverUrl: 'https://picsum.photos/seed/vibe-33/640/400',
+    author: authors[0],
+    tags: ['WeChat', 'Bot', 'Node.js'],
+    category: 'tool',
+    likes: 512,
+    views: 6700,
+    createdAt: '2026-04-13T18:20:00Z',
+    featured: false,
+    status: 5,
+  },
+  {
+    id: 34,
+    title: '个人博客系统',
+    description: 'Markdown/MDX 驱动的静态博客，支持 RSS、搜索、暗色模式与评论。',
+    coverUrl: 'https://picsum.photos/seed/vibe-34/640/400',
+    author: authors[0],
+    tags: ['Blog', 'SSG', 'MDX'],
+    category: 'web',
+    likes: 987,
+    views: 14500,
+    createdAt: '2026-04-12T07:40:00Z',
+    featured: false,
+    status: 7,
+  },
+  {
+    id: 35,
+    title: 'JSON 可视化编辑器',
+    description: '树形/表格双视图编辑 JSON，支持 JSON Schema 校验与一键格式化。',
+    coverUrl: 'https://picsum.photos/seed/vibe-35/640/400',
+    author: authors[0],
+    tags: ['JSON', 'Editor', 'DevTools'],
+    category: 'tool',
+    likes: 756,
+    views: 9800,
+    createdAt: '2026-04-11T15:00:00Z',
+    featured: false,
+    status: 8,
+  },
+  {
+    id: 36,
+    title: 'AI 代码审查助手',
+    description: '接入 GPT 自动审查 PR diff，按文件生成评论建议与安全风险标记。',
+    coverUrl: 'https://picsum.photos/seed/vibe-36/640/400',
+    author: authors[0],
+    tags: ['AI', 'Code Review', 'GitHub'],
+    category: 'ai',
+    likes: 2340,
+    views: 28900,
+    createdAt: '2026-04-10T12:30:00Z',
+    vibePrompt: '做一个自动 Code Review 的 GitHub Bot，用 AI 检查代码质量',
+    featured: true,
+    status: 7,
+  },
+  {
+    id: 37,
+    title: '浏览器起始页',
+    description: '自定义快捷链接、天气、待办与壁纸的新标签页，支持云同步。',
+    coverUrl: 'https://picsum.photos/seed/vibe-37/640/400',
+    author: authors[0],
+    tags: ['Chrome', 'Extension', 'Productivity'],
+    category: 'web',
+    likes: 634,
+    views: 11200,
+    createdAt: '2026-04-09T08:00:00Z',
+    featured: false,
+    status: 10,
+  },
+  {
+    id: 38,
+    title: 'SVG 图标管理平台',
+    description: '上传 SVG 自动优化、上色、生成图标字体与组件库代码。',
+    coverUrl: 'https://picsum.photos/seed/vibe-38/640/400',
+    author: authors[0],
+    tags: ['SVG', 'Icon', 'Design'],
+    category: 'tool',
+    likes: 1102,
+    views: 13400,
+    createdAt: '2026-04-08T17:15:00Z',
+    vibePrompt: '做一个图标管理后台，SVG 上传自动生成组件',
+    featured: true,
+    status: 7,
+  },
+  {
+    id: 39,
+    title: '懒加载图片组件库',
+    description: '支持占位图、模糊预览、渐进式加载的 Vue/React 图片组件，<5kB。',
+    coverUrl: 'https://picsum.photos/seed/vibe-39/640/400',
+    author: authors[0],
+    tags: ['Image', 'LazyLoad', 'Component'],
+    category: 'web',
+    likes: 891,
+    views: 10200,
+    createdAt: '2026-04-07T10:45:00Z',
+    featured: false,
+    status: 7,
   },
 ];
+
+const mockWorksBase = mockWorksBaseEntries.map((work) => ({
+  ...work,
+  platform: platformFor(work.category, work.id),
+  screenshots: screenshotsFor(work.id),
+  status: work.status as Api.VibeCoding.WorkStatus,
+})) satisfies Api.VibeCoding.VibeProject[];
 
 export const mockWorks: Api.VibeCoding.VibeProject[] = mockWorksBase.map((work, index) => {
   const { width, height } = COVER_SIZE_PRESETS[index % COVER_SIZE_PRESETS.length];
   return {
     ...work,
-    width,
-    height,
     coverUrl: `https://picsum.photos/seed/vibe-${work.id}/${width}/${height}`,
+    screenshots: screenshotsFor(work.id),
   };
 });
 

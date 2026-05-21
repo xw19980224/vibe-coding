@@ -16,9 +16,9 @@ export const mockUsers: Api.User.UserDetail[] = [
     juejinUrl: '',
     weiboUrl: '',
     portalUrl: 'https://vibecoder.dev',
-    works: 8,
+    works: 20,
     collections: 23,
-    likes: mockWorks.reduce((sum, w) => sum + w.likes, 0),
+    likes: mockWorks.reduce((sum, w) => sum + (w.author.name === 'VibeCoder' ? w.likes : 0), 0),
     following: 128,
     followers: 356,
   },
@@ -130,6 +130,10 @@ export default [
     method: 'get',
     response: ({ query }: { query: Record<string, string | string[] | undefined> }) => {
       let list = [...mockWorks];
+      const nickname = query.nickname as string | undefined;
+      if (nickname) {
+        list = list.filter((w) => w.author.name === nickname);
+      }
       const status = query.status ? Number(query.status) : undefined;
       if (status) {
         list = list.filter((w) => w.status === status);

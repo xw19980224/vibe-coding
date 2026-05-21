@@ -7,21 +7,25 @@ declare namespace Api {
       bio?: string;
     }
 
-    type VibeProject = Common.CommonWaterfallItem<number, 'converUrl', {
+    type VibeProject = {
+      id: number;
+      coverUrl: string;
       title: string;
       description: string;
       author: Author;
       tags: string[];
       category: string;
+      /** 运行平台 */
+      platform: RuntimePlatform;
       likes: number;
       views: number;
-      createdAt: string;
+      screenshots: string[];
       vibePrompt?: string;
-      codeSnippet?: string;
       link?: string;
       featured: boolean;
       status: WorkStatus;
-    }>;
+      createdAt: string;
+    }
 
     type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
 
@@ -46,6 +50,17 @@ declare namespace Api {
      * - 10: 封禁
      */
     type WorkStatus = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+    /**
+     * 运行平台
+     * - web: Web 浏览器
+     * - ios: iOS
+     * - android: Android
+     * - desktop: 桌面端
+     * - mini-program: 小程序
+     * - cross: 跨平台
+     */
+    type RuntimePlatform = 'web' | 'ios' | 'android' | 'desktop' | 'mini-program' | 'cross';
 
     interface Category {
       id: string;

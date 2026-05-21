@@ -10,7 +10,7 @@ export const VibeWorksAPI = {
     return alova.Get<Api.VibeCoding.Category[]>('/vibe-works/categories')
   },
   getWorkById(id: number | string) {
-    alova.Get<Api.VibeCoding.VibeProject>(`/vibe-works/${id}`)
+    return alova.Get<Api.VibeCoding.VibeProject>(`/vibe-works/${id}`)
   },
 
 };

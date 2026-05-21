@@ -20,17 +20,6 @@ declare namespace Api {
       records: T[];
     }
 
-    type CommonWaterfallItem<T = any> = {
-      id: number;
-      width: number;
-      height: number;
-      image: string;
-    }
-      & T;
-
-    type WaterfallFunction<T = any> =
-      (...args: any[]) => PaginatingQueryRecord<CommonWaterfallItem<T>>;
-
     /** common search params of table */
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'pageNumber' | 'pageSize'>;
 
