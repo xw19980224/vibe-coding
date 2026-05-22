@@ -12,6 +12,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AlSelect: typeof import('./../components/custom/al-select/al-select.vue')['default']
+    AlSelectItem: typeof import('./../components/custom/al-select/al-select-item.vue')['default']
     AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
     BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     Carousel: typeof import('./../components/custom/carousel.vue')['default']
@@ -24,6 +26,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollTabs: typeof import('./../components/custom/scroll-tabs.vue')['default']
+    Select: typeof import('./../components/custom/select.vue')['default']
+    Steps: typeof import('./../components/custom/steps.vue')['default']
     SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
     SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
     VibecodingCarousel: typeof import('./../components/custom/vibecoding-carousel.vue')['default']
@@ -32,6 +36,8 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const AlSelect: typeof import('./../components/custom/al-select/al-select.vue')['default']
+  const AlSelectItem: typeof import('./../components/custom/al-select/al-select-item.vue')['default']
   const AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
   const BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
   const Carousel: typeof import('./../components/custom/carousel.vue')['default']
@@ -44,6 +50,8 @@ declare global {
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
   const ScrollTabs: typeof import('./../components/custom/scroll-tabs.vue')['default']
+  const Select: typeof import('./../components/custom/select.vue')['default']
+  const Steps: typeof import('./../components/custom/steps.vue')['default']
   const SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
   const SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
   const VibecodingCarousel: typeof import('./../components/custom/vibecoding-carousel.vue')['default']
