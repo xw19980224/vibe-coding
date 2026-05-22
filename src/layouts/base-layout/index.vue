@@ -17,10 +17,7 @@ const authModal = useAuthModalStore();
     <ParticleBg />
     <GlobalHeader />
 
-    <div
-      class="relative z-10 flex-1 mx-auto w-full px-4 md:px-8"
-      style="max-width: min(80%, 1920px)"
-    >
+    <div class="relative z-10 flex-1 mx-auto w-full px-4 md:px-8 w-full sm:w-4/5">
       <GlobalContent />
     </div>
 

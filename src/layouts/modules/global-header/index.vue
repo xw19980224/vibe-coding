@@ -46,15 +46,12 @@ function onSearchInput() {
       border-bottom: 1px solid rgba(249, 115, 22, 0.1);
     "
   >
-    <div
-      class="mx-auto w-full h-full flex items-center justify-between px-4 md:px-8"
-      style="max-width: min(80%, 1920px)"
-    >
+    <div class="mx-auto h-full w-full sm:w-4/5 flex-y-center justify-between px-4 md:px-8">
       <!-- Left: Logo + Search -->
-      <div class="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
-        <div class="flex items-center gap-2 cursor-pointer select-none shrink-0" @click="goHome">
+      <div class="flex-y-center gap-4 md:gap-6 flex-1 min-w-0">
+        <div class="flex-y-center gap-2 cursor-pointer select-none shrink-0" @click="goHome">
           <div
-            class="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold"
+            class="w-8 h-8 rounded-lg flex-center text-sm font-bold"
             style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
           >
             V
@@ -67,7 +64,7 @@ function onSearchInput() {
           </span>
         </div>
 
-        <div class="flex-1 max-w-md relative flex items-center">
+        <div class="flex-1 max-w-md relative flex-y-center">
           <span class="absolute left-3" style="color: #64748b">
             <SvgIcon icon="lucide:search" style="font-size: 16px" />
           </span>
@@ -88,10 +85,10 @@ function onSearchInput() {
       </div>
 
       <!-- Right: Actions -->
-      <div class="flex items-center gap-3 shrink-0 ml-4">
+      <div class="flex-y-center gap-3 shrink-0 ml-4">
         <template v-if="auth.isLogin">
           <button
-            class="h-9 px-4 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 flex items-center gap-1.5"
+            class="h-9 px-4 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 flex-y-center gap-1.5"
             style="
               background: linear-gradient(135deg, #f97316, #fb923c);
               color: #fff;
@@ -103,7 +100,7 @@ function onSearchInput() {
             <span class="hidden sm:inline">发布作品</span>
           </button>
           <button
-            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex items-center justify-center"
+            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center"
             style="
               background: rgba(30, 41, 59, 0.6);
               border: 1px solid rgba(249, 115, 22, 0.12);
