@@ -5,6 +5,12 @@ import BaseLayout from '@/layouts/base-layout/index.vue';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { top: 0 };
+  },
   routes: [
     {
       path: '',
