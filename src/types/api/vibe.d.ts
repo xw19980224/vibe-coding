@@ -21,24 +21,36 @@ declare namespace Api {
 
     type VibeProject = {
       id: number;
-      coverUrl: string;
+      /** 作品名称 */
       title: string;
-      description: string;
-      author: Author;
-      tags: string[];
+      /** 作品副标题 */
+      subtitle?: string;
+      /** 作品分类 */
       category: string;
       /** 运行平台 */
       platform: RuntimePlatform;
+      /** 开发语言 */
+      languages?: string[];
+      /** 作品描述 */
+      description: string;
+      /** 使用说明 */
+      instructions?: string;
+      /** 作品封面 */
+      coverUrl: string;
+      /** 作品标签 */
+      tags: string[];
+      /** 是否推荐 */
+      featured?: boolean;
+      /** 运行平台 */
       likes: number;
+      /** 浏览量 */
       views: number;
+      /** 作品截图 */
       screenshots: string[];
-      vibePrompt?: string;
       /** 在线演示地址 */
       demoUrl?: string;
       /** 源码仓库地址 */
       repoUrl?: string;
-      /** 开发语言 */
-      languages?: string[];
       /** 开发周期 */
       duration?: string;
       /** 开发工具 */
@@ -49,17 +61,40 @@ declare namespace Api {
       mcps?: string[];
       /** 使用的 Skills */
       skills?: string[];
-      instructions?: string;
       /** 是否已上线 */
       isOnline?: boolean;
       /** 上线日期 */
       onlineDate?: string;
       /** 许可证类型 */
       license?: string;
-      featured: boolean;
+      /** 作品状态 */
       status: WorkStatus;
       createdAt: string;
     }
+
+    type publishVibeProjectForm = Pick<VibeProject,
+      | 'title'
+      | 'category'
+      | 'platform'
+      | 'languages'
+      | 'description'
+      | 'coverUrl'
+      | 'tags'
+      | 'likes'
+      | 'views'
+      | 'screenshots'
+      | 'demoUrl'
+      | 'repoUrl'
+      | 'duration'
+      | 'tools'
+      | 'model'
+      | 'mcps'
+      | 'skills'
+      | 'instructions'
+      | 'isOnline'
+      | 'onlineDate'
+      | 'license'
+      | 'featured'>
 
     type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
 
@@ -117,16 +152,6 @@ declare namespace Api {
       content: string;
       createdAt: string;
       likes: number;
-    }
-
-    interface PublishForm {
-      title: string;
-      description: string;
-      category: string;
-      tags: string[];
-      vibePrompt: string;
-      codeSnippet: string;
-      link: string;
     }
   }
 }
