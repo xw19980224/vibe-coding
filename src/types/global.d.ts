@@ -7,6 +7,12 @@ declare global {
   export interface Window {
     /** NProgress 实例 */
     NProgress?: import('nprogress').NProgress;
+    /** MessageBox instance */
+    $messageBox?: import('element-plus').IElMessageBox;
+    /** Message instance */
+    $message?: import('element-plus').Message;
+    /** Notification instance */
+    $notification?: import('element-plus').Notify;
   }
 
   /** 构建时间戳，由 Vite 在构建时注入 */

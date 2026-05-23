@@ -1,5 +1,4 @@
 declare namespace App {
-
   namespace Service {
     type OtherBaseURLKey = 'demo';
 
@@ -123,8 +122,8 @@ declare namespace App {
       K extends keyof T = keyof T,
     > = K extends string
       ? T[K] extends Record<string, unknown>
-      ? `${K}.${GetI18nKey<T[K]>}`
-      : K
+        ? `${K}.${GetI18nKey<T[K]>}`
+        : K
       : never;
 
     type I18nKey = GetI18nKey<Schema>;
@@ -133,14 +132,25 @@ declare namespace App {
 
     interface $T {
       (key: I18nKey): string;
+
       (key: I18nKey, plural: number, options?: TranslateOptions<LangType>): string;
+
       (key: I18nKey, defaultMsg: string, options?: TranslateOptions<I18nKey>): string;
+
       (key: I18nKey, list: unknown[], options?: TranslateOptions<I18nKey>): string;
+
       (key: I18nKey, list: unknown[], plural: number): string;
+
       (key: I18nKey, list: unknown[], defaultMsg: string): string;
+
       (key: I18nKey, named: Record<string, unknown>, options?: TranslateOptions<LangType>): string;
+
       (key: I18nKey, named: Record<string, unknown>, plural: number): string;
+
       (key: I18nKey, named: Record<string, unknown>, defaultMsg: string): string;
     }
+  }
+  namespace Global {
+    type FormRule = import('element-plus').FormItemRule;
   }
 }

@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 
 export function setupUnplugin(viteEnv: Env.ImportMeta) {
@@ -33,7 +33,11 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
 
       resolvers: [
-        NaiveUiResolver(),
+        // auto import Element Plus components
+        ElementPlusResolver({
+          // no to import style, full import to see /src/plugins/assets.ts
+          importStyle: false
+        }),
         IconsResolver({
           customCollections: [collectionName],
           componentPrefix: VITE_ICON_PREFIX,
@@ -56,6 +60,13 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
         enabled: true,
         filepath: './.eslintrc-auto-import.json',
       },
+      resolvers: [
+        // Element Plus function APIs auto-import
+        ElementPlusResolver({
+          // no to import style, full import to see /src/plugins/assets.ts
+          importStyle: false
+        })
+      ]
     }),
   ];
 }
