@@ -40,10 +40,12 @@ declare module 'vue' {
 declare global {
   const AlSelect: typeof import('./../components/custom/al-select/al-select.vue')['default']
   const AlSelectItem: typeof import('./../components/custom/al-select/al-select-item.vue')['default']
+  const AppProvider: typeof import('./../components/custom/app-provider.vue')['default']
   const AuthModal: typeof import('./../components/custom/auth-modal.vue')['default']
   const BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
   const Carousel: typeof import('./../components/custom/carousel.vue')['default']
   const DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
+  const ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
   const ImagePreview: typeof import('./../components/custom/image-preview.vue')['default']
   const LazyImage: typeof import('./../components/custom/lazy-image.vue')['default']
   const MasonryLayout: typeof import('./../components/custom/masonry-layout.vue')['default']
