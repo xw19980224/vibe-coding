@@ -25,7 +25,6 @@ export const themeVars: App.Theme.ThemeTokenCSSVars = {
     ...colorPaletteVars,
     'base-text': 'rgb(var(--base-text-color))',
     nprogress: 'rgb(var(--nprogress-color))',
-    container: 'rgb(var(--container-color))',
   },
   shadow: {
     card: 'var(--card-box-shadow)',

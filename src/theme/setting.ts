@@ -16,7 +16,6 @@ export const themeSettings: App.Theme.ThemeSetting = {
     light: {
       colors: {
         'base-text': 'rgb(31, 31, 31)',
-        container: 'rgb(255, 255, 255)',
       },
       shadow: {
         card: '0 1px 2px rgb(0, 21, 41, 0.08)',
@@ -25,7 +24,6 @@ export const themeSettings: App.Theme.ThemeSetting = {
     dark: {
       colors: {
         'base-text': 'rgb(224, 224, 224)',
-        container:'rgb(24, 24, 28)'
       },
     },
   },

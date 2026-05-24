@@ -78,7 +78,6 @@ declare namespace App {
     interface ThemeSettingTokenColor {
       'base-text': string;
       nprogress?: string;
-      container: string;
     }
 
     interface ThemeSettingTokenBoxShadow {
