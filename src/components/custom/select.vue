@@ -146,10 +146,9 @@ useEventListener(window, 'resize', updateDropdownPosition);
   <div ref="selectRef" class="relative">
     <button
       ref="triggerRef"
-      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200 text-slate-400"
+      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200 text-slate-400 font-mono"
       style="background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(249, 115, 22, 0.1);
-        font-family: 'JetBrains Mono', monospace"
+        border: 1px solid rgba(249, 115, 22, 0.1)"
       @click="toggle"
     >
       <span :style="{ color: selectedLabel ? '#f1f5f9' : '#64748b' }">
@@ -197,8 +196,7 @@ useEventListener(window, 'resize', updateDropdownPosition);
             <button
               v-for="option in options"
               :key="option.value"
-              class="w-full h-9 px-4 text-left text-sm cursor-pointer transition-all duration-150 flex items-center gap-2 text-slate-300"
-              style="font-family: 'JetBrains Mono', monospace"
+              class="w-full h-9 px-4 text-left text-sm cursor-pointer transition-all duration-150 flex items-center gap-2 text-slate-300 font-mono"
               :style="{
                 background: isSelected(option.value) ? 'rgba(249, 115, 22, 0.08)' : 'transparent',
               }"

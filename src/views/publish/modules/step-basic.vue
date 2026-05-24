@@ -64,10 +64,9 @@ const platformOptions = [
         v-model="form.title"
         type="text"
         placeholder="给你的作品取个名字..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
         style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1);
-          font-family: 'JetBrains Mono', monospace"
+          border: 1px solid rgba(249, 115, 22, 0.1)"
       />
     </div>
 
@@ -78,10 +77,9 @@ const platformOptions = [
         v-model="form.subtitle"
         type="text"
         placeholder="一句话描述你的作品..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
         style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1);
-          font-family: 'JetBrains Mono', monospace"
+          border: 1px solid rgba(249, 115, 22, 0.1)"
       />
     </div>
 
@@ -115,12 +113,9 @@ const platformOptions = [
         <span
           v-for="tag in form.tags"
           :key="tag"
-          class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200"
-          style="
-            background: rgba(249, 115, 22, 0.1);
-            color: #fb923c;
-            font-family: 'JetBrains Mono', monospace;
-          "
+          class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono"
+          style="background: rgba(249, 115, 22, 0.1);
+            color: #fb923c"
           @click.stop="removeTag(tag)"
         >
           {{ tag }}
@@ -146,12 +141,9 @@ const platformOptions = [
       <Select v-model="form.platform" :options="platformOptions" placeholder="选择运行平台" />
       <div v-if="form.platform" class="flex flex-wrap gap-2 mt-3">
         <span
-          class="h-7 px-3 rounded-lg text-xs flex items-center"
-          style="
-            background: rgba(59, 130, 246, 0.1);
-            color: #60a5fa;
-            font-family: 'JetBrains Mono', monospace;
-          "
+          class="h-7 px-3 rounded-lg text-xs flex items-center font-mono"
+          style="background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa"
         >
           {{ platformOptions.find((p) => p.value === form.platform)?.label }}
         </span>

@@ -170,15 +170,15 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
         style="background: linear-gradient(transparent, rgba(15, 23, 42, 0.85))"
       >
         <span
-          class="flex items-center gap-1 text-xs"
-          style="color: #e2e8f0; font-family: 'JetBrains Mono', monospace"
+          class="flex items-center gap-1 text-xs font-mono"
+          style="color: #e2e8f0"
         >
           <SvgIcon icon="lucide:heart" style="font-size: 12px" />
           {{ formatCompact(work.likes) }}
         </span>
         <span
-          class="flex items-center gap-1 text-xs"
-          style="color: #e2e8f0; font-family: 'JetBrains Mono', monospace"
+          class="flex items-center gap-1 text-xs font-mono"
+          style="color: #e2e8f0"
         >
           <SvgIcon icon="lucide:eye" style="font-size: 12px" />
           {{ formatCompact(work.views) }}
@@ -192,8 +192,7 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
         {{ work.title }}
       </h3>
       <p
-        class="text-sm line-clamp-2 mb-3 leading-relaxed text-slate-500"
-        style="font-family: 'JetBrains Mono', monospace"
+        class="text-sm line-clamp-2 mb-3 leading-relaxed text-slate-500 font-mono"
       >
         {{ work.description }}
       </p>
@@ -203,12 +202,9 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
         <span
           v-for="tag in work.tags?.slice(0, 3)"
           :key="tag"
-          class="h-5 px-2 rounded text-xs flex items-center"
-          style="
-            background: rgba(249, 115, 22, 0.08);
-            color: #fb923c;
-            font-family: 'JetBrains Mono', monospace;
-          "
+          class="h-5 px-2 rounded text-xs flex items-center font-mono"
+          style="background: rgba(249, 115, 22, 0.08);
+            color: #fb923c"
         >
           {{ tag }}
         </span>

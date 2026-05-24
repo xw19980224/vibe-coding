@@ -65,7 +65,7 @@ function handleTabsChange() {}
 
     <div class="flex flex-col items-center py-16" v-if="activeTab === 'likes'">
       <div class="text-4xl mb-3" style="opacity: 0.1">☆</div>
-      <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
+      <p class="text-sm text-slate-500 font-mono" >
         暂无收藏的作品
       </p>
     </div>

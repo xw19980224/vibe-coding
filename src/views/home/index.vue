@@ -105,12 +105,11 @@ onUnmounted(() => {
   <section>
     <div class="pt-4 pb-2">
       <h2
-        class="text-2xl md:text-3xl font-700 tracking-wider mb-2 text-slate-100"
-        style="font-family: Orbitron, sans-serif"
+        class="text-2xl md:text-3xl font-700 tracking-wider mb-2 text-slate-100 font-display"
       >
         探索作品
       </h2>
-      <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
+      <p class="text-sm text-slate-500 font-mono" >
         {{
           searchParams.category === 'all'
             ? '浏览全部创作'
@@ -137,13 +136,10 @@ onUnmounted(() => {
         <!-- Sort dropdown -->
         <div class="relative" ref="sortDropdownRef">
           <button
-            class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5"
-            style="
-              background: rgba(30, 41, 59, 0.6);
+            class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono"
+            style="background: rgba(30, 41, 59, 0.6);
               border: 1px solid rgba(148, 163, 184, 0.12);
-              color: #e2e8f0;
-              font-family: 'JetBrains Mono', monospace;
-            "
+              color: #e2e8f0"
             @click="toggleSortDropdown"
           >
             <SvgIcon icon="lucide:arrow-up-down" style="font-size: 13px" />
@@ -177,13 +173,10 @@ onUnmounted(() => {
 
         <!-- Filter button -->
         <button
-          class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5"
-          style="
-            background: rgba(30, 41, 59, 0.6);
+          class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono"
+          style="background: rgba(30, 41, 59, 0.6);
             border: 1px solid rgba(148, 163, 184, 0.12);
-            color: #e2e8f0;
-            font-family: 'JetBrains Mono', monospace;
-          "
+            color: #e2e8f0"
           @click="toggleFilterDropdown"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 13px" />
@@ -210,7 +203,7 @@ onUnmounted(() => {
       </div>
 
       <div v-if="!loading && isLastPage" class="flex-center py-10">
-        <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
+        <p class="text-sm text-slate-500 font-mono" >
           已加载全部作品
         </p>
       </div>

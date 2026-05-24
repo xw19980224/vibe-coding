@@ -134,13 +134,10 @@ async function handleShare() {
       <div class="flex items-center gap-3 mb-4">
         <div
           v-if="workDetail.featured"
-          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0"
-          style="
-            background: linear-gradient(135deg, #f97316, #fb923c);
+          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0 font-display"
+          style="background: linear-gradient(135deg, #f97316, #fb923c);
             color: #0f172a;
-            font-family: Orbitron, sans-serif;
-            letter-spacing: 0.05em;
-          "
+            letter-spacing: 0.05em"
         >
           FEATURED
         </div>
@@ -189,8 +186,8 @@ async function handleShare() {
       <!-- 描述 (Markdown) -->
       <div>
         <h3
-          class="text-xs font-700 mb-3 tracking-wider uppercase"
-          style="color: #f97316; font-family: Orbitron, sans-serif"
+          class="text-xs font-700 mb-3 tracking-wider uppercase font-display"
+          style="color: #f97316"
         >
           项目介绍
         </h3>
@@ -206,8 +203,7 @@ async function handleShare() {
         style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
       >
         <h3
-          class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500"
-          style="font-family: Orbitron, sans-serif"
+          class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display"
         >
           创作者
         </h3>
@@ -273,10 +269,10 @@ async function handleShare() {
             class="text-center cursor-pointer transition-colors duration-200 hover:text-[#f97316]"
             @click="$router.push(`/user-center/${workDetail.author.name}`)"
           >
-            <div class="text-sm font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
+            <div class="text-sm font-700 text-slate-100 font-display" >
               {{ formatCompact(stat.value) }}
             </div>
-            <div class="text-11px mt-0.5 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
+            <div class="text-11px mt-0.5 text-slate-500 font-mono" >
               {{ stat.label }}
             </div>
           </div>
@@ -320,32 +316,31 @@ async function handleShare() {
         style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
       >
         <h3
-          class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500"
-          style="font-family: Orbitron, sans-serif"
+          class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display"
         >
           项目详情
         </h3>
         <div class="space-y-3">
           <div v-if="workDetail.model" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">模型</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >模型</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ workDetail.model }}
             </span>
           </div>
           <div v-if="workDetail.languages?.length" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">开发语言</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >开发语言</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ workDetail.languages.join(' / ') }}
             </span>
           </div>
           <div v-if="workDetail.duration" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">开发周期</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >开发周期</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ formattedDuration }}
             </span>
           </div>
           <div v-if="workDetail.isOnline !== undefined" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">是否上线</span>
+            <span class="text-xs text-slate-500 font-mono" >是否上线</span>
             <span
               class="text-xs font-500"
               :style="{ color: workDetail.isOnline ? '#4ade80' : '#64748b', fontFamily: 'JetBrains Mono, monospace' }"
@@ -354,26 +349,26 @@ async function handleShare() {
             </span>
           </div>
           <div v-if="workDetail.onlineDate" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">上线日期</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >上线日期</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ workDetail.onlineDate }}
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">分类</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >分类</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ categoryLabels[workDetail.category] || workDetail.category }}
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">运行平台</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >运行平台</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ platformLabels[workDetail.platform] }}
             </span>
           </div>
           <div v-if="workDetail.license" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500" style="font-family: 'JetBrains Mono', monospace">许可证</span>
-            <span class="text-xs font-500 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-500 font-mono" >许可证</span>
+            <span class="text-xs font-500 text-slate-400 font-mono" >
               {{ workDetail.license }}
             </span>
           </div>
@@ -440,30 +435,30 @@ async function handleShare() {
         class="p-5 rounded-2xl"
         style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500" style="font-family: Orbitron, sans-serif">
+        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display" >
           MCP / Skills
         </h3>
         <div v-if="workDetail.mcps?.length" class="mb-3">
-          <p class="text-11px mb-2 text-slate-500" style="font-family: 'JetBrains Mono', monospace">MCP</p>
+          <p class="text-11px mb-2 text-slate-500 font-mono" >MCP</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="mcp in workDetail.mcps"
               :key="mcp"
-              class="h-6 px-2 rounded-md text-xs flex items-center"
-              style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-family: 'JetBrains Mono', monospace; font-size: 11px;"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
+              style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-size: 11px"
             >
               {{ mcp }}
             </span>
           </div>
         </div>
         <div v-if="workDetail.skills?.length">
-          <p class="text-11px mb-2 text-slate-500" style="font-family: 'JetBrains Mono', monospace">Skills</p>
+          <p class="text-11px mb-2 text-slate-500 font-mono" >Skills</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="skill in workDetail.skills"
               :key="skill"
-              class="h-6 px-2 rounded-md text-xs flex items-center"
-              style="background: rgba(168, 85, 247, 0.1); color: #c084fc; font-family: 'JetBrains Mono', monospace; font-size: 11px;"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
+              style="background: rgba(168, 85, 247, 0.1); color: #c084fc; font-size: 11px"
             >
               {{ skill }}
             </span>
@@ -477,15 +472,15 @@ async function handleShare() {
         class="p-5 rounded-2xl"
         style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500" style="font-family: Orbitron, sans-serif">
+        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display" >
           开发工具
         </h3>
         <div class="flex flex-wrap gap-1.5">
           <span
             v-for="tool in workDetail.tools"
             :key="tool"
-            class="h-6 px-2 rounded-md text-xs flex items-center"
-            style="background: rgba(249, 115, 22, 0.08); color: #fb923c; font-family: 'JetBrains Mono', monospace; font-size: 11px;"
+            class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
+            style="background: rgba(249, 115, 22, 0.08); color: #fb923c; font-size: 11px"
           >
             {{ tool }}
           </span>

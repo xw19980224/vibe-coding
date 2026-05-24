@@ -9,12 +9,12 @@ defineOptions({ name: 'CommentSection' });
     class="rounded-2xl p-8"
     style="background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.06)"
   >
-    <h3 class="text-lg font-700 mb-6 text-slate-100" style="font-family: Orbitron, sans-serif">
+    <h3 class="text-lg font-700 mb-6 text-slate-100 font-display" >
       评论
     </h3>
     <div class="flex flex-col items-center py-12">
       <img :src="hardworking" alt="开发中" class="w-48" />
-      <p class="text-sm mt-3 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
+      <p class="text-sm mt-3 text-slate-500 font-mono" >
         模块开发中...
       </p>
     </div>

@@ -98,8 +98,7 @@ watch(visible, (val) => {
           V
         </div>
         <span
-          class="text-2xl font-700 tracking-wider text-slate-300"
-          style="font-family: Orbitron, sans-serif"
+          class="text-2xl font-700 tracking-wider text-slate-300 font-display"
         >
           VIBE<span style="color: #f97316">CODING</span>
         </span>
@@ -109,8 +108,7 @@ watch(visible, (val) => {
       <!-- Left: Email login -->
       <div class="flex-1 md:pr-5">
         <h3
-          class="text-lg font-600 mb-5 text-slate-300"
-          style="font-family: 'Noto Sans SC', sans-serif"
+          class="text-lg font-600 mb-5 text-slate-300 font-sans"
         >
           邮箱登录
         </h3>
@@ -132,9 +130,8 @@ watch(visible, (val) => {
                 :disabled="isEmailCounting"
                 :loading="emailLoading"
                 @click="getEmailCaptcha(model.email)"
-                class="text-slate-400" style="background: rgba(148, 163, 184, 0.06);
-                  border: 1px solid rgba(148, 163, 184, 0.15);
-                  font-family: 'JetBrains Mono', monospace"
+                class="text-slate-400 font-mono" style="background: rgba(148, 163, 184, 0.06);
+                  border: 1px solid rgba(148, 163, 184, 0.15)"
               >
                 {{ emailLabel }}
               </ElButton>
@@ -163,8 +160,7 @@ watch(visible, (val) => {
           style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
         />
         <span
-          class="text-sm md:hidden text-slate-600"
-          style="font-family: 'JetBrains Mono', monospace"
+          class="text-sm md:hidden text-slate-600 font-mono"
         >
           — 其他方式 —
         </span>
@@ -173,8 +169,7 @@ watch(visible, (val) => {
       <!-- Right: WeChat QR -->
       <div class="hidden md:flex flex-col items-center justify-center md:w-64 md:pl-5">
         <h3
-          class="text-lg font-600 mb-5 text-slate-300"
-          style="font-family: 'Noto Sans SC', sans-serif"
+          class="text-lg font-600 mb-5 text-slate-300 font-sans"
         >
           微信扫码登录
         </h3>
@@ -198,14 +193,13 @@ watch(visible, (val) => {
             @click="sendQrCode()"
           >
             <SvgIcon icon="lucide:rotate-cw" class="text-slate-400" style="font-size: 24px" />
-            <span class="text-xs text-slate-400" style="font-family: 'JetBrains Mono', monospace">
+            <span class="text-xs text-slate-400 font-mono" >
               点击刷新
             </span>
           </div>
         </div>
         <p
-          class="text-sm text-center text-slate-600"
-          style="font-family: 'JetBrains Mono', monospace"
+          class="text-sm text-center text-slate-600 font-mono"
         >
           请使用微信扫描二维码
         </p>

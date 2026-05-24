@@ -35,8 +35,7 @@ html.dark:root {
   box-shadow: none !important;
 
   .el-input__inner {
-    @apply text-slate-300;
-    font-family: 'JetBrains Mono', monospace;
+    @apply text-slate-300 font-mono;
   }
 
   //.el-input__wrapper:hover, .el-input__wrapper.is-focus {
@@ -63,8 +62,7 @@ html.dark:root {
 }
 
 .el-tabs__item {
-  @apply text-slate-400;
-  font-family: 'JetBrains Mono', monospace;
+  @apply text-slate-400 font-mono;
   font-size: 13px;
   padding: 0 16px;
   transition: all 0.2s;

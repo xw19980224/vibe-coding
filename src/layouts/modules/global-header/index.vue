@@ -51,8 +51,7 @@ function onSearchInput() {
             V
           </div>
           <span
-            class="text-lg font-700 tracking-wider hidden sm:inline text-slate-100"
-            style="font-family: Orbitron, sans-serif"
+            class="text-lg font-700 tracking-wider hidden sm:inline text-slate-100 font-display"
           >
             VIBE<span style="color: #f97316">CODING</span>
           </span>
@@ -66,10 +65,9 @@ function onSearchInput() {
             v-model="searchQuery"
             type="text"
             :placeholder="'搜索作品、标签或作者...'"
-            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200 text-slate-100"
+            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
             style="background: rgba(30, 41, 59, 0.6);
-              border: 1px solid rgba(249, 115, 22, 0.12);
-              font-family: 'JetBrains Mono', monospace"
+              border: 1px solid rgba(249, 115, 22, 0.12)"
             @input="onSearchInput"
           />
         </div>

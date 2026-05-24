@@ -19,21 +19,18 @@ function goHome() {
 
     <div class="relative z-10 flex flex-col items-center">
       <div
-        class="text-9xl font-700 mb-4 tracking-wider text-slate-100"
-        style="font-family: Orbitron, sans-serif"
+        class="text-9xl font-700 mb-4 tracking-wider text-slate-100 font-display"
       >
         404
       </div>
 
       <p
-        class="text-base mb-2 text-slate-400"
-        style="font-family: 'JetBrains Mono', monospace"
+        class="text-base mb-2 text-slate-400 font-mono"
       >
         页面不见了
       </p>
       <p
-        class="text-sm mb-8 text-slate-500"
-        style="font-family: 'JetBrains Mono', monospace"
+        class="text-sm mb-8 text-slate-500 font-mono"
       >
         你访问的页面不存在或已被移除
       </p>

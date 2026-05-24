@@ -79,8 +79,7 @@ onUnmounted(() => {
             style="border-bottom: 1px solid rgba(148, 163, 184, 0.06)"
           >
             <h2
-              class="text-lg font-600 text-slate-300"
-              style="font-family: 'Noto Sans SC', sans-serif"
+              class="text-lg font-600 text-slate-300 font-sans"
             >
               {{ title }}
             </h2>

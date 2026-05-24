@@ -77,14 +77,11 @@ function handleClick(idx: number) {
       <!-- Featured badge -->
       <div
         v-if="work.featured"
-        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center"
-        style="
-          background: linear-gradient(135deg, #f97316, #fb923c);
+        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display"
+        style="background: linear-gradient(135deg, #f97316, #fb923c);
           color: #0f172a;
-          font-family: Orbitron, sans-serif;
           font-size: 10px;
-          letter-spacing: 0.05em;
-        "
+          letter-spacing: 0.05em"
       >
         FEATURED
       </div>
@@ -96,8 +93,7 @@ function handleClick(idx: number) {
         {{ work.title }}
       </h3>
       <p
-        class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500"
-        style="font-family: 'JetBrains Mono', monospace"
+        class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono"
       >
         {{ work.description }}
       </p>
