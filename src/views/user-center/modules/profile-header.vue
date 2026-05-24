@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatCompact } from '@/utils/common.ts';
+
 defineOptions({ name: 'ProfileHeader' });
 
 interface Props {
@@ -26,8 +28,6 @@ const socialPlatforms = computed(() => {
   return platforms.filter((p) => props.userDetail?.[p.key]);
 });
 
-import { formatCompact } from '@/utils/common';
-
 function openLink(url: string) {
   window.open(url, '_blank', 'noopener');
 }
@@ -36,9 +36,7 @@ function openLink(url: string) {
 <template>
   <div class="flex flex-col md:flex-row items-start gap-8 mb-5">
     <!-- Avatar -->
-    <div class="size-24 flex-center shrink-0">
-      <img :src="props.userDetail?.avatar" class="size-full object-cover rd-full" />
-    </div>
+    <ElAvatar :src="props.userDetail?.avatar" class="size-24 shrink-0" />
 
     <!-- Info -->
     <div class="flex-1 min-w-0">
@@ -59,7 +57,6 @@ function openLink(url: string) {
               :key="platform.key"
               :title="platform.label"
               class="w-8 h-8 rounded-lg flex-center cursor-pointer transition-all duration-200 text-slate-400"
-
               @click="openLink(props.userDetail?.[platform.key]!)"
             >
               <SvgIcon :local-icon="platform.icon" class="size-5" />
@@ -84,10 +81,7 @@ function openLink(url: string) {
           <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.works ?? 0) }}
           </div>
-          <div
-            class="text-xs mt-1 text-slate-500"
-            style="font-family: 'JetBrains Mono', monospace"
-          >
+          <div class="text-xs mt-1 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             作品
           </div>
         </div>
@@ -95,10 +89,7 @@ function openLink(url: string) {
           <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.likes ?? 0) }}
           </div>
-          <div
-            class="text-xs mt-1 text-slate-500"
-            style="font-family: 'JetBrains Mono', monospace"
-          >
+          <div class="text-xs mt-1 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             获赞
           </div>
         </div>
@@ -106,10 +97,7 @@ function openLink(url: string) {
           <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.following ?? 0) }}
           </div>
-          <div
-            class="text-xs mt-1 text-slate-500"
-            style="font-family: 'JetBrains Mono', monospace"
-          >
+          <div class="text-xs mt-1 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             关注
           </div>
         </div>
@@ -117,10 +105,7 @@ function openLink(url: string) {
           <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.followers ?? 0) }}
           </div>
-          <div
-            class="text-xs mt-1 text-slate-500"
-            style="font-family: 'JetBrains Mono', monospace"
-          >
+          <div class="text-xs mt-1 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             粉丝
           </div>
         </div>
