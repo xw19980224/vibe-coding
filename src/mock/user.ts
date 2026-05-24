@@ -4,7 +4,7 @@ import { wrapData } from './shared';
 
 export const mockUsers: Api.User.UserDetail[] = [
   {
-    id: 'u1',
+    key: 'u1',
     email: 'vibecoder@vide-coding.dev',
     nickname: 'VibeCoder',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
@@ -23,7 +23,7 @@ export const mockUsers: Api.User.UserDetail[] = [
     followers: 356,
   },
   {
-    id: 'u2',
+    key: 'u2',
     email: 'neodev@vide-coding.dev',
     nickname: 'NeoDev',
     avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200&h=200&fit=crop',
@@ -42,7 +42,7 @@ export const mockUsers: Api.User.UserDetail[] = [
     followers: 201,
   },
   {
-    id: 'u3',
+    key: 'u3',
     email: 'pixelmage@vide-coding.dev',
     nickname: 'PixelMage',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
@@ -78,7 +78,7 @@ function paginate<T>(list: T[], query: Record<string, string | string[] | undefi
 
 function toUserInfo(user: Api.User.UserDetail): Api.User.UserInfo {
   const {
-    id,
+    key,
     email,
     nickname,
     introduction,
@@ -92,7 +92,7 @@ function toUserInfo(user: Api.User.UserDetail): Api.User.UserInfo {
     portalUrl,
   } = user;
   return {
-    id,
+    id: key,
     email,
     nickname,
     introduction,

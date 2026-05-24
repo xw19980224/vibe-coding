@@ -2,7 +2,7 @@ declare namespace Api {
   namespace User {
 
     interface UserDetail {
-      id: string;
+      key: string;
       email: string;
       nickname: string;
       introduction: string;
@@ -23,7 +23,7 @@ declare namespace Api {
 
     type UserInfo = Pick<
       UserDetail,
-      | 'id'
+      | 'key'
       | 'email'
       | 'nickname'
       | 'introduction'
