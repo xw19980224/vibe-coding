@@ -74,7 +74,6 @@ const { observe, unobserve } = useIntersectionObserver(
   loadingRef,
   (isIntersecting) => {
     if (isIntersecting) {
-      console.log('isLastPage', isLastPage.value);
       if (!isLastPage.value && !loading.value) {
         page.value++;
         sendGetWorks(page.value, pageSize.value);
