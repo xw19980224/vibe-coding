@@ -1,104 +1,69 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useCaptcha } from '@a02/alova/client';
-import { AuthAPI } from '@/service/api/auth';
+import { useRequest } from '@a02/alova/client';
 import { useAuthStore } from '@/stores/modules/auth';
+import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
+import { useAppStore } from '@/stores/modules/app';
+import { useCaptcha } from '@/hooks/business/captacha.ts';
+import { useCountDown } from '@a02/hooks';
+import { AuthAPI } from '@/service/api/auth.ts';
 
 defineOptions({ name: 'LoginPage' });
 
+const appStore = useAppStore();
 const router = useRouter();
 const authStore = useAuthStore();
-const email = ref('');
-const code = ref('');
-const error = ref('');
-const errorShakeKey = ref(0);
-const qrImages = ref('');
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const { formRef, validate } = useNaiveForm();
+const isMobile = computed(() => appStore.isMobile);
+const {
+  label: emailLabel,
+  isCounting: isEmailCounting,
+  loading: emailLoading,
+  getEmailCaptcha,
+} = useCaptcha();
+const { start: startCountdown, isCounting: isQrCodeCounting } = useCountDown(60);
 
-const inputStyle = {
-  background: 'rgba(15, 23, 42, 0.5)',
-  border: '1px solid rgba(148, 163, 184, 0.12)',
-  color: '#cbd5e1',
-  fontFamily: "'JetBrains Mono', monospace",
-};
+interface FormModel {
+  email: string;
+  code: string;
+}
+
+const model = ref<FormModel>({ email: '1035071992xw@gmail.com', code: '123456' });
+
+const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
+  const { formRules } = useFormRules();
+
+  return { email: formRules.email, code: formRules.code };
+});
 
 const {
-  send: sendEmailCode,
-  countdown: emailCountdown,
-  loading: emailCodeLoading,
-} = useCaptcha(() => AuthAPI.sendCode(email.value), { initialCountdown: 60 });
+  data: qrCodeData,
+  loading: qrCodeLoading,
+  send: sendQrCode,
+  onSuccess: sendQrCodeSuccess,
+} = useRequest(() => AuthAPI.getWechatQR(), {
+  immediate: false,
+  force: true,
+});
 
-const {
-  send: fetchQR,
-  countdown: qrCountdown,
-  loading: qrLoading,
-} = useCaptcha(() => AuthAPI.getWechatQR(), { initialCountdown: 60 });
+sendQrCodeSuccess(() => {
+  startCountdown();
+});
 
-const qrExpired = computed(() => qrCountdown.value <= 0);
-
-function onFocus(e: FocusEvent) {
-  const el = e.target as HTMLElement;
-  el.style.borderColor = 'rgba(148, 163, 184, 0.35)';
-  el.style.boxShadow = '0 0 0 2px rgba(148, 163, 184, 0.08)';
+async function handleSubmit() {
+  await validate();
+  await authStore.login(model.value, true);
 }
 
-function onBlur(e: FocusEvent) {
-  const el = e.target as HTMLElement;
-  el.style.borderColor = 'rgba(148, 163, 184, 0.12)';
-  el.style.boxShadow = 'none';
-}
-
-function handleSendCode() {
-  if (!email.value) {
-    error.value = '请输入邮箱地址';
-    errorShakeKey.value++;
-    return;
+onMounted(() => {
+  if (!isMobile.value) {
+    sendQrCode();
   }
-  if (!emailRegex.test(email.value)) {
-    error.value = '邮箱格式不正确';
-    errorShakeKey.value++;
-    return;
-  }
-  error.value = '';
-  emailCountdown.value = 0;
-  sendEmailCode();
-}
-
-async function handleLogin() {
-  if (!email.value) {
-    error.value = '请输入邮箱地址';
-    errorShakeKey.value++;
-    return;
-  }
-  if (!emailRegex.test(email.value)) {
-    error.value = '邮箱格式不正确';
-    errorShakeKey.value++;
-    return;
-  }
-  if (!code.value) {
-    error.value = '请输入验证码';
-    errorShakeKey.value++;
-    return;
-  }
-  error.value = '';
-  try {
-    await authStore.login({ email: email.value, code: code.value });
-  } catch {
-    error.value = '登录失败，请重试';
-    errorShakeKey.value++;
-  }
-}
-
-onMounted(async () => {
-  qrImages.value = await fetchQR();
 });
 </script>
 
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center px-4 relative"
-    style="background: #0f172a"
-  >
+  <div class="min-h-screen flex-center px-4 relative" style="background: #0f172a">
     <div
       class="absolute inset-0"
       style="
@@ -112,31 +77,31 @@ onMounted(async () => {
 
     <div class="relative z-10 w-full max-w-4xl">
       <!-- Back -->
-      <button
-        class="flex items-center gap-2 mb-6 text-sm cursor-pointer transition-colors duration-200"
+      <ElButton
+        class="mb-6 cursor-pointer"
         style="color: #64748b; font-family: 'JetBrains Mono', monospace"
         @click="router.push('/')"
-        @mouseenter="(e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#94a3b8')"
-        @mouseleave="(e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#64748b')"
+        link
       >
-        <SvgIcon icon="lucide:arrow-left" style="font-size: 16px" />
+        <template #icon>
+          <SvgIcon icon="lucide:arrow-left" style="font-size: 16px" />
+        </template>
         返回首页
-      </button>
+      </ElButton>
 
       <!-- Card -->
-      <div
-        class="rounded-2xl overflow-hidden"
+      <ElCard
+        class="rd-2xl overflow-hidden w-full"
         style="
           background: rgba(30, 41, 59, 0.92);
           border: 1px solid rgba(148, 163, 184, 0.08);
           box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
         "
       >
-        <!-- Header -->
-        <div class="px-10 pt-10 pb-5">
+        <template #header>
           <div class="flex items-center gap-3">
             <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center font-bold"
+              class="w-12 h-12 rounded-xl flex-center font-bold"
               style="
                 background: linear-gradient(135deg, #f97316, #fb923c);
                 color: #0f172a;
@@ -152,10 +117,8 @@ onMounted(async () => {
               VIBE<span style="color: #f97316">CODING</span>
             </span>
           </div>
-        </div>
-
-        <!-- Content -->
-        <div class="flex flex-col md:flex-row px-10 py-8 gap-0">
+        </template>
+        <div class="flex flex-col md:flex-row gap-0">
           <!-- Left: Email login -->
           <div class="flex-1 md:pr-5">
             <h3
@@ -164,87 +127,63 @@ onMounted(async () => {
             >
               邮箱登录
             </h3>
-
-            <div
-              v-if="error"
-              :key="errorShakeKey"
-              class="mb-4 p-3 rounded-lg text-sm animate-shake"
-              style="
-                background: rgba(239, 68, 68, 0.1);
-                border: 1px solid rgba(239, 68, 68, 0.2);
-                color: #fca5a5;
-              "
+            <ElForm
+              ref="formRef"
+              :model="model"
+              :rules="rules"
+              size="large"
+              :show-label="false"
+              @keyup.enter="handleSubmit"
             >
-              {{ error }}
-            </div>
-
-            <input
-              v-model="email"
-              type="email"
-              placeholder="请输入邮箱地址"
-              class="w-full h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200 mb-4"
-              :style="inputStyle"
-              @focus="onFocus"
-              @blur="onBlur"
-            />
-
-            <div class="grid grid-cols-[1fr_auto] gap-4 mb-6">
-              <input
-                v-model="code"
-                type="text"
-                placeholder="请输入验证码"
-                maxlength="6"
-                class="min-w-0 h-12 px-4 rounded-lg text-sm outline-none transition-all duration-200"
-                :style="inputStyle"
-                @focus="onFocus"
-                @blur="onBlur"
-              />
-              <button
-                class="h-12 px-3 md:px-5 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0 whitespace-nowrap"
-                style="
-                  background: rgba(148, 163, 184, 0.06);
-                  border: 1px solid rgba(148, 163, 184, 0.15);
-                  color: #94a3b8;
-                  font-family: 'JetBrains Mono', monospace;
-                "
-                :disabled="emailCountdown > 0 || emailCodeLoading"
-                @click="handleSendCode"
+              <ElFormItem prop="email">
+                <ElInput v-model="model.email" placeholder="请输入邮箱" />
+              </ElFormItem>
+              <ElFormItem prop="code">
+                <div class="w-full flex-y-center gap-3">
+                  <ElInput v-model="model.code" placeholder="请输入验证码" maxlength="6" />
+                  <ElButton
+                    :disabled="isEmailCounting"
+                    :loading="emailLoading"
+                    @click="getEmailCaptcha(model.email)"
+                    style="
+                      background: rgba(148, 163, 184, 0.06);
+                      border: 1px solid rgba(148, 163, 184, 0.15);
+                      color: #94a3b8;
+                      font-family: 'JetBrains Mono', monospace;
+                    "
+                  >
+                    {{ emailLabel }}
+                  </ElButton>
+                </div>
+              </ElFormItem>
+              <ElButton
+                :disabled="authStore.loginLoading"
+                @click="handleSubmit"
+                class="w-full"
+                :style="{
+                  background: 'linear-gradient(135deg, #F97316, #FB923C)',
+                  color: '#fff',
+                  border: 'none',
+                  boxShadow: '0 2px 8px rgba(249, 115, 22, 0.15)',
+                }"
               >
-                {{
-                  emailCountdown > 0
-                    ? `重新发送 ${emailCountdown}s`
-                    : emailCodeLoading
-                      ? '发送中'
-                      : '获取验证码'
-                }}
-              </button>
-            </div>
-
-            <button
-              class="w-full h-12 rounded-lg text-base font-600 cursor-pointer transition-all duration-200 flex items-center justify-center gap-2"
-              :style="{
-                background: authStore.loginLoading ? '#334155' : 'linear-gradient(135deg, #F97316, #FB923C)',
-                color: authStore.loginLoading ? '#94A3B8' : '#fff',
-                boxShadow: authStore.loginLoading ? 'none' : '0 2px 8px rgba(249, 115, 22, 0.15)',
-              }"
-              :disabled="authStore.loginLoading"
-              @click="handleLogin"
-            >
-              <div
-                v-if="authStore.loginLoading"
-                class="w-4 h-4 rounded-full border-2 border-transparent animate-spin"
-                style="border-top-color: #94a3b8"
-              />
-              {{ authStore.loginLoading ? '登录中...' : '登录 / 注册' }}
-            </button>
+                {{ authStore.loginLoading ? '登录中...' : '登录 / 注册' }}
+              </ElButton>
+            </ElForm>
           </div>
 
           <!-- Divider -->
-          <div class="hidden md:flex items-center justify-center py-5 md:py-0 md:px-8">
+          <div class="hidden md:flex flex-center py-5 md:py-0 md:px-8">
             <div
               class="hidden md:block"
               style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
             />
+            <span
+              class="text-sm md:hidden"
+              style="color: #475569; font-family: 'JetBrains Mono', monospace"
+            >
+              — 其他方式 —
+            </span>
           </div>
 
           <!-- Right: WeChat QR -->
@@ -256,42 +195,31 @@ onMounted(async () => {
               微信扫码登录
             </h3>
             <div
-              class="relative w-48 h-48 rounded-xl flex items-center justify-center mb-4 overflow-hidden p-2"
+              class="relative w-48 h-48 rounded-xl flex-center mb-4 overflow-hidden p-2"
               style="background: rgba(15, 23, 42, 0.4); border: 2px solid rgba(148, 163, 184, 0.2)"
             >
-              <img
-                v-if="qrImages"
-                :src="qrImages"
+              <ElImage
+                v-if="qrCodeData"
+                :src="qrCodeData"
+                v-loading="qrCodeLoading"
+                lazy
                 alt="微信扫码登录"
-                class="w-full h-full transition-all duration-300"
-                :class="{ 'blur-[2px] opacity-30': qrExpired }"
+                :class="{ 'blur-[2px] opacity-30': !isQrCodeCounting }"
               />
-              <div v-if="qrLoading && !qrImages" class="flex flex-col items-center gap-2">
-                <div
-                  class="w-8 h-8 rounded-full border-2 border-transparent animate-spin"
-                  style="border-top-color: #94a3b8"
-                />
-                <span
-                  class="text-xs"
-                  style="color: #94a3b8; font-family: 'JetBrains Mono', monospace"
-                  >加载中</span
-                >
-              </div>
+              <!-- Refresh overlay when expired -->
               <div
-                v-if="qrExpired && qrImages"
+                v-if="!isQrCodeCounting"
                 class="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer"
                 style="background: rgba(15, 23, 42, 0.85)"
-                @click="
-                  qrCountdown = 0;
-                  qrImages = fetchQR();
-                "
+                @click="sendQrCode()"
               >
                 <SvgIcon icon="lucide:rotate-cw" style="font-size: 24px; color: #94a3b8" />
                 <span
                   class="text-xs"
                   style="color: #94a3b8; font-family: 'JetBrains Mono', monospace"
-                  >点击刷新</span
                 >
+                  点击刷新
+                </span>
               </div>
             </div>
             <p
@@ -303,48 +231,56 @@ onMounted(async () => {
             <p class="text-sm text-center mt-1" style="color: #64748b">关注公众号即可完成登录</p>
           </div>
         </div>
-
-        <!-- Footer -->
-        <div
-          class="px-10 pb-10 pt-5 flex items-center justify-center gap-2 text-sm flex-wrap"
-          style="border-top: 1px solid rgba(148, 163, 184, 0.06); color: #64748b"
-        >
-          <span>登录即代表同意</span>
-          <span
-            class="cursor-pointer transition-colors duration-200 hover:underline"
-            style="color: #f97316"
-            >《用户协议》</span
+        <template #footer>
+          <div
+            class="flex-center gap-2 text-sm flex-wrap"
+            style="border-top: 1px solid rgba(148, 163, 184, 0.06); color: #64748b"
           >
-          <span>和</span>
-          <span
-            class="cursor-pointer transition-colors duration-200 hover:underline"
-            style="color: #f97316"
-            >《隐私政策》</span
-          >
-          <span style="color: #475569">· 未注册手机号将自动注册</span>
-        </div>
-      </div>
+            <span>登录即代表同意</span>
+            <span
+              class="cursor-pointer transition-colors duration-200 hover:underline"
+              style="color: #f97316"
+              >《用户协议》</span
+            >
+            <span>和</span>
+            <span
+              class="cursor-pointer transition-colors duration-200 hover:underline"
+              style="color: #f97316"
+              >《隐私政策》</span
+            >
+            <span style="color: #475569">未注册手机号将自动注册</span>
+          </div>
+        </template>
+      </ElCard>
     </div>
   </div>
 </template>
 
 <style scoped>
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  50%,
-  90% {
-    transform: translateX(-4px);
-  }
-  30%,
-  70% {
-    transform: translateX(4px);
-  }
+:deep(.el-card__header) {
+  border-bottom: 0 !important;
 }
-.animate-shake {
-  animation: shake 0.4s ease-in-out;
+
+:deep(.el-card__footer) {
+  border-top: 0 !important;
+}
+
+:deep(.el-input__wrapper) {
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  box-shadow: none !important;
+}
+
+:deep(.el-input__inner) {
+  color: #cbd5e1;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+:deep(.el-input__wrapper:hover) {
+  border-color: #f97316;
+}
+
+:deep(.el-input__wrapper.is-focus) {
+  border-color: #f97316;
 }
 </style>
