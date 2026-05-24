@@ -2,20 +2,22 @@
 
 ## 技术栈
 
-| 类别     | 技术                                              |
-| -------- | ------------------------------------------------- |
-| 框架     | Vue 3 (Composition API)                           |
-| 语言     | TypeScript (strict mode)                          |
-| 构建     | Vite 7 + pnpm (monorepo)                          |
-| 状态管理 | Pinia (setup-syntax)                              |
-| 路由     | vue-router (createWebHistory)                     |
-| CSS      | UnoCSS (presetWind4) + presetIcons + presetA02    |
-| 请求     | alova (usePagination / useCaptcha)                |
-| Mock     | vite-plugin-mock (src/mock/)                      |
-| 工具     | @vueuse/core (useBreakpoints / useMediaQuery)     |
-| 图标     | lucide 在线图标 (`<SvgIcon icon="lucide:xxx" />`) |
-| 格式化   | Prettier + ESLint + Oxlint                        |
-| 包管理   | pnpm (workspaces)                                 |
+| 技术栈     | 技术                                              |
+| ---------- | ------------------------------------------------- |
+| 框架       | Vue 3 (Composition API)                           |
+| 语言       | TypeScript (strict mode)                          |
+| 构建       | Vite 7 + pnpm (monorepo)                          |
+| UI 库      | Element Plus                                      |
+| 状态管理   | Pinia (setup-syntax)                              |
+| 路由       | vue-router (createWebHistory)                     |
+| 样式       | UnoCSS (presetWind4) + presetIcons + presetA02    |
+| SCSS       | sass (modern-compiler API)，element-plus.scss 覆盖 |
+| 请求       | alova (usePagination / useCaptcha)                |
+| Mock       | vite-plugin-mock (src/mock/)                      |
+| 工具       | @vueuse/core (useBreakpoints / useMediaQuery)     |
+| 图标       | lucide 在线图标 (`<SvgIcon icon="lucide:xxx" />`) |
+| 格式化     | Prettier + ESLint + Oxlint                        |
+| 包管理     | pnpm (workspaces)                                 |
 
 ---
 
@@ -223,18 +225,22 @@ import WorkCard from './modules/work-card.vue';
 
 ## 5. 样式规范
 
-### 5.1 优先使用 Inline Style
+### 5.1 优先使用 UnoCSS 原子类
 
-VibeCoding 页面使用内联 `style` 绑定，便于维护独立的赛博暖色调体系：
+VibeCoding 页面优先使用 UnoCSS 原子类，避免内联样式。颜色使用 `text-slate-*` 系列，字体使用 `font-display` / `font-mono` / `font-sans`：
 
 ```vue
+<!-- ✅ 优先用 UnoCSS 类 -->
+<p class="text-sm text-slate-400 font-mono">辅助信息</p>
+<h2 class="text-xl font-700 text-slate-100 font-display">标题</h2>
+
+<!-- ✅ 动态绑定用 :style -->
 <button
-  class="h-9 px-4 rounded-lg text-sm font-600 cursor-pointer"
-  style="
-    background: linear-gradient(135deg, #F97316, #FB923C);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
-  "
+  class="h-9 px-4 rounded-lg"
+  :style="{
+    background: isActive ? 'rgba(249,115,22,0.12)' : 'transparent',
+    color: isActive ? '#f97316' : '#94a3b8',
+  }"
 >xxx</button>
 ```
 
@@ -259,18 +265,22 @@ VibeCoding 页面使用内联 `style` 绑定，便于维护独立的赛博暖色
 
 ### 5.3 设计 Token
 
-| Token    | 值                            | 用途               |
-| -------- | ----------------------------- | ------------------ |
-| 主色     | `#F97316`                     | 按钮、高亮、强调   |
-| 主色浅   | `#FB923C`                     | 渐变、hover        |
-| 背景深   | `#0F172A`                     | 页面背景           |
-| 卡片背景 | `rgba(30, 41, 59, 0.6)`       | 卡片、弹窗         |
-| 边框     | `rgba(148, 163, 184, 0.08)`   | 默认边框（灰色系） |
-| 边框高亮 | `rgba(249, 115, 22, 0.25)`    | hover 边框         |
-| 文字主   | `#cbd5e1`                     | 标题               |
-| 文字次   | `#94A3B8`                     | 正文               |
-| 文字辅   | `#64748B`                     | 辅助信息           |
-| 字体     | `Orbitron` / `JetBrains Mono` | 标题/代码          |
+| Token      | 值                              | 用途                | UnoCSS 类               |
+| ---------- | ------------------------------- | ------------------- | ----------------------- |
+| 主色       | `#F97316`                       | 按钮、高亮、强调    | `text-orange-500`       |
+| 主色浅     | `#FB923C`                       | 渐变、hover         | —                       |
+| 背景深     | `#0F172A`                       | 页面背景            | `bg-slate-900`          |
+| 卡片背景   | `rgba(30, 41, 59, 0.6)`        | 卡片、弹窗          | —                       |
+| 边框       | `rgba(148, 163, 184, 0.08)`    | 默认边框            | —                       |
+| 边框高亮   | `rgba(249, 115, 22, 0.25)`     | hover 边框          | —                       |
+| 文字主     | `#f1f5f9`                       | 主要文字/高亮       | `text-slate-100`        |
+| 文字标题   | `#cbd5e1`                       | 标题                | `text-slate-300`        |
+| 文字正文   | `#94a3b8`                       | 正文                | `text-slate-400`        |
+| 文字辅助   | `#64748b`                       | 辅助信息            | `text-slate-500`        |
+| 文字次要   | `#475569`                       | 次要辅助            | `text-slate-600`        |
+| 品牌字体   | Orbitron                        | 标题/logo           | `font-display`          |
+| 等宽字体   | JetBrains Mono                  | 代码/标签           | `font-mono`             |
+| 正文字体   | Noto Sans SC                    | 正文（全局默认）    | `font-sans`             |
 
 ---
 
