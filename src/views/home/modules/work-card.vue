@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { formatCompact } from '@/utils/common';
-import LazyImage from '@/components/custom/lazy-image.vue';
+import { useRouter } from 'vue-router';
+import { formatCompact } from '../../../utils/common.ts';
 
 defineOptions({ name: 'WorkCard' });
+
+const router = useRouter();
 
 interface Props {
   work: Api.VibeCoding.VibeProject;
   index: number;
 }
 
-const props = defineProps<Props>();
-
-interface Emits {
-  (e: 'click', work: Api.VibeCoding.VibeProject): void;
-  (e: 'like', workId: number): void;
-}
-
-const emit = defineEmits<Emits>();
+defineProps<Props>();
 
 const tagColors = [
   { bg: 'rgba(249, 115, 22, 0.12)', text: '#FB923C' },
@@ -29,6 +24,18 @@ const tagColors = [
 function getTagStyle(idx: number) {
   return tagColors[idx % tagColors.length];
 }
+
+function handleCardClick(idx: number) {
+  router.push(`/vibecoding/${idx}`);
+}
+
+function handleUserCenter(name: string) {
+  router.push({ path: `/user-center/${name}` });
+}
+
+function handleClick(idx: number) {
+  console.log(idx);
+}
 </script>
 
 <template>
@@ -40,7 +47,7 @@ function getTagStyle(idx: number) {
       animation: cardEnter 0.5s ease-out both;
     "
     :style="{ animationDelay: `${index * 60}ms` }"
-    @click="emit('click', work)"
+    @click="handleCardClick(work.id)"
     @mouseenter="
       (e: MouseEvent) => {
         const el = e.currentTarget as HTMLElement;
@@ -65,12 +72,7 @@ function getTagStyle(idx: number) {
         background: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%);
       "
     >
-      <LazyImage
-        :src="work.coverUrl"
-        :alt="work.title"
-        disable-preview
-        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-      />
+      <ElImage :src="work.coverUrl" :alt="work.title" lazy fit="cover" />
 
       <!-- Featured badge -->
       <div
@@ -118,22 +120,17 @@ function getTagStyle(idx: number) {
 
       <!-- Meta -->
       <div class="flex-y-center justify-between">
-        <div class="flex-y-center gap-2">
-          <div
-            class="w-6 h-6 rounded-full flex-center text-xs font-700"
-            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
-          >
-            {{ work.author.name[0] }}
-          </div>
+        <div class="flex items-end gap-2" @click.stop="handleUserCenter(work.author?.name)">
+          <ElAvatar size="small" :src="work.author?.avatar" />
           <span class="text-xs" style="color: #64748b">
             {{ work.author.name }}
           </span>
         </div>
         <div class="flex items-center gap-3">
           <button
-            class="flex-y-center gap-1 text-xs cursor-pointer transition-colors duration-200"
+            class="flex-y-center gap-1 text-xs cursor-pointer tra nsition-colors duration-200"
             style="color: #64748b"
-            @click.stop="emit('like', work.id)"
+            @click.stop="handleClick(work.id)"
             @mouseenter="
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
             "

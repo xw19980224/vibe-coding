@@ -3,6 +3,7 @@ import VibeHero from './modules/vibe-hero.vue';
 import { usePagination, useRequest } from '@a02/alova/client';
 import { VibeWorksAPI } from '@/service/api/vibe-works';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
+import { onClickOutside } from '@vueuse/core';
 import { useAppStore } from '@/stores/modules/app';
 import WorkCard from './modules/work-card.vue';
 
@@ -12,10 +13,15 @@ const appStore = useAppStore();
 
 const isMobile = computed(() => appStore.isMobile);
 const loadingRef = ref<HTMLElement>();
-const { bool: sortDropdownVisible, toggle: toggleSortDropdown } = useBoolean(false);
+const sortDropdownRef = ref<HTMLElement>();
+const {
+  bool: sortDropdownVisible,
+  toggle: toggleSortDropdown,
+  setBool: setSortDropdownVisible,
+} = useBoolean(false);
 const { bool: filterDropdownVisible, toggle: toggleFilterDropdown } = useBoolean(false);
 const searchParams = reactive({
-  category: undefined,
+  category: 'all',
   sort: 'recommended' as Api.VibeCoding.SortMode,
 });
 
@@ -40,21 +46,27 @@ const {
 );
 
 const sortOptions = [
-  { id: 'recommended' as Api.VibeCoding.SortMode, label: '推荐' },
-  { id: 'latest' as Api.VibeCoding.SortMode, label: '最新' },
-  { id: 'popular' as Api.VibeCoding.SortMode, label: '最热' },
+  { key: 'recommended' as Api.VibeCoding.SortMode, label: '推荐' },
+  { key: 'latest' as Api.VibeCoding.SortMode, label: '最新' },
+  { key: 'popular' as Api.VibeCoding.SortMode, label: '最热' },
 ];
 
 const categories = computed(() => [
-  { value: undefined, label: '全部' },
-  ...(categoriesRes.value?.map((c) => ({ value: c.id, label: c.name })) || []),
+  { value: 'all', label: '全部' },
+  ...(categoriesRes.value?.map((c) => ({ value: c.code, label: c.name })) || []),
 ]);
 
 const { data: categoriesRes } = useRequest(() => VibeWorksAPI.getCategories(), {
   immediate: true,
 });
-function handleCategoryChange(category: string | undefined) {
-  searchParams.category = category;
+
+function handleCategoryChange() {
+  reload();
+}
+
+function handleSortChange(sort: Api.VibeCoding.SortMode) {
+  searchParams.sort = sort;
+  setSortDropdownVisible(false);
   reload();
 }
 
@@ -76,6 +88,9 @@ const { observe, unobserve } = useIntersectionObserver(
 
 onMounted(() => {
   observe();
+  onClickOutside(sortDropdownRef, () => {
+    setSortDropdownVisible(false);
+  });
 });
 
 onUnmounted(() => {
@@ -98,7 +113,7 @@ onUnmounted(() => {
       </h2>
       <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
         {{
-          searchParams.category === undefined
+          searchParams.category === 'all'
             ? '浏览全部创作'
             : '筛选分类: ' + categories.find((c) => c.value === searchParams.category)?.label
         }}
@@ -108,35 +123,20 @@ onUnmounted(() => {
     <div class="flex items-center justify-between gap-4 py-5">
       <!-- Left: Categories -->
       <div class="flex-1 min-w-0">
-        <ScrollTabs>
-          <button
-            v-for="cat in categories"
-            :key="cat.value ?? 'all'"
-            class="h-10 px-4 rounded-lg text-sm font-500 cursor-pointer transition-all duration-200 shrink-0"
-            :style="{
-              fontFamily:
-                searchParams.category === cat.value
-                  ? 'Orbitron, sans-serif'
-                  : '\'JetBrains Mono\', monospace',
-              color: searchParams.category === cat.value ? '#F97316' : '#94A3B8',
-              background:
-                searchParams.category === cat.value ? 'rgba(249, 115, 22, 0.1)' : 'transparent',
-              border:
-                searchParams.category === cat.value
-                  ? '1px solid rgba(249, 115, 22, 0.3)'
-                  : '1px solid rgba(148, 163, 184, 0.08)',
-            }"
-            @click="handleCategoryChange(cat.value)"
-          >
-            {{ cat.label }}
-          </button>
-        </ScrollTabs>
+        <ElTabs v-model="searchParams.category" class="demo-tabs" @tabChange="handleCategoryChange">
+          <ElTabPane
+            v-for="(category, index) in categories"
+            :key="index"
+            :label="category.label"
+            :name="category.value"
+          />
+        </ElTabs>
       </div>
 
       <!-- Right: Sort + Filter -->
       <div class="flex items-center gap-2 shrink-0">
         <!-- Sort dropdown -->
-        <div class="relative">
+        <div class="relative" ref="sortDropdownRef">
           <button
             class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5"
             style="
@@ -148,11 +148,11 @@ onUnmounted(() => {
             @click="toggleSortDropdown"
           >
             <SvgIcon icon="lucide:arrow-up-down" style="font-size: 13px" />
-            {{ sortOptions.find((s) => s.id === searchParams.sort)?.label || '推荐' }}
+            {{ sortOptions.find((s) => s.key === searchParams.sort)?.label || '推荐' }}
           </button>
           <div
             v-if="sortDropdownVisible"
-            class="absolute right-0 top-11 w-28 rounded-lg p-1 z-20"
+            class="absolute right-0 top-11 rounded-lg p-1 z-20"
             style="
               background: rgba(30, 41, 59, 0.95);
               border: 1px solid rgba(249, 115, 22, 0.12);
@@ -161,15 +161,15 @@ onUnmounted(() => {
           >
             <button
               v-for="opt in sortOptions"
-              :key="opt.id"
-              class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 text-left px-3"
+              :key="opt.key"
+              class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 px-3"
               :style="{
                 fontFamily: '\'JetBrains Mono\', monospace',
-                color: searchParams.sort === opt.id ? '#F97316' : '#94A3B8',
+                color: searchParams.sort === opt.key ? '#F97316' : '#94A3B8',
                 background:
-                  searchParams.sort === opt.id ? 'rgba(249, 115, 22, 0.1)' : 'transparent',
+                  searchParams.sort === opt.key ? 'rgba(249, 115, 22, 0.1)' : 'transparent',
               }"
-              @click="searchParams.sort = opt.id"
+              @click="handleSortChange(opt.key)"
             >
               {{ opt.label }}
             </button>
@@ -218,3 +218,44 @@ onUnmounted(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+:deep(.el-tabs) {
+  --el-tabs-header-height: 36px;
+}
+
+:deep(.el-tabs__header) {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+/* 隐藏底部分隔线 */
+:deep(.el-tabs__nav-wrap::after) {
+  display: none;
+}
+
+/* 自定义 active bar */
+:deep(.el-tabs__active-bar) {
+  height: 2px;
+  background: #f97316;
+  border-radius: 2px;
+}
+
+/* Tab 项样式 */
+:deep(.el-tabs__item) {
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 0 16px;
+  transition: all 0.2s;
+}
+
+:deep(.el-tabs__item:hover) {
+  color: #f97316;
+}
+
+:deep(.el-tabs__item.is-active) {
+  color: #f97316;
+  font-weight: 600;
+}
+</style>

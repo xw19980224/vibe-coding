@@ -69,10 +69,13 @@ declare namespace Api {
       license?: string;
       /** 作品状态 */
       status: WorkStatus;
+      /** 作者 */
+      author: Author;
       createdAt: string;
-    }
+    };
 
-    type publishVibeProjectForm = Pick<VibeProject,
+    type publishVibeProjectForm = Pick<
+      VibeProject,
       | 'title'
       | 'category'
       | 'platform'
@@ -94,15 +97,16 @@ declare namespace Api {
       | 'isOnline'
       | 'onlineDate'
       | 'license'
-      | 'featured'>
+      | 'featured'
+    >;
 
     type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
 
     type VibeProjectSearchParams = CommonType.RecordNullable<
       Pick<VibeProject, 'title' | 'category' | 'tags'> &
-      Common.CommonSearchParams & {
-        sort?: SortMode;
-      }
+        Common.CommonSearchParams & {
+          sort?: SortMode;
+        }
     >;
 
     /**
@@ -133,6 +137,7 @@ declare namespace Api {
 
     interface Category {
       id: string;
+      code: string;
       name: string;
       nameEn: string;
     }
