@@ -136,7 +136,7 @@ declare namespace Api {
     type RuntimePlatform = 'web' | 'ios' | 'android' | 'desktop' | 'mini-program' | 'cross';
 
     interface Category {
-      id: string;
+      id: number;
       code: string;
       name: string;
       nameEn: string;
