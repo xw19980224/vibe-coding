@@ -35,7 +35,7 @@ const isSelf = computed(() => authStore.userInfo?.nickname === effectiveNickname
 const tabs = computed(() => {
   const list = [{ id: 'works', label: '作品', count: userDetail.value?.works ?? 0 }];
   if (isSelf.value) {
-    list.push({ id: 'likes', label: '收藏', count: userDetail.value?.collections ?? 0 });
+    list.push({ key: 'likes', label: '收藏', count: userDetail.value?.collections ?? 0 });
   }
   return list;
 });
