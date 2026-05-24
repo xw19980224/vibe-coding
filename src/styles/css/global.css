@@ -10,4 +10,5 @@ body,
 html {
   overflow-x: hidden;
   color: rgb(var(--base-text-color));
+  font-family: 'Noto Sans SC', sans-serif;
 }
