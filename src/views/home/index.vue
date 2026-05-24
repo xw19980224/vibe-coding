@@ -119,7 +119,7 @@ onUnmounted(() => {
       </p>
     </div>
 
-    <div class="flex items-center justify-between gap-4 py-5">
+    <div class="flex items-start justify-between gap-4 pt-5">
       <!-- Left: Categories -->
       <div class="flex-1 min-w-0">
         <ElTabs v-model="searchParams.category" @tabChange="handleCategoryChange">
