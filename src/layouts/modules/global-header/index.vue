@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/modules/auth';
-import { useAuthModalStore } from '@/stores/modules/auth-modal';
-import { useVibeStore } from '@/stores/modules/vibe';
+import LoginDialog from '@/layouts/modules/global-header/components/login-dialog.vue';
+import { useBoolean } from '@a02/hooks';
 
 defineOptions({ name: 'GlobalHeader' });
 
 const router = useRouter();
 const auth = useAuthStore();
-const authModal = useAuthModalStore();
-const vibeStore = useVibeStore();
+const { bool: visible, setTrue: openDialog } = useBoolean();
 const searchQuery = ref('');
 
 function goHome() {
@@ -24,16 +23,11 @@ function goToUser() {
   router.push('/user-center');
 }
 
-function openAuth() {
-  authModal.open();
-}
-
 let debounceTimer: ReturnType<typeof setTimeout>;
+
 function onSearchInput() {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    vibeStore.setSearch(searchQuery.value);
-  }, 300);
+  debounceTimer = setTimeout(() => {}, 300);
 }
 </script>
 
@@ -115,11 +109,12 @@ function onSearchInput() {
           v-else
           class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200"
           style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
-          @click="openAuth"
+          @click="openDialog"
         >
           登录
         </button>
       </div>
     </div>
   </nav>
+  <LoginDialog v-model:visible="visible" />
 </template>

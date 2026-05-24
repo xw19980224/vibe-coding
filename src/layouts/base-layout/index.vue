@@ -3,13 +3,10 @@ import GlobalHeader from '@/layouts/modules/global-header/index.vue';
 import GlobalFooter from '@/layouts/modules/global-footer/index.vue';
 import ParticleBg from '@/components/custom/particle-bg.vue';
 import GlobalContent from '@/layouts/modules/global-content/index.vue';
-import AuthModal from '@/layouts/modules/global-header/components/login-dialog.vue';
-import { useAuthModalStore } from '@/stores/modules/auth-modal';
 import ImagePreview from '@/components/custom/image-preview.vue';
 
 defineOptions({ name: 'BaseLayout' });
 
-const authModal = useAuthModalStore();
 </script>
 
 <template>
@@ -22,7 +19,6 @@ const authModal = useAuthModalStore();
     </div>
 
     <GlobalFooter />
-    <AuthModal v-model:visible="authModal.visible" />
     <ImagePreview />
   </div>
 </template>

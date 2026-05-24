@@ -92,9 +92,7 @@ Route guards: `createProgressGuard` (NProgress) / `createDocumentTitleGuard` (�
 | ------------------- | ------------------ | ------------------------------------------------------------------------------------------ |
 | `useAppStore`       | `app-store`        | 语言切换、breakpoints (`breakpointsTailwind`)、`isMobile`                                  |
 | `useAuthStore`      | `auth-store`       | token/jwt 管理、`login()` / `loginByToken()` / `getUserInfo()`、`isLogin` / `loginLoading` |
-| `useAuthModalStore` | `auth-modal-store` | AuthModal 弹窗显隐 `visible` / `open()` / `close()`                                        |
 | `useThemeStore`     | `theme-store`      | 主题方案、色调、CSS 变量注入                                                               |
-| `useVibeStore`      | `vibe-store`       | 筛选条件 `filters`、分类列表、`fetchCategories()` / `fetchWorkById()`                      |
 
 Pinia 插件 `resetSetupStore` 为 setup-syntax store 提供 `$reset()`。
 

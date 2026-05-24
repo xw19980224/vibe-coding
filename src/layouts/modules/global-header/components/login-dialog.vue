@@ -7,7 +7,7 @@ import { useCountDown } from '@a02/hooks';
 import { AuthAPI } from '@/service/api/auth.ts';
 import { useCaptcha } from '@/hooks/business/captacha.ts';
 
-defineOptions({ name: 'AuthModal' });
+defineOptions({ name: 'LoginDialog' });
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
@@ -83,7 +83,6 @@ watch(visible, (val) => {
     v-model="visible"
     class="rd-2 max-w-4xl w-full"
     :close-on-click-modal="false"
-    style="background: rgba(15, 23, 42); backdrop-filter: blur(6px)"
     lock-scroll
   >
     <template #header>
@@ -242,23 +241,4 @@ watch(visible, (val) => {
     </template>
   </ElDialog>
 </template>
-<style scoped>
-:deep(.el-input__wrapper) {
-  background: rgba(15, 23, 42, 0.5) !important;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: none !important;
-}
-
-:deep(.el-input__inner) {
-  color: #cbd5e1;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-:deep(.el-input__wrapper:hover) {
-  border-color: #f97316;
-}
-
-:deep(.el-input__wrapper.is-focus) {
-  border-color: #f97316;
-}
-</style>
+<style lang="scss" scoped></style>

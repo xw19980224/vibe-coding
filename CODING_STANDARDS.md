@@ -300,9 +300,7 @@ export const useXxxStore = defineStore(SetupStoreId.Xxx, () => {
 | ------------------- | ------------------ | ----------------------------------------------- |
 | `useAppStore`       | `app-store`        | 语言切换、breakpoints、isMobile                 |
 | `useAuthStore`      | `auth-store`       | token/jwt、login/logout、userInfo、loginLoading |
-| `useAuthModalStore` | `auth-modal-store` | AuthModal 弹窗显隐                              |
 | `useThemeStore`     | `theme-store`      | 主题、CSS 变量                                  |
-| `useVibeStore`      | `vibe-store`       | 筛选条件、分类列表                              |
 
 ### 6.3 使用 Store
 

@@ -12,10 +12,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AlSelect: typeof import('./../components/custom/al-select/al-select.vue')['default']
-    AlSelectItem: typeof import('./../components/custom/al-select/al-select-item.vue')['default']
     AppProvider: typeof import('./../components/custom/app-provider.vue')['default']
-    AuthModal: typeof import('../layouts/modules/global-header/components/login-dialog.vue')['default']
     BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     Carousel: typeof import('./../components/custom/carousel.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
@@ -24,9 +21,6 @@ declare module 'vue' {
     ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElDropdown: typeof import('element-plus/es')['ElDropdown']
-    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
-    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElImage: typeof import('element-plus/es')['ElImage']
@@ -54,10 +48,7 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
-  const AlSelect: typeof import('./../components/custom/al-select/al-select.vue')['default']
-  const AlSelectItem: typeof import('./../components/custom/al-select/al-select-item.vue')['default']
   const AppProvider: typeof import('./../components/custom/app-provider.vue')['default']
-  const AuthModal: typeof import('../layouts/modules/global-header/components/login-dialog.vue')['default']
   const BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
   const Carousel: typeof import('./../components/custom/carousel.vue')['default']
   const DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
@@ -66,9 +57,6 @@ declare global {
   const ElCard: typeof import('element-plus/es')['ElCard']
   const ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
   const ElDialog: typeof import('element-plus/es')['ElDialog']
-  const ElDropdown: typeof import('element-plus/es')['ElDropdown']
-  const ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
-  const ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
   const ElForm: typeof import('element-plus/es')['ElForm']
   const ElFormItem: typeof import('element-plus/es')['ElFormItem']
   const ElImage: typeof import('element-plus/es')['ElImage']
