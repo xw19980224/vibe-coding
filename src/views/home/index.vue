@@ -123,7 +123,7 @@ onUnmounted(() => {
     <div class="flex items-center justify-between gap-4 py-5">
       <!-- Left: Categories -->
       <div class="flex-1 min-w-0">
-        <ElTabs v-model="searchParams.category" class="demo-tabs" @tabChange="handleCategoryChange">
+        <ElTabs v-model="searchParams.category" @tabChange="handleCategoryChange">
           <ElTabPane
             v-for="(category, index) in categories"
             :key="index"
@@ -219,43 +219,4 @@ onUnmounted(() => {
   </section>
 </template>
 
-<style scoped>
-:deep(.el-tabs) {
-  --el-tabs-header-height: 36px;
-}
-
-:deep(.el-tabs__header) {
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-/* 隐藏底部分隔线 */
-:deep(.el-tabs__nav-wrap::after) {
-  display: none;
-}
-
-/* 自定义 active bar */
-:deep(.el-tabs__active-bar) {
-  height: 2px;
-  background: #f97316;
-  border-radius: 2px;
-}
-
-/* Tab 项样式 */
-:deep(.el-tabs__item) {
-  color: #94a3b8;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  padding: 0 16px;
-  transition: all 0.2s;
-}
-
-:deep(.el-tabs__item:hover) {
-  color: #f97316;
-}
-
-:deep(.el-tabs__item.is-active) {
-  color: #f97316;
-  font-weight: 600;
-}
-</style>
+<style scoped></style>

@@ -90,14 +90,7 @@ onMounted(() => {
       </ElButton>
 
       <!-- Card -->
-      <ElCard
-        class="rd-2xl overflow-hidden w-full"
-        style="
-          background: rgba(30, 41, 59, 0.92);
-          border: 1px solid rgba(148, 163, 184, 0.08);
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-        "
-      >
+      <ElCard class="rd-2xl overflow-hidden w-full">
         <template #header>
           <div class="flex items-center gap-3">
             <div
@@ -256,31 +249,12 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 :deep(.el-card__header) {
   border-bottom: 0 !important;
 }
 
 :deep(.el-card__footer) {
   border-top: 0 !important;
-}
-
-:deep(.el-input__wrapper) {
-  background: rgba(15, 23, 42, 0.5) !important;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: none !important;
-}
-
-:deep(.el-input__inner) {
-  color: #cbd5e1;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-:deep(.el-input__wrapper:hover) {
-  border-color: #f97316;
-}
-
-:deep(.el-input__wrapper.is-focus) {
-  border-color: #f97316;
 }
 </style>
