@@ -134,20 +134,17 @@ onUnmounted(() => {
       <div class="flex-1 max-w-100 relative">
         <SvgIcon
           icon="lucide:search"
-          class="absolute left-3 top-1/2 -translate-y-1/2"
-          style="color: #64748b; font-size: 14px"
+          class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+          style="font-size: 14px"
         />
         <input
           v-model="searchParams.keyword"
           type="text"
           placeholder="搜索作品名称、描述..."
-          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200"
-          style="
-            background: rgba(30, 41, 59, 0.5);
+          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100"
+          style="background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(249, 115, 22, 0.1);
-            color: #f1f5f9;
-            font-family: 'JetBrains Mono', monospace;
-          "
+            font-family: 'JetBrains Mono', monospace"
           @keyup.enter="handleSearch"
         />
         <button
@@ -174,13 +171,10 @@ onUnmounted(() => {
       <!-- Right: Filter -->
       <div class="relative shrink-0">
         <button
-          class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5"
-          style="
-            background: rgba(30, 41, 59, 0.5);
+          class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400"
+          style="background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(249, 115, 22, 0.1);
-            color: #94a3b8;
-            font-family: 'JetBrains Mono', monospace;
-          "
+            font-family: 'JetBrains Mono', monospace"
           @click="toggleFilter"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
@@ -198,8 +192,8 @@ onUnmounted(() => {
           >
             <div v-if="props.isSelf">
               <p
-                class="text-xs mb-2"
-                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+                class="text-xs mb-2 text-slate-500"
+                style="font-family: 'JetBrains Mono', monospace"
               >
                 状态
               </p>
@@ -224,8 +218,8 @@ onUnmounted(() => {
             </div>
             <div>
               <p
-                class="text-xs mb-2"
-                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+                class="text-xs mb-2 text-slate-500"
+                style="font-family: 'JetBrains Mono', monospace"
               >
                 分类
               </p>
@@ -250,8 +244,8 @@ onUnmounted(() => {
             </div>
             <div>
               <p
-                class="text-xs mb-2"
-                style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+                class="text-xs mb-2 text-slate-500"
+                style="font-family: 'JetBrains Mono', monospace"
               >
                 排序
               </p>
@@ -282,7 +276,7 @@ onUnmounted(() => {
     <!-- Empty -->
     <div v-if="!works.length" class="flex flex-col items-center py-16">
       <div class="text-5xl mb-4" style="opacity: 0.15">(´･_･`)</div>
-      <p class="text-sm mb-4" style="color: #94a3b8; font-family: 'JetBrains Mono', monospace">
+      <p class="text-sm mb-4 text-slate-400" style="font-family: 'JetBrains Mono', monospace">
         还没有发布作品
       </p>
       <button
@@ -319,7 +313,7 @@ onUnmounted(() => {
           />
         </div>
         <div v-if="!loading && isLastPage" class="flex-center py-10">
-          <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+          <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             已加载全部作品
           </p>
         </div>

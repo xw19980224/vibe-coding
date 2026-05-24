@@ -105,12 +105,12 @@ onUnmounted(() => {
   <section>
     <div class="pt-4 pb-2">
       <h2
-        class="text-2xl md:text-3xl font-700 tracking-wider mb-2"
-        style="font-family: Orbitron, sans-serif; color: #f1f5f9"
+        class="text-2xl md:text-3xl font-700 tracking-wider mb-2 text-slate-100"
+        style="font-family: Orbitron, sans-serif"
       >
         探索作品
       </h2>
-      <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+      <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
         {{
           searchParams.category === 'all'
             ? '浏览全部创作'
@@ -210,7 +210,7 @@ onUnmounted(() => {
       </div>
 
       <div v-if="!loading && isLastPage" class="flex-center py-10">
-        <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+        <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
           已加载全部作品
         </p>
       </div>

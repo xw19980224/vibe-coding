@@ -59,41 +59,35 @@ const platformOptions = [
   <div class="space-y-6">
     <!-- 作品名称 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">作品名称 *</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >作品名称 *</label>
       <input
         v-model="form.title"
         type="text"
         placeholder="给你的作品取个名字..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <!-- 作品副标题 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">作品副标题</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >作品副标题</label>
       <input
         v-model="form.subtitle"
         type="text"
         placeholder="一句话描述你的作品..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <!-- 分类 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">分类</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >分类</label>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="cat in mockCategories.filter((c) => c.id !== 'all')"
@@ -115,7 +109,7 @@ const platformOptions = [
 
     <!-- 标签 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">标签</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >标签</label>
       <Select v-model="form.tags" :options="tagOptions" placeholder="选择标签" multiple />
       <div v-if="form.tags.length" class="flex flex-wrap gap-2 mt-3">
         <span
@@ -137,7 +131,7 @@ const platformOptions = [
 
     <!-- 开发语言 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">开发语言</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >开发语言</label>
       <Select
         v-model="selectedLanguage"
         :options="languageOptions"
@@ -148,7 +142,7 @@ const platformOptions = [
 
     <!-- 运行平台 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">运行平台</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >运行平台</label>
       <Select v-model="form.platform" :options="platformOptions" placeholder="选择运行平台" />
       <div v-if="form.platform" class="flex flex-wrap gap-2 mt-3">
         <span

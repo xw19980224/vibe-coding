@@ -58,7 +58,7 @@ const tabs = computed(() => {
     <template v-if="activeTab === 'likes'">
       <div class="flex flex-col items-center py-16">
         <div class="text-4xl mb-3" style="opacity: 0.1">☆</div>
-        <p class="text-sm" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+        <p class="text-sm text-slate-500" style="font-family: 'JetBrains Mono', monospace">
           暂无收藏的作品
         </p>
       </div>

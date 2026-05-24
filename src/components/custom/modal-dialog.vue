@@ -79,15 +79,15 @@ onUnmounted(() => {
             style="border-bottom: 1px solid rgba(148, 163, 184, 0.06)"
           >
             <h2
-              class="text-lg font-600"
-              style="color: #cbd5e1; font-family: 'Noto Sans SC', sans-serif"
+              class="text-lg font-600 text-slate-300"
+              style="font-family: 'Noto Sans SC', sans-serif"
             >
               {{ title }}
             </h2>
             <button
               v-if="closable"
-              class="w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 shrink-0 ml-4"
-              style="color: #64748b"
+              class="w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 shrink-0 ml-4 text-slate-500"
+
               @click="close"
               @mouseenter="
                 (e: MouseEvent) => {

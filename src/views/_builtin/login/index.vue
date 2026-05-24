@@ -78,8 +78,8 @@ onMounted(() => {
     <div class="relative z-10 w-full max-w-4xl">
       <!-- Back -->
       <ElButton
-        class="mb-6 cursor-pointer"
-        style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+        class="mb-6 cursor-pointer text-slate-500"
+        style="font-family: 'JetBrains Mono', monospace"
         @click="router.push('/')"
         link
       >
@@ -104,8 +104,8 @@ onMounted(() => {
               V
             </div>
             <span
-              class="text-2xl font-700 tracking-wider"
-              style="font-family: Orbitron, sans-serif; color: #cbd5e1"
+              class="text-2xl font-700 tracking-wider text-slate-300"
+              style="font-family: Orbitron, sans-serif"
             >
               VIBE<span style="color: #f97316">CODING</span>
             </span>
@@ -115,8 +115,8 @@ onMounted(() => {
           <!-- Left: Email login -->
           <div class="flex-1 md:pr-5">
             <h3
-              class="text-lg font-600 mb-5"
-              style="color: #cbd5e1; font-family: 'Noto Sans SC', sans-serif"
+              class="text-lg font-600 mb-5 text-slate-300"
+              style="font-family: 'Noto Sans SC', sans-serif"
             >
               邮箱登录
             </h3>
@@ -138,12 +138,9 @@ onMounted(() => {
                     :disabled="isEmailCounting"
                     :loading="emailLoading"
                     @click="getEmailCaptcha(model.email)"
-                    style="
-                      background: rgba(148, 163, 184, 0.06);
+                    class="text-slate-400" style="background: rgba(148, 163, 184, 0.06);
                       border: 1px solid rgba(148, 163, 184, 0.15);
-                      color: #94a3b8;
-                      font-family: 'JetBrains Mono', monospace;
-                    "
+                      font-family: 'JetBrains Mono', monospace"
                   >
                     {{ emailLabel }}
                   </ElButton>
@@ -172,8 +169,8 @@ onMounted(() => {
               style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
             />
             <span
-              class="text-sm md:hidden"
-              style="color: #475569; font-family: 'JetBrains Mono', monospace"
+              class="text-sm md:hidden text-slate-600"
+              style="font-family: 'JetBrains Mono', monospace"
             >
               — 其他方式 —
             </span>
@@ -182,8 +179,8 @@ onMounted(() => {
           <!-- Right: WeChat QR -->
           <div class="hidden md:flex flex-col items-center justify-center md:w-64 md:pl-5">
             <h3
-              class="text-lg font-600 mb-5"
-              style="color: #cbd5e1; font-family: 'Noto Sans SC', sans-serif"
+              class="text-lg font-600 mb-5 text-slate-300"
+              style="font-family: 'Noto Sans SC', sans-serif"
             >
               微信扫码登录
             </h3>
@@ -206,28 +203,28 @@ onMounted(() => {
                 style="background: rgba(15, 23, 42, 0.85)"
                 @click="sendQrCode()"
               >
-                <SvgIcon icon="lucide:rotate-cw" style="font-size: 24px; color: #94a3b8" />
+                <SvgIcon icon="lucide:rotate-cw" class="text-slate-400" style="font-size: 24px" />
                 <span
-                  class="text-xs"
-                  style="color: #94a3b8; font-family: 'JetBrains Mono', monospace"
+                  class="text-xs text-slate-400"
+                  style="font-family: 'JetBrains Mono', monospace"
                 >
                   点击刷新
                 </span>
               </div>
             </div>
             <p
-              class="text-sm text-center"
-              style="color: #475569; font-family: 'JetBrains Mono', monospace"
+              class="text-sm text-center text-slate-600"
+              style="font-family: 'JetBrains Mono', monospace"
             >
               请使用微信扫描二维码
             </p>
-            <p class="text-sm text-center mt-1" style="color: #64748b">关注公众号即可完成登录</p>
+            <p class="text-sm text-center mt-1 text-slate-500" >关注公众号即可完成登录</p>
           </div>
         </div>
         <template #footer>
           <div
-            class="flex-center gap-2 text-sm flex-wrap"
-            style="border-top: 1px solid rgba(148, 163, 184, 0.06); color: #64748b"
+            class="flex-center gap-2 text-sm flex-wrap text-slate-500"
+            style="border-top: 1px solid rgba(148, 163, 184, 0.06)"
           >
             <span>登录即代表同意</span>
             <span
@@ -241,7 +238,7 @@ onMounted(() => {
               style="color: #f97316"
               >《隐私政策》</span
             >
-            <span style="color: #475569">未注册手机号将自动注册</span>
+            <span  class="text-slate-600">未注册手机号将自动注册</span>
           </div>
         </template>
       </ElCard>

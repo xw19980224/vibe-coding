@@ -76,8 +76,8 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
       <!-- Top-right: More icon -->
       <button
         v-if="props.isSelf"
-        class="absolute top-2 right-2 w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 z-10"
-        style="background: rgba(15, 23, 42, 0.7); color: #94a3b8; backdrop-filter: blur(4px)"
+        class="absolute top-2 right-2 w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 z-10 text-slate-400"
+        style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px)"
         @click.stop="toggleMenu"
         @mouseenter="
           (e: MouseEvent) => {
@@ -108,8 +108,8 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
           @click.stop
         >
           <button
-            class="w-full h-9 px-3 flex items-center gap-2 text-xs cursor-pointer transition-all duration-150"
-            style="color: #cbd5e1"
+            class="w-full h-9 px-3 flex items-center gap-2 text-xs cursor-pointer transition-all duration-150 text-slate-300"
+
             @click="handleAction('pin')"
             @mouseenter="
               (e: MouseEvent) => {
@@ -126,8 +126,8 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
             置顶
           </button>
           <button
-            class="w-full h-9 px-3 flex items-center gap-2 text-xs cursor-pointer transition-all duration-150"
-            style="color: #cbd5e1"
+            class="w-full h-9 px-3 flex items-center gap-2 text-xs cursor-pointer transition-all duration-150 text-slate-300"
+
             @click="handleAction('edit')"
             @mouseenter="
               (e: MouseEvent) => {
@@ -188,12 +188,12 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
 
     <!-- Info -->
     <div class="p-4">
-      <h3 class="text-base font-600 mb-1 truncate" style="color: #cbd5e1">
+      <h3 class="text-base font-600 mb-1 truncate text-slate-300" >
         {{ work.title }}
       </h3>
       <p
-        class="text-sm line-clamp-2 mb-3 leading-relaxed"
-        style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+        class="text-sm line-clamp-2 mb-3 leading-relaxed text-slate-500"
+        style="font-family: 'JetBrains Mono', monospace"
       >
         {{ work.description }}
       </p>

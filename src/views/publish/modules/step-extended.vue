@@ -44,32 +44,29 @@ const licenseOptions = [
   <div class="space-y-6">
     <!-- 开发周期 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">开发周期</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >开发周期</label>
       <Select v-model="form.duration" :options="durationOptions" placeholder="选择开发周期" />
       <input
         v-if="isCustomDuration"
         v-model="form.duration"
         type="text"
         placeholder="输入自定义周期，如：2个月、30天..."
-        class="w-full h-10 px-4 rounded-lg text-sm outline-none transition-all duration-200 mt-3"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-10 px-4 rounded-lg text-sm outline-none transition-all duration-200 mt-3 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <!-- 许可证 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">许可证</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >许可证</label>
       <Select v-model="form.license" :options="licenseOptions" placeholder="选择许可证" />
     </div>
 
     <!-- 是否上线 -->
     <div class="flex items-center justify-between">
-      <label class="text-base font-500" style="color: #94a3b8">是否上线</label>
+      <label class="text-base font-500 text-slate-400" >是否上线</label>
       <button
         class="relative w-11 h-6 rounded-full cursor-pointer transition-all duration-200"
         :style="{ background: form.isOnline ? '#f97316' : 'rgba(148, 163, 184, 0.2)' }"
@@ -84,23 +81,20 @@ const licenseOptions = [
 
     <!-- 上线时间 -->
     <div v-if="form.isOnline">
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">上线时间</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >上线时间</label>
       <input
         v-model="form.onlineDate"
         type="month"
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <!-- 源码仓库 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">源码仓库</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >源码仓库</label>
       <div class="flex gap-2 mb-3">
         <button
           v-for="opt in repoPlatformOptions"
@@ -121,37 +115,31 @@ const licenseOptions = [
         v-model="repoUrl"
         type="url"
         :placeholder="repoPlatform === 'github' ? 'https://github.com/...' : 'https://gitee.com/...'"
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <!-- 在线演示地址 -->
     <div>
-      <label class="block text-base font-500 mb-2" style="color: #94a3b8">在线演示地址</label>
+      <label class="block text-base font-500 mb-2 text-slate-400" >在线演示地址</label>
       <input
         v-model="form.demoUrl"
         type="url"
         placeholder="https://..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-        style="
-          background: rgba(30, 41, 59, 0.5);
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+        style="background: rgba(30, 41, 59, 0.5);
           border: 1px solid rgba(249, 115, 22, 0.1);
-          color: #f1f5f9;
-          font-family: 'JetBrains Mono', monospace;
-        "
+          font-family: 'JetBrains Mono', monospace"
       />
     </div>
 
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
-        style="background: transparent; color: #94a3b8; border: 1px solid rgba(249, 115, 22, 0.15)"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400"
+        style="background: transparent; border: 1px solid rgba(249, 115, 22, 0.15)"
         @click="emit('prev')"
       >
         上一步

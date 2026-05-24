@@ -92,12 +92,12 @@ function handleClick(idx: number) {
 
     <!-- Content -->
     <div class="p-4">
-      <h3 class="text-base font-600 mb-2 line-clamp-1" style="color: #f1f5f9">
+      <h3 class="text-base font-600 mb-2 line-clamp-1 text-slate-100" >
         {{ work.title }}
       </h3>
       <p
-        class="text-xs mb-3 line-clamp-2 leading-relaxed"
-        style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+        class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500"
+        style="font-family: 'JetBrains Mono', monospace"
       >
         {{ work.description }}
       </p>
@@ -122,14 +122,14 @@ function handleClick(idx: number) {
       <div class="flex-y-center justify-between">
         <div class="flex items-end gap-2" @click.stop="handleUserCenter(work.author?.name)">
           <ElAvatar size="small" :src="work.author?.avatar" />
-          <span class="text-xs" style="color: #64748b">
+          <span class="text-xs text-slate-500" >
             {{ work.author.name }}
           </span>
         </div>
         <div class="flex items-center gap-3">
           <button
-            class="flex-y-center gap-1 text-xs cursor-pointer tra nsition-colors duration-200"
-            style="color: #64748b"
+            class="flex-y-center gap-1 text-xs cursor-pointer tra nsition-colors duration-200 text-slate-500"
+
             @click.stop="handleClick(work.id)"
             @mouseenter="
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
@@ -141,7 +141,7 @@ function handleClick(idx: number) {
             <SvgIcon icon="lucide:heart" style="font-size: 14px" />
             {{ formatCompact(work.likes) }}
           </button>
-          <div class="flex-y-center gap-1 text-xs" style="color: #475569">
+          <div class="flex-y-center gap-1 text-xs text-slate-600" >
             <SvgIcon icon="lucide:eye" style="font-size: 14px" />
             {{ formatCompact(work.views) }}
           </div>

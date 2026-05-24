@@ -146,13 +146,10 @@ useEventListener(window, 'resize', updateDropdownPosition);
   <div ref="selectRef" class="relative">
     <button
       ref="triggerRef"
-      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200"
-      style="
-        background: rgba(30, 41, 59, 0.5);
+      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200 text-slate-400"
+      style="background: rgba(30, 41, 59, 0.5);
         border: 1px solid rgba(249, 115, 22, 0.1);
-        color: #94a3b8;
-        font-family: 'JetBrains Mono', monospace;
-      "
+        font-family: 'JetBrains Mono', monospace"
       @click="toggle"
     >
       <span :style="{ color: selectedLabel ? '#f1f5f9' : '#64748b' }">
@@ -161,8 +158,8 @@ useEventListener(window, 'resize', updateDropdownPosition);
       <div class="flex items-center gap-1.5">
         <button
           v-if="clearable && hasValue"
-          class="flex items-center justify-center w-4 h-4 rounded-full cursor-pointer transition-opacity duration-150 hover:opacity-80"
-          style="background: rgba(148, 163, 184, 0.25); color: #94a3b8"
+          class="flex items-center justify-center w-4 h-4 rounded-full cursor-pointer transition-opacity duration-150 hover:opacity-80 text-slate-400"
+          style="background: rgba(148, 163, 184, 0.25)"
           @click="clear"
         >
           <SvgIcon icon="lucide:x" style="font-size: 10px" />
@@ -200,8 +197,8 @@ useEventListener(window, 'resize', updateDropdownPosition);
             <button
               v-for="option in options"
               :key="option.value"
-              class="w-full h-9 px-4 text-left text-sm cursor-pointer transition-all duration-150 flex items-center gap-2"
-              style="color: #cbd5e1; font-family: 'JetBrains Mono', monospace"
+              class="w-full h-9 px-4 text-left text-sm cursor-pointer transition-all duration-150 flex items-center gap-2 text-slate-300"
+              style="font-family: 'JetBrains Mono', monospace"
               :style="{
                 background: isSelected(option.value) ? 'rgba(249, 115, 22, 0.08)' : 'transparent',
               }"

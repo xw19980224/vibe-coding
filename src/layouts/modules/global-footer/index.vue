@@ -17,8 +17,8 @@ defineOptions({ name: 'GlobalFooter' });
             V
           </div>
           <span
-            class="text-sm font-700 tracking-wider"
-            style="font-family: Orbitron, sans-serif; color: #94a3b8"
+            class="text-sm font-700 tracking-wider text-slate-400"
+            style="font-family: Orbitron, sans-serif"
           >
             VIBE<span style="color: #f97316">CODING</span>
           </span>
@@ -28,8 +28,8 @@ defineOptions({ name: 'GlobalFooter' });
           <a
             v-for="link in ['关于我们', '帮助中心', '社区规范', '隐私政策']"
             :key="link"
-            class="text-sm cursor-pointer transition-colors duration-200"
-            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            class="text-sm cursor-pointer transition-colors duration-200 text-slate-500"
+            style="font-family: 'JetBrains Mono', monospace"
             @mouseenter="(e: MouseEvent) => ((e.target as HTMLElement).style.color = '#F97316')"
             @mouseleave="(e: MouseEvent) => ((e.target as HTMLElement).style.color = '#64748B')"
           >
@@ -37,7 +37,7 @@ defineOptions({ name: 'GlobalFooter' });
           </a>
         </div>
 
-        <p class="text-xs" style="color: #475569; font-family: 'JetBrains Mono', monospace">
+        <p class="text-xs text-slate-600" style="font-family: 'JetBrains Mono', monospace">
           &copy; {{ new Date().getFullYear() }} VibeCoding — Built with AI, Shared with Love
         </p>
       </div>

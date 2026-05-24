@@ -107,61 +107,52 @@ function handleSave() {
 
       <!-- Username -->
       <div>
-        <label class="block text-sm font-500 mb-2" style="color: #94a3b8">用户名</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400" >用户名</label>
         <input
           v-model="form.nickname"
           type="text"
           maxlength="15"
           placeholder="给自己取个名字..."
-          class="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-          style="
-            background: rgba(30, 41, 59, 0.5);
+          class="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100"
+          style="background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(249, 115, 22, 0.1);
-            color: #f1f5f9;
-            font-family: 'JetBrains Mono', monospace;
-          "
+            font-family: 'JetBrains Mono', monospace"
         />
-        <div class="text-right text-xs mt-1" style="color: #64748b">
+        <div class="text-right text-xs mt-1 text-slate-500" >
           {{ form.nickname.length }}/15
         </div>
       </div>
 
       <!-- Introduction -->
       <div>
-        <label class="block text-sm font-500 mb-2" style="color: #94a3b8">简介</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400" >简介</label>
         <textarea
           v-model="form.introduction"
           rows="3"
           maxlength="50"
           placeholder="介绍一下自己，让更多人认识你..."
-          class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200"
-          style="
-            background: rgba(30, 41, 59, 0.5);
+          class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100"
+          style="background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(249, 115, 22, 0.1);
-            color: #f1f5f9;
-            font-family: 'JetBrains Mono', monospace;
-          "
+            font-family: 'JetBrains Mono', monospace"
         />
-        <div class="text-right text-xs mt-1" style="color: #64748b">
+        <div class="text-right text-xs mt-1 text-slate-500" >
           {{ form.introduction.length }}/50
         </div>
       </div>
 
       <!-- Skills -->
       <div>
-        <label class="block text-sm font-500 mb-2" style="color: #94a3b8">技能</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400" >技能</label>
         <div class="flex items-center gap-2 mb-3">
           <input
             v-model="skillInput"
             type="text"
             placeholder="输入技能后按回车添加..."
-            class="flex-1 h-10 px-4 rounded-lg text-xs outline-none transition-all duration-200"
-            style="
-              background: rgba(30, 41, 59, 0.5);
+            class="flex-1 h-10 px-4 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100"
+            style="background: rgba(30, 41, 59, 0.5);
               border: 1px solid rgba(249, 115, 22, 0.1);
-              color: #f1f5f9;
-              font-family: 'JetBrains Mono', monospace;
-            "
+              font-family: 'JetBrains Mono', monospace"
             @keyup.enter="addSkill"
           />
           <button
@@ -196,17 +187,14 @@ function handleSave() {
 
       <!-- Social Links -->
       <div>
-        <label class="block text-sm font-500 mb-3" style="color: #94a3b8">社交账号链接</label>
+        <label class="block text-sm font-500 mb-3 text-slate-400" >社交账号链接</label>
         <div class="space-y-3">
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               GitHub
             </div>
@@ -214,24 +202,18 @@ function handleSave() {
               v-model="form.githubUrl"
               type="url"
               placeholder="输入 GitHub 链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               小红书
             </div>
@@ -239,24 +221,18 @@ function handleSave() {
               v-model="form.rednoteUrl"
               type="url"
               placeholder="输入小红书链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               Bilibili
             </div>
@@ -264,24 +240,18 @@ function handleSave() {
               v-model="form.bilibiliUrl"
               type="url"
               placeholder="输入 Bilibili 链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               掘金
             </div>
@@ -289,24 +259,18 @@ function handleSave() {
               v-model="form.juejinUrl"
               type="url"
               placeholder="输入掘金链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               微博
             </div>
@@ -314,24 +278,18 @@ function handleSave() {
               v-model="form.weiboUrl"
               type="url"
               placeholder="输入微博链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.08);
-                color: #94a3b8;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             >
               个人网站
             </div>
@@ -339,13 +297,10 @@ function handleSave() {
               v-model="form.portalUrl"
               type="url"
               placeholder="输入个人网站链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200"
-              style="
-                background: rgba(30, 41, 59, 0.5);
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100"
+              style="background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(249, 115, 22, 0.1);
-                color: #f1f5f9;
-                font-family: 'JetBrains Mono', monospace;
-              "
+                font-family: 'JetBrains Mono', monospace"
             />
           </div>
         </div>

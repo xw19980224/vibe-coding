@@ -48,8 +48,8 @@ onMounted(() => {
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
       <!-- Main Title -->
       <h1
-        class="text-5xl md:text-7xl lg:text-8xl font-900 tracking-wide leading-tight"
-        style="font-family: Orbitron, sans-serif; color: #f1f5f9"
+        class="text-5xl md:text-7xl lg:text-8xl font-900 tracking-wide leading-tight text-slate-100"
+        style="font-family: Orbitron, sans-serif"
       >
         <span>{{ displayText }}</span>
         <span
@@ -66,8 +66,8 @@ onMounted(() => {
       >
         <p
           v-if="showSubtitle"
-          class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          style="color: #94a3b8; font-family: 'JetBrains Mono', monospace"
+          class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-slate-400"
+          style="font-family: 'JetBrains Mono', monospace"
         >
           在这里，每一行代码都是一次灵感的碰撞。<br />
           用 AI 创造，用 Vibe 连接——<span style="color: #f97316">属于创作者的代码星图</span>。
@@ -108,13 +108,10 @@ onMounted(() => {
             开始创作
           </button>
           <button
-            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200"
-            style="
-              background: transparent;
-              color: #f1f5f9;
+            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 text-slate-100"
+            style="background: transparent;
               border: 1px solid rgba(249, 115, 22, 0.3);
-              font-family: 'JetBrains Mono', monospace;
-            "
+              font-family: 'JetBrains Mono', monospace"
             @mouseenter="
               (e: MouseEvent) => {
                 (e.target as HTMLElement).style.borderColor = '#F97316';
@@ -139,7 +136,7 @@ onMounted(() => {
       class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       style="animation: float 2s ease-in-out infinite"
     >
-      <div class="text-xs" style="color: #475569; font-family: 'JetBrains Mono', monospace">
+      <div class="text-xs text-slate-600" style="font-family: 'JetBrains Mono', monospace">
         向下探索
       </div>
       <div

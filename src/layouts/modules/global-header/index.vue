@@ -51,28 +51,25 @@ function onSearchInput() {
             V
           </div>
           <span
-            class="text-lg font-700 tracking-wider hidden sm:inline"
-            style="font-family: Orbitron, sans-serif; color: #f1f5f9"
+            class="text-lg font-700 tracking-wider hidden sm:inline text-slate-100"
+            style="font-family: Orbitron, sans-serif"
           >
             VIBE<span style="color: #f97316">CODING</span>
           </span>
         </div>
 
         <div class="flex-1 max-w-md relative flex-y-center">
-          <span class="absolute left-3" style="color: #64748b">
+          <span class="absolute left-3 text-slate-500" >
             <SvgIcon icon="lucide:search" style="font-size: 16px" />
           </span>
           <input
             v-model="searchQuery"
             type="text"
             :placeholder="'搜索作品、标签或作者...'"
-            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200"
-            style="
-              background: rgba(30, 41, 59, 0.6);
+            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200 text-slate-100"
+            style="background: rgba(30, 41, 59, 0.6);
               border: 1px solid rgba(249, 115, 22, 0.12);
-              color: #f1f5f9;
-              font-family: 'JetBrains Mono', monospace;
-            "
+              font-family: 'JetBrains Mono', monospace"
             @input="onSearchInput"
           />
         </div>
@@ -94,12 +91,9 @@ function onSearchInput() {
             <span class="hidden sm:inline">发布作品</span>
           </button>
           <button
-            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center"
-            style="
-              background: rgba(30, 41, 59, 0.6);
-              border: 1px solid rgba(249, 115, 22, 0.12);
-              color: #94a3b8;
-            "
+            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400"
+            style="background: rgba(30, 41, 59, 0.6);
+              border: 1px solid rgba(249, 115, 22, 0.12)"
             @click="goToUser"
           >
             <SvgIcon icon="lucide:user" style="font-size: 18px" />

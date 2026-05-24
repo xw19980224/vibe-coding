@@ -45,12 +45,12 @@ function openLink(url: string) {
       <div class="flex items-start justify-between gap-4">
         <div>
           <h1
-            class="text-2xl font-700 mb-1"
-            style="font-family: Orbitron, sans-serif; color: #f1f5f9"
+            class="text-2xl font-700 mb-1 text-slate-100"
+            style="font-family: Orbitron, sans-serif"
           >
             {{ props.userDetail?.nickname }}
           </h1>
-          <p class="text-sm mb-1" style="color: #64748b; font-family: 'JetBrains Mono', monospace">
+          <p class="text-sm mb-1 text-slate-500" style="font-family: 'JetBrains Mono', monospace">
             {{ props.userDetail?.introduction }}
           </p>
           <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mb-2">
@@ -58,8 +58,8 @@ function openLink(url: string) {
               v-for="platform in socialPlatforms"
               :key="platform.key"
               :title="platform.label"
-              class="w-8 h-8 rounded-lg flex-center cursor-pointer transition-all duration-200"
-              style="color: #94a3b8"
+              class="w-8 h-8 rounded-lg flex-center cursor-pointer transition-all duration-200 text-slate-400"
+
               @click="openLink(props.userDetail?.[platform.key]!)"
             >
               <SvgIcon :local-icon="platform.icon" class="size-5" />
@@ -81,45 +81,45 @@ function openLink(url: string) {
       <!-- Stats -->
       <div class="flex-y-center gap-8">
         <div class="text-center">
-          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+          <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.works ?? 0) }}
           </div>
           <div
-            class="text-xs mt-1"
-            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            class="text-xs mt-1 text-slate-500"
+            style="font-family: 'JetBrains Mono', monospace"
           >
             作品
           </div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+          <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.likes ?? 0) }}
           </div>
           <div
-            class="text-xs mt-1"
-            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            class="text-xs mt-1 text-slate-500"
+            style="font-family: 'JetBrains Mono', monospace"
           >
             获赞
           </div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+          <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.following ?? 0) }}
           </div>
           <div
-            class="text-xs mt-1"
-            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            class="text-xs mt-1 text-slate-500"
+            style="font-family: 'JetBrains Mono', monospace"
           >
             关注
           </div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700" style="font-family: Orbitron, sans-serif; color: #f1f5f9">
+          <div class="text-xl font-700 text-slate-100" style="font-family: Orbitron, sans-serif">
             {{ formatCompact(props.userDetail?.followers ?? 0) }}
           </div>
           <div
-            class="text-xs mt-1"
-            style="color: #64748b; font-family: 'JetBrains Mono', monospace"
+            class="text-xs mt-1 text-slate-500"
+            style="font-family: 'JetBrains Mono', monospace"
           >
             粉丝
           </div>
