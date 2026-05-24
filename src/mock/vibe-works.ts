@@ -2,17 +2,17 @@ import type { MockMethod } from 'vite-plugin-mock';
 import { wrapData } from './shared';
 
 export const mockCategories: Api.VibeCoding.Category[] = [
-  { id: 'web', name: 'Web 应用', nameEn: 'Web App' },
-  { id: 'mobile', name: '移动端', nameEn: 'Mobile' },
-  { id: 'ai', name: 'AI 创作', nameEn: 'AI' },
-  { id: 'game', name: '游戏', nameEn: 'Game' },
-  { id: 'tool', name: '开发工具', nameEn: 'Tools' },
-  { id: 'art', name: '视觉艺术', nameEn: 'Art' },
+  { id: 1, code: 'web', name: 'Web 应用', nameEn: 'Web App' },
+  { id: 2, code: 'mobile', name: '移动端', nameEn: 'Mobile' },
+  { id: 3, code: 'ai', name: 'AI 创作', nameEn: 'AI' },
+  { id: 4, code: 'game', name: '游戏', nameEn: 'Game' },
+  { id: 5, code: 'tool', name: '开发工具', nameEn: 'Tools' },
+  { id: 6, code: 'art', name: '视觉艺术', nameEn: 'Art' },
 ];
 
 const authors: Api.VibeCoding.Author[] = [
   {
-    id: 'u1',
+    key: 'u1',
     name: 'VibeCoder',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u1',
     bio: '全栈开发者，热爱用 AI 写代码',
@@ -28,7 +28,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 356,
   },
   {
-    id: 'u2',
+    key: 'u2',
     name: 'NeoDev',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u2',
     bio: '前端工程师 · 设计系统爱好者',
@@ -40,7 +40,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 201,
   },
   {
-    id: 'u3',
+    key: 'u3',
     name: 'PixelMage',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u3',
     bio: '独立游戏开发者',
@@ -53,7 +53,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 142,
   },
   {
-    id: 'u4',
+    key: 'u4',
     name: 'PromptSmith',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u4',
     bio: 'AI 工作流搭建师',
@@ -64,7 +64,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 78,
   },
   {
-    id: 'u5',
+    key: 'u5',
     name: 'ShaderCat',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u5',
     bio: '创意编程 & 视觉艺术',
@@ -189,7 +189,8 @@ const { data, page, isLastPage, loading, reload } = usePagination(
     vibePrompt: '用 Vue3 + Naive UI 做一个暗色作品展示站，主色橙色，带粒子背景',
     demoUrl: 'https://vibecoding.dev',
     repoUrl: 'https://github.com/vibecoder/vibecoding',
-    instructions: '```bash\npnpm install\npnpm dev\n```\n\n1. 克隆仓库\n2. 安装依赖 `pnpm install`\n3. 启动开发服务器 `pnpm dev`',
+    instructions:
+      '```bash\npnpm install\npnpm dev\n```\n\n1. 克隆仓库\n2. 安装依赖 `pnpm install`\n3. 启动开发服务器 `pnpm dev`',
     license: 'MIT',
     languages: ['TypeScript', 'Vue 3', 'CSS'],
     model: 'Claude Opus 4.7',
@@ -198,7 +199,12 @@ const { data, page, isLastPage, loading, reload } = usePagination(
     onlineDate: '2026-03',
     tools: ['VS Code', 'Vite 7', 'pnpm', 'UnoCSS', 'Alova', 'BetterScroll'],
     mcps: ['fetch', 'filesystem', 'sqlite'],
-    skills: ['ui-ux-pro-max', 'creative-frontend-master', 'frontend-design', 'git-functional-commits'],
+    skills: [
+      'ui-ux-pro-max',
+      'creative-frontend-master',
+      'frontend-design',
+      'git-functional-commits',
+    ],
     featured: true,
     status: 7,
   },
@@ -258,7 +264,8 @@ const { data, page, isLastPage, loading, reload } = usePagination(
     createdAt: '2026-05-11T09:45:00Z',
     vibePrompt: '用 AST 解析 git diff，生成侧边栏文件树 + 行级高亮',
     demoUrl: 'https://demo.vibecoding.dev/git-diff-viz',
-    instructions: '```bash\ngit diff HEAD~1 | pnpm vibe-diff --serve\n```\n\n或直接粘贴 diff 内容到 Web 界面进行可视化分析。',
+    instructions:
+      '```bash\ngit diff HEAD~1 | pnpm vibe-diff --serve\n```\n\n或直接粘贴 diff 内容到 Web 界面进行可视化分析。',
     license: 'Apache-2.0',
     featured: true,
     status: 7,
@@ -545,7 +552,8 @@ const { data, page, isLastPage, loading, reload } = usePagination(
     vibePrompt: '做一个多人实时协作白板，像 Figma 一样流畅',
     demoUrl: 'https://demo.vibecoding.dev/whiteboard',
     repoUrl: 'https://github.com/vibecoder/collab-whiteboard',
-    instructions: '```bash\ngit clone ...\npnpm install\npnpm dev\n```\n\n启动后打开浏览器访问 `http://localhost:5173`，创建房间并分享链接给协作者。',
+    instructions:
+      '```bash\ngit clone ...\npnpm install\npnpm dev\n```\n\n启动后打开浏览器访问 `http://localhost:5173`，创建房间并分享链接给协作者。',
     license: 'MIT',
     featured: true,
     status: 7,
