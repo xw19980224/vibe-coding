@@ -5,34 +5,52 @@ import { useLoading } from '@a02/hooks';
 import { AuthAPI } from '@/service/api/auth';
 import { UserAPI } from '@/service/api/user';
 import { localStg } from '@/utils/storage';
-import { useRouter } from 'vue-router';
+import { useRouterPush } from '@/hooks/common/router.ts';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
-  const router = useRouter();
   const authStore = useAuthStore();
   const token = ref(getToken());
+  const { redirectFromLogin } = useRouterPush();
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  const userInfo = ref<Api.User.UserInfo | null>(null);
+  const userInfo: Api.Auth.UserInfo = reactive<Api.Auth.UserInfo>({
+    id: undefined,
+    nickname: '',
+    avatar: '',
+  });
 
   const isLogin = computed(() => Boolean(token.value));
 
-
-  async function login(data: Api.Auth.LoginParams, redirect: boolean = true) {
+  async function login(
+    data: Api.Auth.LoginParams,
+    redirect: boolean = true,
+    isDialog: boolean = false,
+  ) {
     startLoading();
-
     try {
       const loginToken = await AuthAPI.login(data);
       const pass = await loginByToken(loginToken);
 
       if (!pass) {
-        await resetStore();
-        return;
+        resetStore();
+        return false;
       }
 
-      redirect && router.push('/');
+      if (!isDialog){
+        await redirectFromLogin(redirect);
+
+        window.$notification?.success({
+          title: '登录成功',
+          message: `欢迎回来，${userInfo.nickname}`,
+          duration: 4500,
+        });
+      }
+      console.log("login");
+      return true;
     } catch (error) {
-      await resetStore();
+      console.log(error);
+      resetStore();
+      return false;
     } finally {
       endLoading();
     }
@@ -53,7 +71,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   async function getUserInfo() {
     try {
-      userInfo.value = await UserAPI.getUserInfo();
+      const info = await UserAPI.getUserInfo();
+      Object.assign(userInfo, info);
       return true;
     } catch {
       return false;
@@ -83,6 +102,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     loginLoading,
     login,
     resetStore,
-    initUserInfo
+    initUserInfo,
   };
 });
