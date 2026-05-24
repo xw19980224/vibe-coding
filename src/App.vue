@@ -2,10 +2,12 @@
 import { computed } from 'vue';
 import { UILocales } from './locales/ui';
 import { useAppStore } from '@/stores/modules/app';
+import { useThemeStore } from '@/stores/modules/theme';
 
 defineOptions({ name: 'App' });
 
 const appStore = useAppStore();
+const themeStore = useThemeStore();
 const locale = computed(() => {
   return UILocales[appStore.locale];
 });

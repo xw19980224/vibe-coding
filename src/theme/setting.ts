@@ -3,7 +3,7 @@
  */
 export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'light',
-  themeColor: '#316c72',
+  themeColor: '#f97316',
   otherColor: {
     info: '#2080f0',
     success: '#52c41a',
