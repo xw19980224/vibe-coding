@@ -70,7 +70,7 @@ declare namespace Api {
       /** 作品状态 */
       status: WorkStatus;
       /** 作者 */
-      author: Author;
+      author?: Author;
       createdAt: string;
     };
 
