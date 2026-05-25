@@ -3,22 +3,17 @@ defineOptions({ name: 'GlobalFooter' });
 </script>
 
 <template>
-  <footer
-    class="relative z-10 py-12 border-t border-orange-500/8 bg-slate-900/60"
-  >
+  <footer class="relative z-10 py-12 border-t border-orange-500/8 bg-slate-900/60">
     <div class="mx-auto px-4 md:px-8 w-full sm:w-4/5">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex-y-center gap-2">
           <div
-            class="w-7 h-7 rounded-lg flex-center text-sm font-bold text-slate-900"
-            style="background: linear-gradient(135deg, #f97316, #fb923c)"
+            class="w-7 h-7 rounded-lg flex-center text-sm font-bold text-slate-900 bg-gradient-[135deg] from-orange-500 to-orange-400"
           >
             V
           </div>
-          <span
-            class="text-sm font-700 tracking-wider text-slate-400 font-display"
-          >
-            VIBE<span style="color: #f97316">CODING</span>
+          <span class="text-sm font-700 tracking-wider text-slate-400 font-display">
+            VIBE<span class="text-orange">CODING</span>
           </span>
         </div>
 
@@ -34,7 +29,7 @@ defineOptions({ name: 'GlobalFooter' });
           </a>
         </div>
 
-        <p class="text-xs text-slate-600 font-mono" >
+        <p class="text-xs text-slate-600 font-mono">
           &copy; {{ new Date().getFullYear() }} VibeCoding — Built with AI, Shared with Love
         </p>
       </div>

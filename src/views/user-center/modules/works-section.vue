@@ -136,46 +136,18 @@ onUnmounted(() => {
           <SvgIcon icon="lucide:search" class="text-slate-500 text-base" />
         </template>
         <template #suffix>
-          <div class="border-1 border-primary rd-full p-1">
-            <SvgIcon icon="lucide:arrow-right" class="text-slate-500 text-base" />
-          </div>
+          <ElButton size="small" link circle>
+            <template #icon>
+              <div class="group border-1 border-primary rd-full p-1 hover:(bg-orange-400)">
+                <SvgIcon
+                  icon="lucide:arrow-right"
+                  class="text-slate-500 text-base group-hover:(text-slate-200)"
+                />
+              </div>
+            </template>
+          </ElButton>
         </template>
       </ElInput>
-      <!--      <div class="flex-1 max-w-100 relative">-->
-      <!--        <SvgIcon-->
-      <!--          icon="lucide:search"-->
-      <!--          class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"-->
-      <!--          style="font-size: 14px"-->
-      <!--        />-->
-      <!--        <input-->
-      <!--          v-model="searchParams.keyword"-->
-      <!--          type="text"-->
-      <!--          placeholder="搜索作品名称、描述..."-->
-      <!--          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono"-->
-      <!--          class="bg-slate-800/50" style="-->
-      <!--            border: 1px solid rgba(249, 115, 22, 0.1)"-->
-      <!--          @keyup.enter="handleSearch"-->
-      <!--        />-->
-      <!--        <button-->
-      <!--          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex-center cursor-pointer transition-all duration-200"-->
-      <!--          class="bg-orange-500/15" style="color: #f97316"-->
-      <!--          @click="handleSearch"-->
-      <!--          @mouseenter="-->
-      <!--            (e: MouseEvent) => {-->
-      <!--              (e.currentTarget as HTMLElement).style.color = '#fff';-->
-      <!--              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.35)';-->
-      <!--            }-->
-      <!--          "-->
-      <!--          @mouseleave="-->
-      <!--            (e: MouseEvent) => {-->
-      <!--              (e.currentTarget as HTMLElement).style.color = '#f97316';-->
-      <!--              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.15)';-->
-      <!--            }-->
-      <!--          "-->
-      <!--        >-->
-      <!--          <SvgIcon icon="lucide:arrow-right" style="font-size: 14px" />-->
-      <!--        </button>-->
-      <!--      </div>-->
 
       <!-- Right: Filter -->
       <div class="relative shrink-0">
@@ -278,7 +250,7 @@ onUnmounted(() => {
     <template v-else>
       <div class="w-full min-h-300px overflow-hidden">
         <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
         >
           <WorkCardItem v-for="work in works" :key="work.id" :work="work" :is-self="props.isSelf" />
         </div>

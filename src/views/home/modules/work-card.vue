@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { formatCompact } from '@/utils/common.ts';
+import { formatCompact } from '../../../utils/common.ts';
 
 defineOptions({ name: 'WorkCard' });
 
@@ -40,26 +40,13 @@ function handleClick(idx: number) {
 
 <template>
   <article
-    class="group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 border border-orange-500/6"
-    style="background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%); animation: cardEnter 0.5s ease-out both"
+    class="group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 border border-orange-500/6 hover:(border-orange/50 -translate-y-1 shadow-[0_0_30px_orange/8])"
+    style="
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%);
+      animation: cardEnter 0.5s ease-out both;
+    "
     :style="{ animationDelay: `${index * 60}ms` }"
     @click="handleCardClick(work.id)"
-    @mouseenter="
-      (e: MouseEvent) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-        el.style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.08)';
-        el.style.transform = 'translateY(-4px)';
-      }
-    "
-    @mouseleave="
-      (e: MouseEvent) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = 'rgba(249, 115, 22, 0.06)';
-        el.style.boxShadow = 'none';
-        el.style.transform = 'translateY(0)';
-      }
-    "
   >
     <!-- Cover image -->
     <div
@@ -73,10 +60,7 @@ function handleClick(idx: number) {
       <!-- Featured badge -->
       <div
         v-if="work.featured"
-        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display text-slate-900"
-        style="background: linear-gradient(135deg, #f97316, #fb923c);
-          font-size: 10px;
-          letter-spacing: 0.05em"
+        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display text-slate-900 bg-gradient-to-br from-orange to-orange-400 tracking-wider"
       >
         FEATURED
       </div>
@@ -84,12 +68,10 @@ function handleClick(idx: number) {
 
     <!-- Content -->
     <div class="p-4">
-      <h3 class="text-base font-600 mb-2 line-clamp-1 text-slate-100" >
+      <h3 class="text-base font-600 mb-2 line-clamp-1 text-slate-100 select-text">
         {{ work.title }}
       </h3>
-      <p
-        class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono"
-      >
+      <p class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono">
         {{ work.description }}
       </p>
 
@@ -113,14 +95,13 @@ function handleClick(idx: number) {
       <div class="flex-y-center justify-between">
         <div class="flex items-end gap-2" @click.stop="handleUserCenter(work.author?.name)">
           <ElAvatar size="small" :src="work.author?.avatar" />
-          <span class="text-xs text-slate-500" >
+          <span class="text-xs text-slate-500">
             {{ work.author.name }}
           </span>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 text-xs">
           <button
             class="flex-y-center gap-1 text-xs cursor-pointer tra nsition-colors duration-200 text-slate-500"
-
             @click.stop="handleClick(work.id)"
             @mouseenter="
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
@@ -129,11 +110,11 @@ function handleClick(idx: number) {
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#64748B')
             "
           >
-            <SvgIcon icon="lucide:heart" style="font-size: 14px" />
+            <SvgIcon icon="lucide:heart" />
             {{ formatCompact(work.likes) }}
           </button>
-          <div class="flex-y-center gap-1 text-xs text-slate-600" >
-            <SvgIcon icon="lucide:eye" style="font-size: 14px" />
+          <div class="flex-y-center gap-1 text-xs text-slate-600 text-xs">
+            <SvgIcon icon="lucide:eye" />
             {{ formatCompact(work.views) }}
           </div>
         </div>
