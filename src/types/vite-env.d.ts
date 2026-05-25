@@ -30,7 +30,7 @@ declare namespace Env {
     readonly VITE_USE_MOCK: CommonType.YesOrNo;
     /**
      * 是否启用开发代理（通常为 "Y" | "N"）
-    */
+     */
     readonly VITE_HTTP_PROXY?: CommonType.YesOrNo;
     /**
      * 是否启用 source map（"Y" | "N"）

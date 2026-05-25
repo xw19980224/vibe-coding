@@ -72,15 +72,12 @@ onUnmounted(() => {
             v-if="title || closable"
             class="flex-y-center justify-between px-6 pt-5 pb-4 border-b border-slate-400/6"
           >
-            <h2
-              class="text-lg font-600 text-slate-300 font-sans"
-            >
+            <h2 class="text-lg font-600 text-slate-300 font-sans">
               {{ title }}
             </h2>
             <button
               v-if="closable"
               class="w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 shrink-0 ml-4 text-slate-500"
-
               @click="close"
               @mouseenter="
                 (e: MouseEvent) => {

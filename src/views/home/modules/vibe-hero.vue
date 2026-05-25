@@ -132,9 +132,7 @@ onMounted(() => {
       class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       style="animation: float 2s ease-in-out infinite"
     >
-      <div class="text-xs text-slate-600 font-mono" >
-        向下探索
-      </div>
+      <div class="text-xs text-slate-600 font-mono">向下探索</div>
       <div
         class="w-5 h-8 rounded-full border flex items-start justify-center p-1 border-orange-500/30"
       >

@@ -36,7 +36,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         return false;
       }
 
-      if (!isDialog){
+      if (!isDialog) {
         await redirectFromLogin(redirect);
 
         window.$notification?.success({
@@ -45,7 +45,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
           duration: 4500,
         });
       }
-      console.log("login");
+      console.log('login');
       return true;
     } catch (error) {
       console.log(error);

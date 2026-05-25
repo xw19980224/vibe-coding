@@ -53,7 +53,7 @@ function onSearchInput() {
         </div>
 
         <div class="flex-1 max-w-md relative flex-y-center">
-          <span class="absolute left-3 text-slate-500" >
+          <span class="absolute left-3 text-slate-500">
             <SvgIcon icon="lucide:search" style="font-size: 16px" />
           </span>
           <input

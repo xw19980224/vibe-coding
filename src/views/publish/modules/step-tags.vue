@@ -16,7 +16,7 @@ const emit = defineEmits<{
 <template>
   <div class="space-y-6">
     <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400" >标签</label>
+      <label class="block text-sm font-500 mb-2 text-slate-400">标签</label>
       <div class="flex items-center gap-2 mb-3">
         <input
           v-model="tagInput"
@@ -47,7 +47,7 @@ const emit = defineEmits<{
       </div>
     </div>
     <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400" >代码片段 (可选)</label>
+      <label class="block text-sm font-500 mb-2 text-slate-400">代码片段 (可选)</label>
       <textarea
         v-model="form.codeSnippet"
         rows="6"
@@ -56,7 +56,7 @@ const emit = defineEmits<{
       />
     </div>
     <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400" >项目链接 (可选)</label>
+      <label class="block text-sm font-500 mb-2 text-slate-400">项目链接 (可选)</label>
       <input
         v-model="form.link"
         type="url"

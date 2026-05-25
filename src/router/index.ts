@@ -28,7 +28,7 @@ export const router = createRouter({
           name: 'VibeCodingDetail',
           component: () => import('@/views/vibecoding-detail/index.vue'),
           meta: {
-            title: '作品详情'
+            title: '作品详情',
           },
         },
         {

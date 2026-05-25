@@ -22,6 +22,6 @@ export function toggleHtmlClass(className: string) {
 
   return {
     add,
-    remove
+    remove,
   };
 }

@@ -4,13 +4,12 @@ export const VibeWorksAPI = {
   getWorks(params: Api.VibeCoding.VibeProjectSearchParams) {
     return alova.Get<Api.VibeCoding.VibeProjectPage>('/vibe-works', {
       params,
-    })
+    });
   },
   getCategories() {
-    return alova.Get<Api.VibeCoding.Category[]>('/vibe-works/categories')
+    return alova.Get<Api.VibeCoding.Category[]>('/vibe-works/categories');
   },
   getWorkById(id: number | string) {
-    return alova.Get<Api.VibeCoding.VibeProject>(`/vibe-works/${id}`)
+    return alova.Get<Api.VibeCoding.VibeProject>(`/vibe-works/${id}`);
   },
-
 };

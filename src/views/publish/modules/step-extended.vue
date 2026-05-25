@@ -24,7 +24,9 @@ const repoPlatformOptions = [
 const repoPlatform = ref<'github' | 'gitee'>('github');
 const repoUrl = computed({
   get: () => form.value.repoUrl || '',
-  set: (val: string) => { form.value.repoUrl = val; },
+  set: (val: string) => {
+    form.value.repoUrl = val;
+  },
 });
 
 const isCustomDuration = computed(() => form.value.duration === '__custom__');
@@ -44,7 +46,7 @@ const licenseOptions = [
   <div class="space-y-6">
     <!-- 开发周期 -->
     <div>
-      <label class="block text-base font-500 mb-2 text-slate-400" >开发周期</label>
+      <label class="block text-base font-500 mb-2 text-slate-400">开发周期</label>
       <Select v-model="form.duration" :options="durationOptions" placeholder="选择开发周期" />
       <input
         v-if="isCustomDuration"
@@ -57,13 +59,13 @@ const licenseOptions = [
 
     <!-- 许可证 -->
     <div>
-      <label class="block text-base font-500 mb-2 text-slate-400" >许可证</label>
+      <label class="block text-base font-500 mb-2 text-slate-400">许可证</label>
       <Select v-model="form.license" :options="licenseOptions" placeholder="选择许可证" />
     </div>
 
     <!-- 是否上线 -->
     <div class="flex items-center justify-between">
-      <label class="text-base font-500 text-slate-400" >是否上线</label>
+      <label class="text-base font-500 text-slate-400">是否上线</label>
       <button
         class="relative w-11 h-6 rounded-full cursor-pointer transition-all duration-200"
         :style="{ background: form.isOnline ? '#f97316' : 'rgba(148, 163, 184, 0.2)' }"
@@ -78,7 +80,7 @@ const licenseOptions = [
 
     <!-- 上线时间 -->
     <div v-if="form.isOnline">
-      <label class="block text-base font-500 mb-2 text-slate-400" >上线时间</label>
+      <label class="block text-base font-500 mb-2 text-slate-400">上线时间</label>
       <input
         v-model="form.onlineDate"
         type="month"
@@ -88,7 +90,7 @@ const licenseOptions = [
 
     <!-- 源码仓库 -->
     <div>
-      <label class="block text-base font-500 mb-2 text-slate-400" >源码仓库</label>
+      <label class="block text-base font-500 mb-2 text-slate-400">源码仓库</label>
       <div class="flex gap-2 mb-3">
         <button
           v-for="opt in repoPlatformOptions"
@@ -96,7 +98,8 @@ const licenseOptions = [
           class="h-9 px-4 rounded-lg text-sm cursor-pointer transition-all duration-200"
           :style="{
             color: repoPlatform === opt.value ? '#F97316' : '#94A3B8',
-            background: repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.12)' : 'rgba(30, 41, 59, 0.5)',
+            background:
+              repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.12)' : 'rgba(30, 41, 59, 0.5)',
             border: `1px solid ${repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.3)' : 'rgba(249, 115, 22, 0.06)'}`,
             fontFamily: '\'JetBrains Mono\', monospace',
           }"
@@ -108,14 +111,16 @@ const licenseOptions = [
       <input
         v-model="repoUrl"
         type="url"
-        :placeholder="repoPlatform === 'github' ? 'https://github.com/...' : 'https://gitee.com/...'"
+        :placeholder="
+          repoPlatform === 'github' ? 'https://github.com/...' : 'https://gitee.com/...'
+        "
         class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
 
     <!-- 在线演示地址 -->
     <div>
-      <label class="block text-base font-500 mb-2 text-slate-400" >在线演示地址</label>
+      <label class="block text-base font-500 mb-2 text-slate-400">在线演示地址</label>
       <input
         v-model="form.demoUrl"
         type="url"

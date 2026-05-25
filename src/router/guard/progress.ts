@@ -4,7 +4,7 @@ export function createProgressGuard(router: Router) {
   router.beforeEach((_to, _from) => {
     window.NProgress?.start?.();
   });
-  router.afterEach(_to => {
+  router.afterEach((_to) => {
     window.NProgress?.done?.();
   });
 }

@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/stores/modules/auth";
-import { localStg } from "@/utils/storage";
-import type { RouteLocationNormalized, Router } from "vue-router";
+import { useAuthStore } from '@/stores/modules/auth';
+import { localStg } from '@/utils/storage';
+import type { RouteLocationNormalized, Router } from 'vue-router';
 
 export function createRouteGuard(router: Router) {
   router.beforeEach(async (to, from) => {

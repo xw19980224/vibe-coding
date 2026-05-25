@@ -52,7 +52,7 @@ onMounted(() => {
 
     <!-- Not found -->
     <div v-else class="flex flex-col items-center py-20">
-      <p class="text-lg text-slate-400" >作品不存在</p>
+      <p class="text-lg text-slate-400">作品不存在</p>
       <button
         class="mt-4 h-10 px-6 rounded-xl text-sm font-600 cursor-pointer"
         style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"

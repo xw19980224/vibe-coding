@@ -3,6 +3,5 @@ import en from 'element-plus/es/locale/lang/en';
 
 export const UILocales: any = {
   'zh-CN': zhCn,
-  'en-US': en
+  'en-US': en,
 };
-

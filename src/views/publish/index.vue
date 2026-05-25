@@ -92,10 +92,8 @@ async function submit() {
     >
       <span class="text-3xl" style="color: #4ade80">OK</span>
     </div>
-    <h2 class="text-2xl font-700 mb-2 text-slate-100 font-display" >
-      发布成功!
-    </h2>
-    <p class="text-sm text-slate-400" >正在跳转回首页...</p>
+    <h2 class="text-2xl font-700 mb-2 text-slate-100 font-display">发布成功!</h2>
+    <p class="text-sm text-slate-400">正在跳转回首页...</p>
   </div>
 
   <!-- Form -->

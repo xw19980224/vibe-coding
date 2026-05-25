@@ -42,12 +42,10 @@ function openLink(url: string) {
     <div class="flex-1 min-w-0">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <h1
-            class="text-2xl font-700 mb-1 text-slate-100 font-display"
-          >
+          <h1 class="text-2xl font-700 mb-1 text-slate-100 font-display">
             {{ props.userDetail?.nickname }}
           </h1>
-          <p class="text-sm mb-1 text-slate-500 font-mono" >
+          <p class="text-sm mb-1 text-slate-500 font-mono">
             {{ props.userDetail?.introduction }}
           </p>
           <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mb-2">
@@ -77,36 +75,28 @@ function openLink(url: string) {
       <!-- Stats -->
       <div class="flex-y-center gap-8">
         <div class="text-center">
-          <div class="text-xl font-700 text-slate-100 font-display" >
+          <div class="text-xl font-700 text-slate-100 font-display">
             {{ formatCompact(props.userDetail?.works ?? 0) }}
           </div>
-          <div class="text-xs mt-1 text-slate-500 font-mono" >
-            作品
-          </div>
+          <div class="text-xs mt-1 text-slate-500 font-mono">作品</div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700 text-slate-100 font-display" >
+          <div class="text-xl font-700 text-slate-100 font-display">
             {{ formatCompact(props.userDetail?.likes ?? 0) }}
           </div>
-          <div class="text-xs mt-1 text-slate-500 font-mono" >
-            获赞
-          </div>
+          <div class="text-xs mt-1 text-slate-500 font-mono">获赞</div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700 text-slate-100 font-display" >
+          <div class="text-xl font-700 text-slate-100 font-display">
             {{ formatCompact(props.userDetail?.following ?? 0) }}
           </div>
-          <div class="text-xs mt-1 text-slate-500 font-mono" >
-            关注
-          </div>
+          <div class="text-xs mt-1 text-slate-500 font-mono">关注</div>
         </div>
         <div class="text-center">
-          <div class="text-xl font-700 text-slate-100 font-display" >
+          <div class="text-xl font-700 text-slate-100 font-display">
             {{ formatCompact(props.userDetail?.followers ?? 0) }}
           </div>
-          <div class="text-xs mt-1 text-slate-500 font-mono" >
-            粉丝
-          </div>
+          <div class="text-xs mt-1 text-slate-500 font-mono">粉丝</div>
         </div>
       </div>
     </div>

@@ -11,7 +11,9 @@ export default [
     url: '/auth/wechat-qr',
     method: 'get',
     response: () =>
-      wrapData(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vide-coding.dev&t=${Date.now()}`),
+      wrapData(
+        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vide-coding.dev&t=${Date.now()}`,
+      ),
   },
   {
     url: '/auth/login',

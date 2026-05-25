@@ -61,7 +61,11 @@ function stepState(value: number) {
             fontFamily: 'JetBrains Mono, monospace',
           }"
         >
-          <SvgIcon v-if="stepState(step.value) === 'done'" icon="lucide:check" style="font-size: 14px" />
+          <SvgIcon
+            v-if="stepState(step.value) === 'done'"
+            icon="lucide:check"
+            style="font-size: 14px"
+          />
           <span v-else>{{ step.value }}</span>
         </div>
 

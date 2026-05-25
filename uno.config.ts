@@ -28,10 +28,10 @@ export default defineConfig<Theme>({
   },
   theme: {
     ...themeVars,
-    fontFamily: {
-      display: ['Orbitron', 'sans-serif'],
-      mono: ["'JetBrains Mono'", 'monospace'],
-      sans: ["'Noto Sans SC'", 'sans-serif'],
+    font: {
+      display: "'Orbitron', sans-serif",
+      mono: "'JetBrains Mono', monospace",
+      sans: "'Noto Sans SC', sans-serif",
     },
   },
   shortcuts: {

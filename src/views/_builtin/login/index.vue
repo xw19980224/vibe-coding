@@ -77,11 +77,7 @@ onMounted(() => {
 
     <div class="relative z-10 w-full max-w-4xl">
       <!-- Back -->
-      <ElButton
-        class="mb-6 cursor-pointer text-slate-500 font-mono"
-        @click="router.push('/')"
-        link
-      >
+      <ElButton class="mb-6 cursor-pointer text-slate-500 font-mono" @click="router.push('/')" link>
         <template #icon>
           <SvgIcon icon="lucide:arrow-left" style="font-size: 16px" />
         </template>
@@ -94,16 +90,11 @@ onMounted(() => {
           <div class="flex items-center gap-3">
             <div
               class="w-12 h-12 rounded-xl flex-center font-bold text-slate-900"
-              style="
-                background: linear-gradient(135deg, #f97316, #fb923c);
-                font-size: 24px;
-              "
+              style="background: linear-gradient(135deg, #f97316, #fb923c); font-size: 24px"
             >
               V
             </div>
-            <span
-              class="text-2xl font-700 tracking-wider text-slate-300 font-display"
-            >
+            <span class="text-2xl font-700 tracking-wider text-slate-300 font-display">
               VIBE<span style="color: #f97316">CODING</span>
             </span>
           </div>
@@ -111,11 +102,7 @@ onMounted(() => {
         <div class="flex flex-col md:flex-row gap-0">
           <!-- Left: Email login -->
           <div class="flex-1 md:pr-5">
-            <h3
-              class="text-lg font-600 mb-5 text-slate-300 font-sans"
-            >
-              邮箱登录
-            </h3>
+            <h3 class="text-lg font-600 mb-5 text-slate-300 font-sans">邮箱登录</h3>
             <ElForm
               ref="formRef"
               :model="model"
@@ -134,7 +121,7 @@ onMounted(() => {
                     :disabled="isEmailCounting"
                     :loading="emailLoading"
                     @click="getEmailCaptcha(model.email)"
-                    class="text-slate-400 font-mono bg-slate-400/6 border border-slate-400/15" 
+                    class="text-slate-400 font-mono bg-slate-400/6 border border-slate-400/15"
                   >
                     {{ emailLabel }}
                   </ElButton>
@@ -158,24 +145,13 @@ onMounted(() => {
 
           <!-- Divider -->
           <div class="hidden md:flex flex-center py-5 md:py-0 md:px-8">
-            <div
-              class="hidden md:block bg-slate-400/10"
-              style="width: 1px; height: 220px"
-            />
-            <span
-              class="text-sm md:hidden text-slate-600 font-mono"
-            >
-              — 其他方式 —
-            </span>
+            <div class="hidden md:block bg-slate-400/10" style="width: 1px; height: 220px" />
+            <span class="text-sm md:hidden text-slate-600 font-mono"> — 其他方式 — </span>
           </div>
 
           <!-- Right: WeChat QR -->
           <div class="hidden md:flex flex-col items-center justify-center md:w-64 md:pl-5">
-            <h3
-              class="text-lg font-600 mb-5 text-slate-300 font-sans"
-            >
-              微信扫码登录
-            </h3>
+            <h3 class="text-lg font-600 mb-5 text-slate-300 font-sans">微信扫码登录</h3>
             <div
               class="relative w-48 h-48 rounded-xl flex-center mb-4 overflow-hidden p-2 bg-slate-900/40 border-2 border-slate-400/20"
             >
@@ -194,19 +170,11 @@ onMounted(() => {
                 @click="sendQrCode()"
               >
                 <SvgIcon icon="lucide:rotate-cw" class="text-slate-400" style="font-size: 24px" />
-                <span
-                  class="text-xs text-slate-400 font-mono"
-                >
-                  点击刷新
-                </span>
+                <span class="text-xs text-slate-400 font-mono"> 点击刷新 </span>
               </div>
             </div>
-            <p
-              class="text-sm text-center text-slate-600 font-mono"
-            >
-              请使用微信扫描二维码
-            </p>
-            <p class="text-sm text-center mt-1 text-slate-500" >关注公众号即可完成登录</p>
+            <p class="text-sm text-center text-slate-600 font-mono">请使用微信扫描二维码</p>
+            <p class="text-sm text-center mt-1 text-slate-500">关注公众号即可完成登录</p>
           </div>
         </div>
         <template #footer>
@@ -225,7 +193,7 @@ onMounted(() => {
               style="color: #f97316"
               >《隐私政策》</span
             >
-            <span  class="text-slate-600">未注册手机号将自动注册</span>
+            <span class="text-slate-600">未注册手机号将自动注册</span>
           </div>
         </template>
       </ElCard>

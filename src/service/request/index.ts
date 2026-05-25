@@ -10,7 +10,6 @@ const { baseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 const useMockInDev = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === 'Y';
 const requestBaseURL = useMockInDev ? '' : baseURL;
 
-
 const state: RequestInstanceState = {
   errMsgStack: [],
 };

@@ -1,6 +1,6 @@
 import type { PiniaPluginContext } from 'pinia';
-import {SetupStoreId} from "@/enum";
-import {jsonClone} from "@a02/utils";
+import { SetupStoreId } from '@/enum';
+import { jsonClone } from '@a02/utils';
 
 export function resetSetupStore(context: PiniaPluginContext) {
   const setupSyntaxIds = Object.values(SetupStoreId) as string[];

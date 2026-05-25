@@ -72,9 +72,7 @@ function handleSave() {
   <ModalDialog v-model="visible" title="编辑资料" closeOnClickModal closeOnPressEscape>
     <div class="py-2 space-y-5">
       <!-- Avatar Section -->
-      <div
-        class="relative rounded-xl py-8 bg-slate-800/40 border border-orange-500/6"
-      >
+      <div class="relative rounded-xl py-8 bg-slate-800/40 border border-orange-500/6">
         <div class="flex flex-col items-center gap-3">
           <img
             :src="avatarPreview"
@@ -100,7 +98,7 @@ function handleSave() {
 
       <!-- Username -->
       <div>
-        <label class="block text-sm font-500 mb-2 text-slate-400" >用户名</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400">用户名</label>
         <input
           v-model="form.nickname"
           type="text"
@@ -108,14 +106,12 @@ function handleSave() {
           placeholder="给自己取个名字..."
           class="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
         />
-        <div class="text-right text-xs mt-1 text-slate-500" >
-          {{ form.nickname.length }}/15
-        </div>
+        <div class="text-right text-xs mt-1 text-slate-500">{{ form.nickname.length }}/15</div>
       </div>
 
       <!-- Introduction -->
       <div>
-        <label class="block text-sm font-500 mb-2 text-slate-400" >简介</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400">简介</label>
         <textarea
           v-model="form.introduction"
           rows="3"
@@ -123,14 +119,12 @@ function handleSave() {
           placeholder="介绍一下自己，让更多人认识你..."
           class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
         />
-        <div class="text-right text-xs mt-1 text-slate-500" >
-          {{ form.introduction.length }}/50
-        </div>
+        <div class="text-right text-xs mt-1 text-slate-500">{{ form.introduction.length }}/50</div>
       </div>
 
       <!-- Skills -->
       <div>
-        <label class="block text-sm font-500 mb-2 text-slate-400" >技能</label>
+        <label class="block text-sm font-500 mb-2 text-slate-400">技能</label>
         <div class="flex items-center gap-2 mb-3">
           <input
             v-model="skillInput"
@@ -163,7 +157,7 @@ function handleSave() {
 
       <!-- Social Links -->
       <div>
-        <label class="block text-sm font-500 mb-3 text-slate-400" >社交账号链接</label>
+        <label class="block text-sm font-500 mb-3 text-slate-400">社交账号链接</label>
         <div class="space-y-3">
           <div class="flex items-center gap-2">
             <div

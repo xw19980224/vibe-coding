@@ -1,6 +1,5 @@
 declare namespace Api {
   namespace User {
-
     interface UserDetail {
       key: string;
       email: string;
@@ -38,8 +37,7 @@ declare namespace Api {
     >;
 
     type UserWorksSearchParams = CommonType.RecordNullable<
-      Pick<VibeProject, 'status'> &
-      Common.CommonSearchParams
+      Pick<VibeProject, 'status'> & Common.CommonSearchParams
     >;
 
     type UserDetailSearchParams = CommonType.RecordNullable<Pick<UserInfo, 'nickname'>>;

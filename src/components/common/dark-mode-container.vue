@@ -3,9 +3,7 @@ defineOptions({ name: 'DarkModeContainer' });
 </script>
 
 <template>
-  <div
-    class="bg-container text-base-text transition-300"
-  >
+  <div class="bg-container text-base-text transition-300">
     <slot></slot>
   </div>
 </template>

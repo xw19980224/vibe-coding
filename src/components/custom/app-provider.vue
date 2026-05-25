@@ -15,7 +15,7 @@ const ContextHolder = defineComponent({
     register();
 
     return () => createTextVNode();
-  }
+  },
 });
 </script>
 

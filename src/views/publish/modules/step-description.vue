@@ -8,7 +8,7 @@ const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
 <template>
   <div class="space-y-6">
     <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400" >作品描述 *</label>
+      <label class="block text-sm font-500 mb-2 text-slate-400">作品描述 *</label>
       <textarea
         v-model="form.description"
         rows="5"
@@ -17,7 +17,7 @@ const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
       />
     </div>
     <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400" >Vibe Prompt (可选)</label>
+      <label class="block text-sm font-500 mb-2 text-slate-400">Vibe Prompt (可选)</label>
       <textarea
         v-model="form.vibePrompt"
         rows="3"

@@ -174,7 +174,7 @@ onUnmounted(() => {
 
     <div class="full min-h-300px overflow-hidden">
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
       >
         <WorkCard :work="item" :key="item.id" :index="index" v-for="(item, index) in data" />
       </div>
