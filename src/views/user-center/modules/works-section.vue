@@ -3,7 +3,7 @@ import { UserAPI } from '@/service/api/user';
 import { usePagination } from '@a02/alova/client';
 import { useAppStore } from '@/stores/modules/app';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
-import WorkCardItem from './work-card.vue';
+import WorkCard from './work-card.vue';
 import { onClickOutside } from '@vueuse/core';
 
 defineOptions({ name: 'WorksSection' });
@@ -258,7 +258,7 @@ watch(
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
         >
-          <WorkCardItem v-for="work in works" :key="work.id" :work="work" :is-self="props.isSelf" />
+          <WorkCard v-for="work in works" :key="work.id" :work="work" :is-self="props.isSelf" />
         </div>
         <div
           v-if="loading || (!isLastPage && works.length)"
