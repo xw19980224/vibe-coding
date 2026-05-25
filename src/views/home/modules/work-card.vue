@@ -40,12 +40,8 @@ function handleClick(idx: number) {
 
 <template>
   <article
-    class="group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300"
-    style="
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%);
-      border: 1px solid rgba(249, 115, 22, 0.06);
-      animation: cardEnter 0.5s ease-out both;
-    "
+    class="group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 border border-orange-500/6"
+    style="background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%); animation: cardEnter 0.5s ease-out both"
     :style="{ animationDelay: `${index * 60}ms` }"
     @click="handleCardClick(work.id)"
     @mouseenter="

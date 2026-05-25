@@ -134,8 +134,7 @@ onUnmounted(() => {
         <!-- Sort dropdown -->
         <div class="relative" ref="sortDropdownRef">
           <button
-            class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200"
-            style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(148, 163, 184, 0.12)"
+            class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
             @click="toggleSortDropdown"
           >
             <SvgIcon icon="lucide:arrow-up-down" style="font-size: 13px" />
@@ -143,12 +142,7 @@ onUnmounted(() => {
           </button>
           <div
             v-if="sortDropdownVisible"
-            class="absolute right-0 top-11 rounded-lg p-1 z-20"
-            style="
-              background: rgba(30, 41, 59, 0.95);
-              border: 1px solid rgba(249, 115, 22, 0.12);
-              backdrop-filter: blur(12px);
-            "
+            class="absolute right-0 top-11 rounded-lg p-1 z-20 bg-slate-800/95 border border-orange-500/12 backdrop-blur-sm"
           >
             <button
               v-for="opt in sortOptions"
@@ -169,8 +163,7 @@ onUnmounted(() => {
 
         <!-- Filter button -->
         <button
-          class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200"
-          style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(148, 163, 184, 0.12)"
+          class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
           @click="toggleFilterDropdown"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 13px" />
@@ -191,8 +184,7 @@ onUnmounted(() => {
         ref="loadingRef"
       >
         <div
-          class="w-10 h-10 rounded-full border-2 border-transparent animate-spin"
-          style="border-top-color: #f97316"
+          class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500"
         />
       </div>
 

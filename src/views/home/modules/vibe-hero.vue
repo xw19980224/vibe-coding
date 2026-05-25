@@ -106,9 +106,8 @@ onMounted(() => {
             开始创作
           </button>
           <button
-            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 text-slate-100 font-mono"
-            style="background: transparent;
-              border: 1px solid rgba(249, 115, 22, 0.3)"
+            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 text-slate-100 font-mono border border-orange-500/30"
+            style="background: transparent"
             @mouseenter="
               (e: MouseEvent) => {
                 (e.target as HTMLElement).style.borderColor = '#F97316';
@@ -137,8 +136,7 @@ onMounted(() => {
         向下探索
       </div>
       <div
-        class="w-5 h-8 rounded-full border flex items-start justify-center p-1"
-        style="border-color: rgba(249, 115, 22, 0.3)"
+        class="w-5 h-8 rounded-full border flex items-start justify-center p-1 border-orange-500/30"
       >
         <div
           class="w-1 h-2 rounded-full"
