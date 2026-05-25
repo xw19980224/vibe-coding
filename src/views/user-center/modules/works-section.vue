@@ -152,13 +152,13 @@ onUnmounted(() => {
       <!--          type="text"-->
       <!--          placeholder="搜索作品名称、描述..."-->
       <!--          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono"-->
-      <!--          style="background: rgba(30, 41, 59, 0.5);-->
+      <!--          class="bg-slate-800/50" style="-->
       <!--            border: 1px solid rgba(249, 115, 22, 0.1)"-->
       <!--          @keyup.enter="handleSearch"-->
       <!--        />-->
       <!--        <button-->
       <!--          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex-center cursor-pointer transition-all duration-200"-->
-      <!--          style="background: rgba(249, 115, 22, 0.15); color: #f97316"-->
+      <!--          class="bg-orange-500/15" style="color: #f97316"-->
       <!--          @click="handleSearch"-->
       <!--          @mouseenter="-->
       <!--            (e: MouseEvent) => {-->
@@ -180,8 +180,7 @@ onUnmounted(() => {
       <!-- Right: Filter -->
       <div class="relative shrink-0">
         <button
-          class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400 font-mono"
-          style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(249, 115, 22, 0.1)"
+          class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/10"
           @click="toggleFilter"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
@@ -190,12 +189,8 @@ onUnmounted(() => {
         <Transition name="menu">
           <div
             v-if="filterVisible"
-            class="absolute right-0 top-11 w-72 sm:w-84 md:w-100 rounded-xl overflow-hidden z-20 p-3 space-y-4"
-            style="
-              background: rgba(30, 41, 59, 0.98);
-              border: 1px solid rgba(148, 163, 184, 0.12);
-              box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            "
+            class="absolute right-0 top-11 w-72 sm:w-84 md:w-100 rounded-xl overflow-hidden z-20 p-3 space-y-4 bg-slate-800/98 border border-slate-400/12"
+            style="box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4)"
           >
             <div v-if="props.isSelf">
               <p class="text-xs mb-2 text-slate-500 font-mono">状态</p>
@@ -293,8 +288,7 @@ onUnmounted(() => {
           ref="loadingRef"
         >
           <div
-            class="w-6 h-6 rounded-full border-2 border-transparent animate-spin"
-            style="border-top-color: #f97316"
+            class="w-6 h-6 rounded-full border-2 border-transparent animate-spin border-t-orange-500"
           />
         </div>
         <div v-if="!loading && isLastPage" class="flex-center py-10">

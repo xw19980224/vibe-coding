@@ -73,21 +73,17 @@ function handleSave() {
     <div class="py-2 space-y-5">
       <!-- Avatar Section -->
       <div
-        class="relative rounded-xl py-8"
-        style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
+        class="relative rounded-xl py-8 bg-slate-800/40 border border-orange-500/6"
       >
         <div class="flex flex-col items-center gap-3">
           <img
             :src="avatarPreview"
             :alt="props.userInfo.nickname"
-            class="w-20 h-20 rounded-full object-cover"
-            style="border: 2px solid rgba(249, 115, 22, 0.3)"
+            class="w-20 h-20 rounded-full object-cover border-2 border-orange-500/30"
           />
           <button
-            class="h-8 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 font-mono"
-            style="background: rgba(249, 115, 22, 0.12);
-              color: #fb923c;
-              border: 1px solid rgba(249, 115, 22, 0.2)"
+            class="h-8 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 font-mono bg-orange-500/12 border border-orange-500/20"
+            style="color: #fb923c"
             @click="triggerAvatarUpload"
           >
             修改头像
@@ -110,9 +106,7 @@ function handleSave() {
           type="text"
           maxlength="15"
           placeholder="给自己取个名字..."
-          class="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
-          style="background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(249, 115, 22, 0.1)"
+          class="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
         />
         <div class="text-right text-xs mt-1 text-slate-500" >
           {{ form.nickname.length }}/15
@@ -127,9 +121,7 @@ function handleSave() {
           rows="3"
           maxlength="50"
           placeholder="介绍一下自己，让更多人认识你..."
-          class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono"
-          style="background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(249, 115, 22, 0.1)"
+          class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
         />
         <div class="text-right text-xs mt-1 text-slate-500" >
           {{ form.introduction.length }}/50
@@ -144,15 +136,12 @@ function handleSave() {
             v-model="skillInput"
             type="text"
             placeholder="输入技能后按回车添加..."
-            class="flex-1 h-10 px-4 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-            style="background: rgba(30, 41, 59, 0.5);
-              border: 1px solid rgba(249, 115, 22, 0.1)"
+            class="flex-1 h-10 px-4 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             @keyup.enter="addSkill"
           />
           <button
-            class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0 font-mono"
-            style="background: rgba(249, 115, 22, 0.12);
-              color: #f97316"
+            class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0 font-mono bg-orange-500/12"
+            style="color: #f97316"
             @click="addSkill"
           >
             添加
@@ -162,9 +151,8 @@ function handleSave() {
           <span
             v-for="skill in form.skills"
             :key="skill"
-            class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono"
-            style="background: rgba(249, 115, 22, 0.1);
-              color: #fb923c"
+            class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono bg-orange-500/10"
+            style="color: #fb923c"
             @click="removeSkill(skill)"
           >
             {{ skill }}
@@ -179,9 +167,7 @@ function handleSave() {
         <div class="space-y-3">
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               GitHub
             </div>
@@ -189,16 +175,12 @@ function handleSave() {
               v-model="form.githubUrl"
               type="url"
               placeholder="输入 GitHub 链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               小红书
             </div>
@@ -206,16 +188,12 @@ function handleSave() {
               v-model="form.rednoteUrl"
               type="url"
               placeholder="输入小红书链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               Bilibili
             </div>
@@ -223,16 +201,12 @@ function handleSave() {
               v-model="form.bilibiliUrl"
               type="url"
               placeholder="输入 Bilibili 链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               掘金
             </div>
@@ -240,16 +214,12 @@ function handleSave() {
               v-model="form.juejinUrl"
               type="url"
               placeholder="输入掘金链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               微博
             </div>
@@ -257,16 +227,12 @@ function handleSave() {
               v-model="form.weiboUrl"
               type="url"
               placeholder="输入微博链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
           <div class="flex items-center gap-2">
             <div
-              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.08)"
+              class="h-11 w-24 px-3 rounded-xl text-xs flex items-center shrink-0 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/8"
             >
               个人网站
             </div>
@@ -274,9 +240,7 @@ function handleSave() {
               v-model="form.portalUrl"
               type="url"
               placeholder="输入个人网站链接..."
-              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-              style="background: rgba(30, 41, 59, 0.5);
-                border: 1px solid rgba(249, 115, 22, 0.1)"
+              class="flex-1 h-11 px-4 rounded-xl text-xs outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
             />
           </div>
         </div>
@@ -286,8 +250,8 @@ function handleSave() {
     <template #footer>
       <div class="flex items-center justify-end gap-2">
         <button
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
-          style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
+          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 border border-orange-500/30"
+          style="background: transparent; color: #f97316"
           @click="visible = false"
         >
           取消

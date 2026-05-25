@@ -64,8 +64,8 @@ function openLink(url: string) {
         </div>
         <button
           v-if="props.isSelf"
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
-          style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
+          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 border border-orange-500/30"
+          style="background: transparent; color: #f97316"
           @click="emit('editUserProfile')"
         >
           编辑资料

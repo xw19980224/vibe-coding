@@ -49,8 +49,7 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
 
 <template>
   <div
-    class="rounded-xl overflow-hidden cursor-pointer transition-all duration-300"
-    style="background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.04)"
+    class="rounded-xl overflow-hidden cursor-pointer transition-all duration-300 bg-slate-800/30 border border-slate-400/4"
     @click="goToWork(work.id)"
     @mouseenter="
       (e: MouseEvent) => {
@@ -66,14 +65,14 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
     "
   >
     <!-- Cover -->
-    <div class="relative aspect-16/9 overflow-hidden" style="background: rgba(15, 23, 42, 0.6)">
+    <div class="relative aspect-16/9 overflow-hidden bg-slate-900/60" >
       <ElImage :src="work.coverUrl" :alt="work.title" class="size-full" />
 
       <!--      &lt;!&ndash; Top-right: More icon &ndash;&gt;-->
       <!--      <button-->
       <!--        v-if="props.isSelf"-->
       <!--        class="absolute top-2 right-2 w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 z-10 text-slate-400"-->
-      <!--        style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px)"-->
+      <!--        -- class="bg-slate-900/70 backdrop-blur">
       <!--        @click.stop="toggleMenu"-->
       <!--        @mouseenter="-->
       <!--          (e: MouseEvent) => {-->
@@ -158,7 +157,7 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
       <!--        </div>-->
       <!--      </Transition>-->
       <ElDropdown class="absolute top-2 right-2" trigger="click">
-        <ElButton link class="text-slate-400 backdrop-blur-sm bg-slate-900/70" @click.stop>
+        <ElButton link class="text-slate-400! backdrop-blur-sm bg-slate-900/70!" @click.stop>
           <template #icon>
             <SvgIcon icon="lucide:ellipsis" class="text-slate-400" />
           </template>
@@ -194,8 +193,8 @@ function handleAction(action: 'pin' | 'edit' | 'delete') {
         <span
           v-for="tag in work.tags?.slice(0, 3)"
           :key="tag"
-          class="h-5 px-2 rounded text-xs flex items-center font-mono"
-          style="background: rgba(249, 115, 22, 0.08); color: #fb923c"
+          class="h-5 px-2 rounded text-xs flex items-center font-mono bg-orange-500/8"
+          style="color: #fb923c"
         >
           {{ tag }}
         </span>
