@@ -52,7 +52,7 @@ onMounted(() => {
       >
         <span>{{ displayText }}</span>
         <span
-          class="inline-block w-0.5 h-[0.8em] bg-[#F97316] align-middle ml-1"
+          class="inline-block w-0.5 h-[0.8em] bg-orange align-middle ml-1"
           :style="{ animation: isTypingDone ? 'blink 1s step-end infinite' : 'none' }"
         />
       </h1>
@@ -155,6 +155,7 @@ onMounted(() => {
     transform: translate(-50%, -8px);
   }
 }
+
 @keyframes scrollPulse {
   0%,
   100% {

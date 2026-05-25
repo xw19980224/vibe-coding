@@ -57,9 +57,9 @@ function goToWork(id: number) {
         trigger="click"
         placement="bottom-end"
       >
-        <ElButton link class="text-slate-400! backdrop-blur-sm bg-slate-900/70!" @click.stop>
+        <ElButton link class="text-slate-400! backdrop-blur-sm bg-slate-900/70! p-1!" @click.stop>
           <template #icon>
-            <SvgIcon icon="lucide:ellipsis" class="text-slate-400" />
+            <SvgIcon icon="lucide:ellipsis" class="text-slate-200" />
           </template>
         </ElButton>
         <template #dropdown>
