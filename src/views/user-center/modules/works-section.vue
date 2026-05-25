@@ -4,6 +4,7 @@ import { usePagination } from '@a02/alova/client';
 import { useAppStore } from '@/stores/modules/app';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
 import WorkCardItem from './work-card.vue';
+import { onClickOutside } from '@vueuse/core';
 
 defineOptions({ name: 'WorksSection' });
 
@@ -16,16 +17,20 @@ const props = defineProps<Props>();
 
 const appStore = useAppStore();
 const isMobile = computed(() => appStore.isMobile);
+const filterRef = ref<HTMLElement>();
 
 const searchParams = reactive({
   keyword: '',
   status: undefined as number | undefined,
   category: undefined as string | undefined,
   sort: 'latest' as string,
-  nickname: props.nickname,
 });
 
-const { bool: filterVisible, toggle: toggleFilter } = useBoolean(false);
+const {
+  bool: filterVisible,
+  setTrue: openFilterModel,
+  setFalse: closeFilterModel,
+} = useBoolean(false);
 
 const statusLabels: Record<number, string> = {
   1: '草稿',
@@ -98,21 +103,13 @@ const { observe, unobserve } = useIntersectionObserver(loadingRef, (isIntersecti
   }
 });
 
-function applyFilter(patch: Partial<typeof searchParams>) {
-  Object.assign(searchParams, patch);
-  filterVisible.value = false;
-  reload();
-}
-
 function handleSearch() {
-  filterVisible.value = false;
-  reload();
+  sendGetUserWorks(1, pageSize);
 }
 
 watch(
   () => props.nickname,
-  (newNickname) => {
-    searchParams.nickname = newNickname;
+  () => {
     reload();
   },
 );
@@ -120,23 +117,41 @@ watch(
 onMounted(() => {
   observe();
   sendGetUserWorks();
+  onClickOutside(filterRef, () => {
+    closeFilterModel();
+  });
 });
 
 onUnmounted(() => {
   unobserve();
 });
+
+watch(
+  searchParams,
+  () => {
+    handleSearch();
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <template>
   <div>
     <!-- 作品筛选 -->
     <div class="mb-4 flex items-center justify-between gap-4">
-      <ElInput v-model="searchParams.keyword" placeholder="搜索作品名称、描述..." class="w-86">
+      <ElInput
+        v-model="searchParams.keyword"
+        placeholder="搜索作品名称、描述..."
+        class="w-86"
+        @keyup.enter="sendGetUserWorks"
+      >
         <template #prefix>
           <SvgIcon icon="lucide:search" class="text-slate-500 text-base" />
         </template>
         <template #suffix>
-          <ElButton size="small" link circle>
+          <ElButton size="small" link circle @click="handleSearch">
             <template #icon>
               <div class="group border-1 border-primary rd-full p-1 hover:(bg-orange-400)">
                 <SvgIcon
@@ -150,10 +165,10 @@ onUnmounted(() => {
       </ElInput>
 
       <!-- Right: Filter -->
-      <div class="relative shrink-0">
+      <div class="relative shrink-0" ref="filterRef">
         <button
           class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/10"
-          @click="toggleFilter"
+          @click="openFilterModel"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
           筛选
@@ -170,16 +185,13 @@ onUnmounted(() => {
                 <button
                   v-for="opt in statusOptions"
                   :key="opt.value"
-                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
-                  :style="{
-                    color: searchParams.status === opt.value ? '#f97316' : '#94a3b8',
-                    background:
-                      searchParams.status === opt.value
-                        ? 'rgba(249, 115, 22, 0.12)'
-                        : 'rgba(148, 163, 184, 0.06)',
-                    fontFamily: 'JetBrains Mono, monospace',
-                  }"
-                  @click="applyFilter({ status: opt.value })"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150 font-mono"
+                  :class="
+                    searchParams.status === opt.value
+                      ? 'text-orange bg-orange/12'
+                      : 'text-slate-400 bg-slate-400/6'
+                  "
+                  @click="searchParams.status = opt.value"
                 >
                   {{ opt.label }}
                 </button>
@@ -191,16 +203,13 @@ onUnmounted(() => {
                 <button
                   v-for="opt in categoryOptions"
                   :key="opt.value"
-                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
-                  :style="{
-                    color: searchParams.category === opt.value ? '#f97316' : '#94a3b8',
-                    background:
-                      searchParams.category === opt.value
-                        ? 'rgba(249, 115, 22, 0.12)'
-                        : 'rgba(148, 163, 184, 0.06)',
-                    fontFamily: 'JetBrains Mono, monospace',
-                  }"
-                  @click="applyFilter({ category: opt.value })"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150 font-mono"
+                  :class="
+                    searchParams.category === opt.value
+                      ? 'text-orange bg-orange/12'
+                      : 'text-slate-400 bg-slate-400/6'
+                  "
+                  @click="searchParams.category = opt.value"
                 >
                   {{ opt.label }}
                 </button>
@@ -212,16 +221,13 @@ onUnmounted(() => {
                 <button
                   v-for="opt in sortOptions"
                   :key="opt.value"
-                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150"
-                  :style="{
-                    color: searchParams.sort === opt.value ? '#f97316' : '#94a3b8',
-                    background:
-                      searchParams.sort === opt.value
-                        ? 'rgba(249, 115, 22, 0.12)'
-                        : 'rgba(148, 163, 184, 0.06)',
-                    fontFamily: 'JetBrains Mono, monospace',
-                  }"
-                  @click="applyFilter({ sort: opt.value })"
+                  class="h-7 px-2.5 rounded-md text-xs cursor-pointer transition-all duration-150 font-mono"
+                  :class="
+                    searchParams.sort === opt.value
+                      ? 'text-orange bg-orange/12'
+                      : 'text-slate-400 bg-slate-400/6'
+                  "
+                  @click="searchParams.sort = opt.value"
                 >
                   {{ opt.label }}
                 </button>
@@ -238,7 +244,7 @@ onUnmounted(() => {
       <p class="text-sm mb-4 text-slate-400 font-mono">还没有发布作品</p>
       <button
         v-if="props.isSelf"
-        class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
+        class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-white"
         style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
         @click="$router.push('/publish')"
       >
