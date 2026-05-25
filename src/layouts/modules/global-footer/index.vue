@@ -4,8 +4,7 @@ defineOptions({ name: 'GlobalFooter' });
 
 <template>
   <footer
-    class="relative z-10 py-12"
-    style="border-top: 1px solid rgba(249, 115, 22, 0.08); background: rgba(15, 23, 42, 0.6)"
+    class="relative z-10 py-12 border-t border-orange-500/8 bg-slate-900/60"
   >
     <div class="mx-auto px-4 md:px-8 w-full sm:w-4/5">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">

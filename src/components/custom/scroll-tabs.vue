@@ -44,13 +44,9 @@ onBeforeUnmount(() => {
       v-if="canScrollLeft"
       :class="[
         height,
-        'w-8 rounded-lg cursor-pointer transition-all duration-200 flex-center shrink-0',
+        'w-8 rounded-lg cursor-pointer transition-all duration-200 flex-center shrink-0 bg-slate-800/60 border border-orange-500/10',
       ]"
-      style="
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid rgba(249, 115, 22, 0.1);
-        color: #f97316;
-      "
+      style="color: #f97316"
       @click="handleScrollLeft"
     >
       <SvgIcon icon="lucide:chevron-left" style="font-size: 16px" />
@@ -62,13 +58,9 @@ onBeforeUnmount(() => {
       v-if="canScrollRight"
       :class="[
         height,
-        'w-8 rounded-lg cursor-pointer transition-all duration-200 flex-center shrink-0',
+        'w-8 rounded-lg cursor-pointer transition-all duration-200 flex-center shrink-0 bg-slate-800/60  border border-orange-500/10',
       ]"
-      style="
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid rgba(249, 115, 22, 0.1);
-        color: #f97316;
-      "
+      style="color: #f97316"
       @click="handleScrollRight"
     >
       <SvgIcon icon="lucide:chevron-right" style="font-size: 16px" />

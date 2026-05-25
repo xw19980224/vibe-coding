@@ -58,25 +58,19 @@ onUnmounted(() => {
         <!-- Backdrop -->
         <div
           v-if="showMask"
-          class="absolute inset-0"
-          style="background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(6px)"
+          class="absolute inset-0 bg-slate-900/92 backdrop-blur-sm"
           @click="onBackdropClick"
         />
 
         <!-- Card -->
         <div
-          class="relative z-10 w-full max-w-lg max-h-80vh rounded-2xl overflow-hidden flex flex-col"
-          style="
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-          "
+          class="relative z-10 w-full max-w-lg max-h-80vh rounded-2xl overflow-hidden flex flex-col bg-slate-800/95 border border-slate-400/8"
+          style="box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5)"
         >
           <!-- Header -->
           <div
             v-if="title || closable"
-            class="flex-y-center justify-between px-6 pt-5 pb-4"
-            style="border-bottom: 1px solid rgba(148, 163, 184, 0.06)"
+            class="flex-y-center justify-between px-6 pt-5 pb-4 border-b border-slate-400/6"
           >
             <h2
               class="text-lg font-600 text-slate-300 font-sans"
@@ -115,8 +109,7 @@ onUnmounted(() => {
           <!-- Footer -->
           <div
             v-if="$slots.footer"
-            class="px-6 pb-5 pt-4 flex items-center justify-end gap-3"
-            style="border-top: 1px solid rgba(148, 163, 184, 0.06)"
+            class="px-6 pb-5 pt-4 flex items-center justify-end gap-3 border-t border-slate-400/6"
           >
             <slot name="footer" />
           </div>

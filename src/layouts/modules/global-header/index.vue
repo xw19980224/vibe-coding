@@ -33,12 +33,7 @@ function onSearchInput() {
 
 <template>
   <nav
-    class="fixed top-0 left-0 right-0 z-100 h-16"
-    style="
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(249, 115, 22, 0.1);
-    "
+    class="fixed top-0 left-0 right-0 z-100 h-16 bg-slate-900/80 backdrop-blur-sm border-b border-orange-500/10"
   >
     <div class="mx-auto h-full w-full sm:w-4/5 flex-y-center justify-between px-4 md:px-8">
       <!-- Left: Logo + Search -->
@@ -65,9 +60,7 @@ function onSearchInput() {
             v-model="searchQuery"
             type="text"
             :placeholder="'搜索作品、标签或作者...'"
-            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
-            style="background: rgba(30, 41, 59, 0.6);
-              border: 1px solid rgba(249, 115, 22, 0.12)"
+            class="w-full h-9 pl-10 pr-4 rounded-lg text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/60 border border-orange-500/12"
             @input="onSearchInput"
           />
         </div>
@@ -89,9 +82,7 @@ function onSearchInput() {
             <span class="hidden sm:inline">发布作品</span>
           </button>
           <button
-            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400"
-            style="background: rgba(30, 41, 59, 0.6);
-              border: 1px solid rgba(249, 115, 22, 0.12)"
+            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400 bg-slate-800/60 border border-orange-500/12"
             @click="goToUser"
           >
             <SvgIcon icon="lucide:user" style="font-size: 18px" />
@@ -99,8 +90,8 @@ function onSearchInput() {
         </template>
         <button
           v-else
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200"
-          style="background: transparent; color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3)"
+          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 border border-orange-500/30"
+          style="background: transparent; color: #f97316"
           @click="openDialog"
         >
           登录

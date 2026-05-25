@@ -129,8 +129,7 @@ watch(visible, (val) => {
                 :disabled="isEmailCounting"
                 :loading="emailLoading"
                 @click="getEmailCaptcha(model.email)"
-                class="text-slate-400 font-mono" style="background: rgba(148, 163, 184, 0.06);
-                  border: 1px solid rgba(148, 163, 184, 0.15)"
+                class="text-slate-400 font-mono bg-slate-400/6 border border-slate-400/15" 
               >
                 {{ emailLabel }}
               </ElButton>
@@ -155,8 +154,8 @@ watch(visible, (val) => {
       <!-- Divider -->
       <div class="hidden md:flex flex-center py-5 md:py-0 md:px-8">
         <div
-          class="hidden md:block"
-          style="width: 1px; height: 220px; background: rgba(148, 163, 184, 0.1)"
+          class="hidden md:block bg-slate-400/10"
+          style="width: 1px; height: 220px"
         />
         <span
           class="text-sm md:hidden text-slate-600 font-mono"
@@ -173,8 +172,7 @@ watch(visible, (val) => {
           微信扫码登录
         </h3>
         <div
-          class="relative w-48 h-48 rounded-xl flex-center mb-4 overflow-hidden p-2"
-          style="background: rgba(15, 23, 42, 0.4); border: 2px solid rgba(148, 163, 184, 0.2)"
+          class="relative w-48 h-48 rounded-xl flex-center mb-4 overflow-hidden p-2 bg-slate-900/40 border-2 border-slate-400/20"
         >
           <ElImage
             v-if="qrCodeData"
@@ -187,8 +185,7 @@ watch(visible, (val) => {
           <!-- Refresh overlay when expired -->
           <div
             v-if="!isQrCodeCounting"
-            class="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer"
-            style="background: rgba(15, 23, 42, 0.85)"
+            class="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer bg-slate-900/85"
             @click="sendQrCode()"
           >
             <SvgIcon icon="lucide:rotate-cw" class="text-slate-400" style="font-size: 24px" />
@@ -207,8 +204,7 @@ watch(visible, (val) => {
     </div>
     <template #footer>
       <div
-        class="px-10 pb-5 pt-5 flex-center gap-2 text-sm flex-wrap text-slate-500"
-        style="border-top: 1px solid rgba(148, 163, 184, 0.06)"
+        class="px-10 pb-5 pt-5 flex-center gap-2 text-sm flex-wrap text-slate-500 border-t border-slate-400/6"
       >
         <span>登录即代表同意</span>
         <div class="flex-center">

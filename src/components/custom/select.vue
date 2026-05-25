@@ -146,9 +146,7 @@ useEventListener(window, 'resize', updateDropdownPosition);
   <div ref="selectRef" class="relative">
     <button
       ref="triggerRef"
-      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200 text-slate-400 font-mono"
-      style="background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(249, 115, 22, 0.1)"
+      class="w-full h-10 px-4 rounded-lg text-sm flex items-center justify-between gap-2 cursor-pointer transition-all duration-200 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/10"
       @click="toggle"
     >
       <span :style="{ color: selectedLabel ? '#f1f5f9' : '#64748b' }">
@@ -157,8 +155,7 @@ useEventListener(window, 'resize', updateDropdownPosition);
       <div class="flex items-center gap-1.5">
         <button
           v-if="clearable && hasValue"
-          class="flex items-center justify-center w-4 h-4 rounded-full cursor-pointer transition-opacity duration-150 hover:opacity-80 text-slate-400"
-          style="background: rgba(148, 163, 184, 0.25)"
+          class="flex items-center justify-center w-4 h-4 rounded-full cursor-pointer transition-opacity duration-150 hover:opacity-80 text-slate-400 bg-slate-400/25"
           @click="clear"
         >
           <SvgIcon icon="lucide:x" style="font-size: 10px" />
