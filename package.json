@@ -19,8 +19,6 @@
     "@a02/color": "workspace:*",
     "@a02/hooks": "workspace:*",
     "@a02/utils": "workspace:*",
-    "@better-scroll/core": "^2.5.1",
-    "@better-scroll/slide": "^2.5.1",
     "@vueuse/core": "^14.2.1",
     "dayjs": "^1.11.19",
     "defu": "^6.1.4",
