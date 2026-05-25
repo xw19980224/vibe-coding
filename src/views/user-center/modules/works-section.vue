@@ -3,7 +3,7 @@ import { UserAPI } from '@/service/api/user';
 import { usePagination } from '@a02/alova/client';
 import { useAppStore } from '@/stores/modules/app';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
-import WorkCardItem from './work-card-item.vue';
+import WorkCardItem from './work-card.vue';
 
 defineOptions({ name: 'WorksSection' });
 
@@ -131,48 +131,57 @@ onUnmounted(() => {
   <div>
     <!-- 作品筛选 -->
     <div class="mb-4 flex items-center justify-between gap-4">
-      <div class="flex-1 max-w-100 relative">
-        <SvgIcon
-          icon="lucide:search"
-          class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
-          style="font-size: 14px"
-        />
-        <input
-          v-model="searchParams.keyword"
-          type="text"
-          placeholder="搜索作品名称、描述..."
-          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono"
-          style="background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(249, 115, 22, 0.1)"
-          @keyup.enter="handleSearch"
-        />
-        <button
-          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex-center cursor-pointer transition-all duration-200"
-          style="background: rgba(249, 115, 22, 0.15); color: #f97316"
-          @click="handleSearch"
-          @mouseenter="
-            (e: MouseEvent) => {
-              (e.currentTarget as HTMLElement).style.color = '#fff';
-              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.35)';
-            }
-          "
-          @mouseleave="
-            (e: MouseEvent) => {
-              (e.currentTarget as HTMLElement).style.color = '#f97316';
-              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.15)';
-            }
-          "
-        >
-          <SvgIcon icon="lucide:arrow-right" style="font-size: 14px" />
-        </button>
-      </div>
+      <ElInput v-model="searchParams.keyword" placeholder="搜索作品名称、描述..." class="w-86">
+        <template #prefix>
+          <SvgIcon icon="lucide:search" class="text-slate-500 text-base" />
+        </template>
+        <template #suffix>
+          <div class="border-1 border-primary rd-full p-1">
+            <SvgIcon icon="lucide:arrow-right" class="text-slate-500 text-base" />
+          </div>
+        </template>
+      </ElInput>
+      <!--      <div class="flex-1 max-w-100 relative">-->
+      <!--        <SvgIcon-->
+      <!--          icon="lucide:search"-->
+      <!--          class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"-->
+      <!--          style="font-size: 14px"-->
+      <!--        />-->
+      <!--        <input-->
+      <!--          v-model="searchParams.keyword"-->
+      <!--          type="text"-->
+      <!--          placeholder="搜索作品名称、描述..."-->
+      <!--          class="w-full h-10 pl-9 pr-10 rounded-lg text-xs outline-none transition-all duration-200 text-slate-100 font-mono"-->
+      <!--          style="background: rgba(30, 41, 59, 0.5);-->
+      <!--            border: 1px solid rgba(249, 115, 22, 0.1)"-->
+      <!--          @keyup.enter="handleSearch"-->
+      <!--        />-->
+      <!--        <button-->
+      <!--          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex-center cursor-pointer transition-all duration-200"-->
+      <!--          style="background: rgba(249, 115, 22, 0.15); color: #f97316"-->
+      <!--          @click="handleSearch"-->
+      <!--          @mouseenter="-->
+      <!--            (e: MouseEvent) => {-->
+      <!--              (e.currentTarget as HTMLElement).style.color = '#fff';-->
+      <!--              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.35)';-->
+      <!--            }-->
+      <!--          "-->
+      <!--          @mouseleave="-->
+      <!--            (e: MouseEvent) => {-->
+      <!--              (e.currentTarget as HTMLElement).style.color = '#f97316';-->
+      <!--              (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.15)';-->
+      <!--            }-->
+      <!--          "-->
+      <!--        >-->
+      <!--          <SvgIcon icon="lucide:arrow-right" style="font-size: 14px" />-->
+      <!--        </button>-->
+      <!--      </div>-->
 
       <!-- Right: Filter -->
       <div class="relative shrink-0">
         <button
           class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400 font-mono"
-          style="background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(249, 115, 22, 0.1)"
+          style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(249, 115, 22, 0.1)"
           @click="toggleFilter"
         >
           <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
@@ -189,11 +198,7 @@ onUnmounted(() => {
             "
           >
             <div v-if="props.isSelf">
-              <p
-                class="text-xs mb-2 text-slate-500 font-mono"
-              >
-                状态
-              </p>
+              <p class="text-xs mb-2 text-slate-500 font-mono">状态</p>
               <div class="flex flex-wrap gap-1.5">
                 <button
                   v-for="opt in statusOptions"
@@ -214,11 +219,7 @@ onUnmounted(() => {
               </div>
             </div>
             <div>
-              <p
-                class="text-xs mb-2 text-slate-500 font-mono"
-              >
-                分类
-              </p>
+              <p class="text-xs mb-2 text-slate-500 font-mono">分类</p>
               <div class="flex flex-wrap gap-1.5">
                 <button
                   v-for="opt in categoryOptions"
@@ -239,11 +240,7 @@ onUnmounted(() => {
               </div>
             </div>
             <div>
-              <p
-                class="text-xs mb-2 text-slate-500 font-mono"
-              >
-                排序
-              </p>
+              <p class="text-xs mb-2 text-slate-500 font-mono">排序</p>
               <div class="flex flex-wrap gap-1.5">
                 <button
                   v-for="opt in sortOptions"
@@ -271,9 +268,7 @@ onUnmounted(() => {
     <!-- Empty -->
     <div v-if="!works.length" class="flex flex-col items-center py-16">
       <div class="text-5xl mb-4" style="opacity: 0.15">(´･_･`)</div>
-      <p class="text-sm mb-4 text-slate-400 font-mono" >
-        还没有发布作品
-      </p>
+      <p class="text-sm mb-4 text-slate-400 font-mono">还没有发布作品</p>
       <button
         v-if="props.isSelf"
         class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
@@ -290,12 +285,7 @@ onUnmounted(() => {
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
         >
-          <WorkCardItem
-            v-for="work in works"
-            :key="work.id"
-            :work="work"
-            :is-self="props.isSelf"
-          />
+          <WorkCardItem v-for="work in works" :key="work.id" :work="work" :is-self="props.isSelf" />
         </div>
         <div
           v-if="loading || (!isLastPage && works.length)"
@@ -308,9 +298,7 @@ onUnmounted(() => {
           />
         </div>
         <div v-if="!loading && isLastPage" class="flex-center py-10">
-          <p class="text-sm text-slate-500 font-mono" >
-            已加载全部作品
-          </p>
+          <p class="text-sm text-slate-500 font-mono">已加载全部作品</p>
         </div>
       </div>
     </template>
@@ -322,6 +310,7 @@ onUnmounted(() => {
 .menu-leave-active {
   transition: all 0.15s ease;
 }
+
 .menu-enter-from,
 .menu-leave-to {
   opacity: 0;
