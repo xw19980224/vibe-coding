@@ -2,10 +2,10 @@ html:root,
 html.dark:root {
   @each $color in (primary, success, warning, info) {
     --el-color-#{$color}: rgb(var(--#{$color}-color));
-    --el-color-#{$color}-dark-2: rgb(var(--#{$color}-600-color));
-    --el-color-#{$color}-light-3: rgb(var(--#{$color}-400-color));
-    --el-color-#{$color}-light-5: rgb(var(--#{$color}-300-color));
-    --el-color-#{$color}-light-7: rgb(var(--#{$color}-200-color));
+    --el-color-#{$color}-dark-2: rgb(var(--#{$color}-600 -color));
+    --el-color-#{$color}-light-3: rgb(var(--#{$color}-400 -color));
+    --el-color-#{$color}-light-5: rgb(var(--#{$color}-300 -color));
+    --el-color-#{$color}-light-7: rgb(var(--#{$color}-200 -color));
     --el-color-#{$color}-light-9: rgb(var(--#{$color}-color) / 0.1);
   }
 
@@ -15,32 +15,41 @@ html.dark:root {
   --el-color-danger-light-5: rgb(var(--error-300-color));
   --el-color-danger-light-7: rgb(var(--error-200-color));
   --el-color-danger-light-9: rgb(var(--error-color) / 0.1);
+
+  // Shared surface tokens
+  --el-bg-glass: rgba(30, 41, 59, 0.92);
+  --el-bg-popup: rgba(30, 41, 59, 0.98);
+  --el-bg-input: rgba(15, 23, 42, 0.5);
+  --el-border-subtle: rgba(148, 163, 184, 0.08);
+  --el-border-medium: rgba(148, 163, 184, 0.12);
+
+  // Shared text tokens
+  --el-text-highlight: #f1f5f9;
+  --el-text-input: #cbd5e1;
+  --el-text-regular: #94a3b8;
 }
 
 .el-dialog {
-  background: rgba(30, 41, 59, 0.92);
+  background: var(--el-bg-glass);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--el-border-subtle);
 }
 
-.el-card{
-  background: rgba(30, 41, 59, 0.92);
+.el-card {
+  background: var(--el-bg-glass);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--el-border-subtle);
 }
 
 .el-input__wrapper {
-  background: rgba(15, 23, 42, 0.5) !important;
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: var(--el-bg-input) !important;
+  border: 1px solid var(--el-border-medium);
   box-shadow: none !important;
 
   .el-input__inner {
-    @apply text-slate-300 font-mono;
+    color: var(--el-text-input);
+    font-size: 12px !important;
   }
-
-  //.el-input__wrapper:hover, .el-input__wrapper.is-focus {
-  //  border-color: #f97316;
-  //}
 }
 
 .el-tabs {
@@ -62,7 +71,8 @@ html.dark:root {
 }
 
 .el-tabs__item {
-  @apply text-slate-400 font-mono;
+  color: var(--el-text-regular);
+  font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   padding: 0 16px;
   transition: all 0.2s;
@@ -74,5 +84,40 @@ html.dark:root {
   &.is-active {
     color: var(--el-color-primary);
     font-weight: 600;
+  }
+}
+
+.el-popper {
+  background: var(--el-bg-popup) !important;
+  border: 1px solid var(--el-border-medium) !important;
+
+  .el-popper__arrow::before,
+  .el-popper__arrow::after {
+    background: var(--el-bg-popup) !important;
+    border: 1px solid var(--el-border-medium) !important;
+  }
+
+  .el-dropdown-menu {
+    background: transparent;
+    padding: 4px;
+  }
+
+  .el-dropdown-menu__item {
+    color: var(--el-text-regular);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+
+    &:hover {
+      background: var(--el-border-subtle);
+      color: var(--el-text-highlight);
+    }
+
+    &:not(.is-disabled) {
+      &:focus {
+        background: var(--el-border-subtle);
+        color: var(--el-text-highlight);
+      }
+    }
   }
 }
