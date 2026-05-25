@@ -37,6 +37,14 @@ export default defineConfig<Theme>({
   shortcuts: {
     'card-wrapper': 'rd-8px shadow-sm',
   },
+  rules: [
+    [
+      /^bg-linear-(\d+)-#([\da-fA-F]{6})-#([\da-fA-F]{6})$/,
+      ([, angle, start, end]) => ({
+        background: `linear-gradient(${angle}deg, #${start}, #${end})`,
+      }),
+    ],
+  ],
   transformers: [transformerVariantGroup(), transformerDirectives()],
   presets: [
     presetWind4({
