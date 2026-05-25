@@ -51,9 +51,7 @@ const licenseOptions = [
         v-model="form.duration"
         type="text"
         placeholder="输入自定义周期，如：2个月、30天..."
-        class="w-full h-10 px-4 rounded-lg text-sm outline-none transition-all duration-200 mt-3 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full h-10 px-4 rounded-lg text-sm outline-none transition-all duration-200 mt-3 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
 
@@ -84,9 +82,7 @@ const licenseOptions = [
       <input
         v-model="form.onlineDate"
         type="month"
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
 
@@ -113,9 +109,7 @@ const licenseOptions = [
         v-model="repoUrl"
         type="url"
         :placeholder="repoPlatform === 'github' ? 'https://github.com/...' : 'https://gitee.com/...'"
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
 
@@ -126,16 +120,14 @@ const licenseOptions = [
         v-model="form.demoUrl"
         type="url"
         placeholder="https://..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
 
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400"
-        style="background: transparent; border: 1px solid rgba(249, 115, 22, 0.15)"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15"
+        style="background: transparent"
         @click="emit('prev')"
       >
         上一步

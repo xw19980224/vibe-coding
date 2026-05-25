@@ -88,8 +88,7 @@ async function submit() {
   <!-- Published Success -->
   <div v-if="published" class="pt-32 flex flex-col items-center">
     <div
-      class="w-20 h-20 rounded-full flex items-center justify-center mb-6"
-      style="background: rgba(34, 197, 94, 0.1); border: 2px solid rgba(34, 197, 94, 0.3)"
+      class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-green-500/10 border-2 border-green-500/30"
     >
       <span class="text-3xl" style="color: #4ade80">OK</span>
     </div>

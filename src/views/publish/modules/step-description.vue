@@ -13,9 +13,7 @@ const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
         v-model="form.description"
         rows="5"
         placeholder="描述你的作品、用了什么技术、有什么亮点..."
-        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
     <div>
@@ -24,15 +22,13 @@ const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
         v-model="form.vibePrompt"
         rows="3"
         placeholder="写出创作时使用的 prompt，让大家感受你的灵感..."
-        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono"
-        style="background: rgba(30, 41, 59, 0.5);
-          border: 1px solid rgba(249, 115, 22, 0.1)"
+        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400"
-        style="background: transparent; border: 1px solid rgba(249, 115, 22, 0.15)"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15"
+        style="background: transparent"
         @click="emit('prev')"
       >
         上一步
