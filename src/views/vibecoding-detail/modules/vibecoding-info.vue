@@ -53,18 +53,9 @@ function getTagStyle(idx: number) {
   return tagColors[idx % tagColors.length];
 }
 
-const formattedDuration = computed(() => {
-  const d = props.workDetail.duration;
-  if (!d) return '';
-  const m = d.match(/(\d{4}-\d{2})\s*~\s*(\d{4}-\d{2})/);
-  if (!m) return d;
-  const start = new Date(m[1]);
-  const end = new Date(m[2]);
-  const diffDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  if (diffDays >= 60) return `${Math.round(diffDays / 30)}个月`;
-  if (diffDays >= 1) return `${diffDays}天`;
-  return '不足1天';
-});
+function formatCompactNumber(num: number) {
+  return formatCompact(num);
+}
 
 const isWebPlatform = computed(
   () => props.workDetail.platform === 'web' || props.workDetail.platform === 'desktop',
@@ -134,8 +125,7 @@ async function handleShare() {
       <div class="flex items-center gap-3 mb-4">
         <div
           v-if="workDetail.featured"
-          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0 font-display text-slate-900"
-          style="background: linear-gradient(135deg, #f97316, #fb923c); letter-spacing: 0.05em"
+          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0 font-display text-slate-900 bg-linear-135-#f97316-#fb923c tracking-wider"
         >
           FEATURED
         </div>
@@ -150,11 +140,10 @@ async function handleShare() {
           <span
             v-for="(tag, ti) in workDetail.tags"
             :key="tag"
-            class="h-6 px-2.5 rounded-md text-xs font-500 flex items-center"
+            class="h-6 px-2.5 rounded-md text-xs font-500 flex items-center font-mono"
             :style="{
               background: getTagStyle(ti).bg,
               color: getTagStyle(ti).text,
-              fontFamily: 'JetBrains Mono, monospace',
             }"
           >
             {{ tag }}
@@ -162,12 +151,12 @@ async function handleShare() {
         </div>
         <div class="flex-y-center gap-3">
           <div class="flex items-center gap-1 text-xs text-slate-500">
-            <SvgIcon icon="lucide:eye" style="font-size: 14px" />
-            {{ formatCompact(workDetail.views) }}
+            <SvgIcon icon="lucide:eye" class="text-sm" />
+            {{ formatCompactNumber(workDetail.views) }}
           </div>
           <div class="flex items-center gap-1 text-xs" style="color: #f97316">
-            <SvgIcon icon="lucide:heart" style="font-size: 14px" />
-            {{ formatCompact(workDetail.likes) }}
+            <SvgIcon icon="lucide:heart" class="text-sm" />
+            {{ formatCompactNumber(workDetail.likes) }}
           </div>
         </div>
       </div>
@@ -183,10 +172,7 @@ async function handleShare() {
 
       <!-- 描述 (Markdown) -->
       <div>
-        <h3
-          class="text-xs font-700 mb-3 tracking-wider uppercase font-display"
-          style="color: #f97316"
-        >
+        <h3 class="text-lg font-700 mb-3 tracking-wider uppercase font-display text-orange">
           项目介绍
         </h3>
         <div class="text-white" v-html="workDetail.description" />
@@ -216,19 +202,18 @@ async function handleShare() {
                 {{ workDetail.author.name }}
               </p>
               <button
-                class="h-7 px-3 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0"
-                :style="{
-                  background: isFollowing ? 'rgba(34, 197, 94, 0.12)' : 'rgba(249, 115, 22, 0.1)',
-                  color: isFollowing ? '#4ade80' : '#f97316',
-                  border: `1px solid ${isFollowing ? 'rgba(34, 197, 94, 0.25)' : 'rgba(249, 115, 22, 0.25)'}`,
-                  fontFamily: 'JetBrains Mono, monospace',
-                }"
+                class="h-7 px-3 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0 border-1 font-mono"
+                :class="
+                  isFollowing
+                    ? 'text-green-400 bg-green/12 border-green/25'
+                    : 'text-orange bg-orange/1 border-orange/25'
+                "
                 @click="toggleFollow"
               >
                 {{ isFollowing ? '已关注' : '+ 关注' }}
               </button>
             </div>
-            <p v-if="workDetail.author.bio" class="text-xs mt-0.5 truncate text-slate-500">
+            <p v-if="workDetail.author.bio" class="text-xs mt-0.5 truncate text-slate">
               {{ workDetail.author.bio }}
             </p>
           </div>
@@ -246,21 +231,9 @@ async function handleShare() {
             target="_blank"
             rel="noopener noreferrer"
             :title="p.label"
-            class="w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 no-underline text-slate-500"
-            @mouseenter="
-              (e: MouseEvent) => {
-                (e.currentTarget as HTMLElement).style.color = '#f97316';
-                (e.currentTarget as HTMLElement).style.background = 'rgba(249, 115, 22, 0.08)';
-              }
-            "
-            @mouseleave="
-              (e: MouseEvent) => {
-                (e.currentTarget as HTMLElement).style.color = '#64748b';
-                (e.currentTarget as HTMLElement).style.background = 'transparent';
-              }
-            "
+            class="w-7 h-7 rounded-lg flex-center cursor-pointer transition-all duration-200 no-underline text-slate hover:(text-orange bg-orange/8)"
           >
-            <SvgIcon :local-icon="p.icon" style="font-size: 15px" />
+            <SvgIcon :local-icon="p.icon" class="text-xl" />
           </a>
         </div>
 
@@ -269,13 +242,13 @@ async function handleShare() {
           <div
             v-for="stat in authorStats"
             :key="stat.label"
-            class="text-center cursor-pointer transition-colors duration-200 hover:text-[#f97316]"
+            class="text-center cursor-pointer transition-colors duration-200 hover:text-orange"
             @click="$router.push(`/user-center/${workDetail.author.name}`)"
           >
             <div class="text-sm font-700 text-slate-100 font-display">
-              {{ formatCompact(stat.value) }}
+              {{ formatCompactNumber(stat.value) }}
             </div>
-            <div class="text-11px mt-0.5 text-slate-500 font-mono">
+            <div class="text-sm mt-0.5 text-slate font-mono">
               {{ stat.label }}
             </div>
           </div>
@@ -285,22 +258,25 @@ async function handleShare() {
       <!-- 收藏 + 分享 -->
       <div class="flex gap-2">
         <button
-          class="flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-200"
-          :style="{
-            background: isFavorited ? 'rgba(249, 115, 22, 0.15)' : 'rgba(30, 41, 59, 0.4)',
-            color: isFavorited ? '#f97316' : '#94a3b8',
-            border: `1px solid ${isFavorited ? 'rgba(249, 115, 22, 0.3)' : 'rgba(148, 163, 184, 0.08)'}`,
-          }"
+          class="flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-200 border-1"
+          :class="
+            isFavorited
+              ? 'bg-orange/15 text-orange border-orange/3'
+              : 'bg-slate-800/40 text-slate-300 border-slate-400/8'
+          "
           @click="toggleFavorite"
         >
-          <SvgIcon :icon="isFavorited ? 'lucide:heart' : 'lucide:heart'" style="font-size: 16px" />
+          <SvgIcon
+            :icon="isFavorited ? 'carbon:favorite-filled' : 'carbon:favorite'"
+            class="text-base"
+          />
           {{ isFavorited ? '已收藏' : '收藏' }}
         </button>
         <button
-          class="relative flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-200 text-slate-400 bg-slate-800/40 border border-slate-400/8"
+          class="relative flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex-center gap-1.5 transition-all duration-200 text-slate-400 bg-slate-800/40 border border-slate-400/8"
           @click="handleShare"
         >
-          <SvgIcon icon="lucide:share" style="font-size: 16px" />
+          <SvgIcon icon="lucide:share" class="text-base" />
           分享
           <span
             v-if="shareTooltip"
@@ -313,60 +289,57 @@ async function handleShare() {
 
       <!-- 项目详情 -->
       <div class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6">
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display">
+        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
           项目详情
         </h3>
         <div class="space-y-3">
           <div v-if="workDetail.model" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">模型</span>
+            <span class="text-xs text-slate font-mono">模型</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ workDetail.model }}
             </span>
           </div>
           <div v-if="workDetail.languages?.length" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">开发语言</span>
+            <span class="text-xs text-slate font-mono">开发语言</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ workDetail.languages.join(' / ') }}
             </span>
           </div>
           <div v-if="workDetail.duration" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">开发周期</span>
+            <span class="text-xs text-slate font-mono">开发周期</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
-              {{ formattedDuration }}
+              {{ workDetail.duration }}
             </span>
           </div>
           <div v-if="workDetail.isOnline !== undefined" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">是否上线</span>
+            <span class="text-xs text-slate font-mono">是否上线</span>
             <span
-              class="text-xs font-500"
-              :style="{
-                color: workDetail.isOnline ? '#4ade80' : '#64748b',
-                fontFamily: 'JetBrains Mono, monospace',
-              }"
+              class="text-xs font-500 font-mono"
+              :class="workDetail.isOnline ? 'text-green-400' : 'text-slate'"
             >
               {{ workDetail.isOnline ? '已上线' : '未上线' }}
             </span>
           </div>
           <div v-if="workDetail.onlineDate" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">上线日期</span>
+            <span class="text-xs text-slate font-mono">上线日期</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ workDetail.onlineDate }}
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">分类</span>
+            <span class="text-xs text-slate font-mono">分类</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ categoryLabels[workDetail.category] || workDetail.category }}
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">运行平台</span>
+            <span class="text-xs text-slate font-mono">运行平台</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ platformLabels[workDetail.platform] }}
             </span>
           </div>
           <div v-if="workDetail.license" class="flex items-center justify-between">
-            <span class="text-xs text-slate-500 font-mono">许可证</span>
+            <span class="text-xs text-slate font-mono">许可证</span>
             <span class="text-xs font-500 text-slate-400 font-mono">
               {{ workDetail.license }}
             </span>
@@ -381,10 +354,9 @@ async function handleShare() {
           :href="workDetail.demoUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline border border-orange-500/20"
+          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline border border-orange-500/20 text-orange"
           style="
             background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1));
-            color: #f97316;
           "
           @mouseenter="
             (e: MouseEvent) => {
@@ -398,7 +370,7 @@ async function handleShare() {
             }
           "
         >
-          <SvgIcon icon="lucide:play" style="font-size: 16px" />
+          <SvgIcon icon="lucide:play" class="text-base" />
           在线演示
         </a>
         <a
@@ -420,7 +392,7 @@ async function handleShare() {
             }
           "
         >
-          <SvgIcon icon="lucide:github" style="font-size: 16px" />
+          <SvgIcon icon="lucide:github" class="text-base" />
           源码仓库
         </a>
       </div>
@@ -430,30 +402,28 @@ async function handleShare() {
         v-if="workDetail.mcps?.length || workDetail.skills?.length"
         class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display">
+        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
           MCP / Skills
         </h3>
         <div v-if="workDetail.mcps?.length" class="mb-3">
-          <p class="text-11px mb-2 text-slate-500 font-mono">MCP</p>
+          <p class="text-11px mb-2 text-slate font-mono">MCP</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="mcp in workDetail.mcps"
               :key="mcp"
-              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-blue-500/10"
-              style="color: #60a5fa; font-size: 11px"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-blue-500/10 text-blue-400"
             >
               {{ mcp }}
             </span>
           </div>
         </div>
         <div v-if="workDetail.skills?.length">
-          <p class="text-11px mb-2 text-slate-500 font-mono">Skills</p>
+          <p class="text-11px mb-2 text-slate font-mono">Skills</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="skill in workDetail.skills"
               :key="skill"
-              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-purple-500/10"
-              style="color: #c084fc; font-size: 11px"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-purple-500/10 text-purple-400"
             >
               {{ skill }}
             </span>
@@ -466,15 +436,14 @@ async function handleShare() {
         v-if="workDetail.tools?.length"
         class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display">
+        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
           开发工具
         </h3>
         <div class="flex flex-wrap gap-1.5">
           <span
             v-for="tool in workDetail.tools"
             :key="tool"
-            class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-orange-500/8"
-            style="color: #fb923c; font-size: 11px"
+            class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-orange-500/8 text-orange-400"
           >
             {{ tool }}
           </span>
