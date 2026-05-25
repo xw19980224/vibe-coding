@@ -40,8 +40,7 @@ onMounted(() => {
     <!-- Loading -->
     <div v-if="workDetailLoading" class="flex items-center justify-center py-20">
       <div
-        class="w-10 h-10 rounded-full border-2 border-transparent animate-spin"
-        style="border-top-color: #f97316"
+        class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500"
       />
     </div>
 

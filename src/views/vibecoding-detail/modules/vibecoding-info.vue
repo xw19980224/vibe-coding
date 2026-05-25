@@ -198,8 +198,7 @@ async function handleShare() {
     <div class="w-full lg:w-96 shrink-0 space-y-5">
       <!-- 作者卡片 -->
       <div
-        class="p-5 rounded-2xl"
-        style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
+        class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
         <h3
           class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display"
@@ -210,8 +209,7 @@ async function handleShare() {
           <img
             :src="workDetail.author.avatar"
             :alt="workDetail.author.name"
-            class="w-12 h-12 rounded-full object-cover cursor-pointer transition-all duration-200 hover:scale-110"
-            style="border: 2px solid rgba(249, 115, 22, 0.2)"
+            class="w-12 h-12 rounded-full object-cover cursor-pointer transition-all duration-200 hover:scale-110 border-2 border-orange-500/20"
             @click="$router.push(`/user-center/${workDetail.author.name}`)"
           />
           <div class="min-w-0 flex-1">
@@ -243,7 +241,7 @@ async function handleShare() {
         </div>
 
         <!-- 社交链接 -->
-        <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mt-3 pt-3" style="border-top: 1px solid rgba(148, 163, 184, 0.06)">
+        <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mt-3 pt-3 border-t border-slate-400/6" >
           <a
             v-for="p in socialPlatforms"
             :key="p.key"
@@ -261,7 +259,7 @@ async function handleShare() {
         </div>
 
         <!-- 统计数据 -->
-        <div class="flex-y-center justify-between mt-3 pt-3" style="border-top: 1px solid rgba(148, 163, 184, 0.06)">
+        <div class="flex-y-center justify-between mt-3 pt-3 border-t border-slate-400/6" >
           <div
             v-for="stat in authorStats"
             :key="stat.label"
@@ -293,9 +291,7 @@ async function handleShare() {
           {{ isFavorited ? '已收藏' : '收藏' }}
         </button>
         <button
-          class="relative flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-200 text-slate-400"
-          style="background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(148, 163, 184, 0.08)"
+          class="relative flex-1 h-10 rounded-xl text-sm font-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-200 text-slate-400 bg-slate-800/40 border border-slate-400/8"
           @click="handleShare"
         >
           <SvgIcon icon="lucide:share" style="font-size: 16px" />
@@ -311,8 +307,7 @@ async function handleShare() {
 
       <!-- 项目详情 -->
       <div
-        class="p-5 rounded-2xl"
-        style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
+        class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
         <h3
           class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display"
@@ -381,12 +376,8 @@ async function handleShare() {
           :href="workDetail.demoUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline"
-          style="
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1));
-            color: #f97316;
-            border: 1px solid rgba(249, 115, 22, 0.2);
-          "
+          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline border border-orange-500/20"
+          style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1)); color: #f97316"
           @mouseenter="
             (e: MouseEvent) => {
               (e.currentTarget as HTMLElement).style.background = 'rgba(249, 115, 22, 0.25)';
@@ -407,9 +398,7 @@ async function handleShare() {
           :href="repoUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline text-slate-400"
-          style="background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(148, 163, 184, 0.1)"
+          class="flex-1 flex items-center justify-center gap-2 h-11 rounded-xl text-sm font-600 transition-all duration-200 no-underline text-slate-400 bg-slate-800/40 border border-slate-400/10"
           @mouseenter="
             (e: MouseEvent) => {
               (e.currentTarget as HTMLElement).style.color = '#f1f5f9';
@@ -431,8 +420,7 @@ async function handleShare() {
       <!-- MCP / Skills -->
       <div
         v-if="workDetail.mcps?.length || workDetail.skills?.length"
-        class="p-5 rounded-2xl"
-        style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
+        class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
         <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display" >
           MCP / Skills
@@ -443,8 +431,8 @@ async function handleShare() {
             <span
               v-for="mcp in workDetail.mcps"
               :key="mcp"
-              class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
-              style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-size: 11px"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-blue-500/10"
+              style="color: #60a5fa; font-size: 11px"
             >
               {{ mcp }}
             </span>
@@ -456,8 +444,8 @@ async function handleShare() {
             <span
               v-for="skill in workDetail.skills"
               :key="skill"
-              class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
-              style="background: rgba(168, 85, 247, 0.1); color: #c084fc; font-size: 11px"
+              class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-purple-500/10"
+              style="color: #c084fc; font-size: 11px"
             >
               {{ skill }}
             </span>
@@ -468,8 +456,7 @@ async function handleShare() {
       <!-- 开发工具 -->
       <div
         v-if="workDetail.tools?.length"
-        class="p-5 rounded-2xl"
-        style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(249, 115, 22, 0.06)"
+        class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
         <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display" >
           开发工具
@@ -478,8 +465,8 @@ async function handleShare() {
           <span
             v-for="tool in workDetail.tools"
             :key="tool"
-            class="h-6 px-2 rounded-md text-xs flex items-center font-mono"
-            style="background: rgba(249, 115, 22, 0.08); color: #fb923c; font-size: 11px"
+            class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-orange-500/8"
+            style="color: #fb923c; font-size: 11px"
           >
             {{ tool }}
           </span>

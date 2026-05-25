@@ -6,8 +6,7 @@ defineOptions({ name: 'CommentSection' });
 
 <template>
   <div
-    class="rounded-2xl p-8"
-    style="background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.06)"
+    class="rounded-2xl p-8 bg-slate-800/30 border border-slate-400/6"
   >
     <h3 class="text-lg font-700 mb-6 text-slate-100 font-display" >
       评论
