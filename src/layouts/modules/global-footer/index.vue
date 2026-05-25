@@ -11,8 +11,8 @@ defineOptions({ name: 'GlobalFooter' });
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex-y-center gap-2">
           <div
-            class="w-7 h-7 rounded-lg flex-center text-sm font-bold"
-            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
+            class="w-7 h-7 rounded-lg flex-center text-sm font-bold text-slate-900"
+            style="background: linear-gradient(135deg, #f97316, #fb923c)"
           >
             V
           </div>

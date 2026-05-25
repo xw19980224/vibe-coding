@@ -134,9 +134,8 @@ async function handleShare() {
       <div class="flex items-center gap-3 mb-4">
         <div
           v-if="workDetail.featured"
-          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0 font-display"
+          class="hidden h-7 px-3 rounded-lg text-xs font-700 sm:flex items-center shrink-0 font-display text-slate-900"
           style="background: linear-gradient(135deg, #f97316, #fb923c);
-            color: #0f172a;
             letter-spacing: 0.05em"
         >
           FEATURED

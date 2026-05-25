@@ -41,7 +41,7 @@ function stepState(value: number) {
         <div
           class="relative z-1 size-8 rounded-full flex-center text-2xs font-700 transition-all duration-300"
           :class="{
-            'text-[#0f172a]': stepState(step.value) === 'done',
+            'text-slate-900': stepState(step.value) === 'done',
             'text-[#f97316]': stepState(step.value) === 'active',
             'text-[#475569]': stepState(step.value) === 'pending',
           }"

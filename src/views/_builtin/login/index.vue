@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex-center px-4 relative" style="background: #0f172a">
+  <div class="min-h-screen flex-center px-4 relative bg-slate-900">
     <div
       class="absolute inset-0"
       style="
@@ -93,10 +93,9 @@ onMounted(() => {
         <template #header>
           <div class="flex items-center gap-3">
             <div
-              class="w-12 h-12 rounded-xl flex-center font-bold"
+              class="w-12 h-12 rounded-xl flex-center font-bold text-slate-900"
               style="
                 background: linear-gradient(135deg, #f97316, #fb923c);
-                color: #0f172a;
                 font-size: 24px;
               "
             >

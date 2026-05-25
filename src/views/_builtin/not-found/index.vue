@@ -11,7 +11,7 @@ function goHome() {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center px-4 relative" style="background: #0f172a">
+  <div class="min-h-screen flex flex-col items-center justify-center px-4 relative bg-slate-900">
     <div
       class="absolute inset-0"
       style="background: radial-gradient(ellipse at 50% 50%, rgba(249, 115, 22, 0.04) 0%, transparent 60%)"

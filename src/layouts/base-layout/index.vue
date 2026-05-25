@@ -10,7 +10,7 @@ defineOptions({ name: 'BaseLayout' });
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col relative" style="background: #0f172a">
+  <div class="min-h-screen flex flex-col relative bg-slate-900">
     <ParticleBg />
     <GlobalHeader />
 

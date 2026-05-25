@@ -45,8 +45,8 @@ function onSearchInput() {
       <div class="flex-y-center gap-4 md:gap-6 flex-1 min-w-0">
         <div class="flex-y-center gap-2 cursor-pointer select-none shrink-0" @click="goHome">
           <div
-            class="w-8 h-8 rounded-lg flex-center text-sm font-bold"
-            style="background: linear-gradient(135deg, #f97316, #fb923c); color: #0f172a"
+            class="w-8 h-8 rounded-lg flex-center text-sm font-bold text-slate-900"
+            style="background: linear-gradient(135deg, #f97316, #fb923c)"
           >
             V
           </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { formatCompact } from '../../../utils/common.ts';
+import { formatCompact } from '@/utils/common.ts';
 
 defineOptions({ name: 'WorkCard' });
 
@@ -77,9 +77,8 @@ function handleClick(idx: number) {
       <!-- Featured badge -->
       <div
         v-if="work.featured"
-        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display"
+        class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display text-slate-900"
         style="background: linear-gradient(135deg, #f97316, #fb923c);
-          color: #0f172a;
           font-size: 10px;
           letter-spacing: 0.05em"
       >
