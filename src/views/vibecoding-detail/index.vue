@@ -46,7 +46,7 @@ onMounted(() => {
 
     <!-- Content -->
     <template v-else-if="workDetail">
-      <VibeCodingInfo :work-detail="workDetail" :is-mobile="isMobile" class="mb-16" />
+      <VibeCodingInfo :work-detail="workDetail" :is-mobile="isMobile" class="mb-10" />
       <CommentSection />
     </template>
 
