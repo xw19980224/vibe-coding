@@ -12,7 +12,7 @@ export const mockCategories: Api.VibeCoding.Category[] = [
 
 const authors: Api.VibeCoding.Author[] = [
   {
-    key: 'u1',
+    id: 'u1',
     name: 'VibeCoder',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u1',
     bio: '全栈开发者，热爱用 AI 写代码',
@@ -28,7 +28,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 356,
   },
   {
-    key: 'u2',
+    id: 'u2',
     name: 'NeoDev',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u2',
     bio: '前端工程师 · 设计系统爱好者',
@@ -40,7 +40,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 201,
   },
   {
-    key: 'u3',
+    id: 'u3',
     name: 'PixelMage',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u3',
     bio: '独立游戏开发者',
@@ -53,7 +53,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 142,
   },
   {
-    key: 'u4',
+    id: 'u4',
     name: 'PromptSmith',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u4',
     bio: 'AI 工作流搭建师',
@@ -64,7 +64,7 @@ const authors: Api.VibeCoding.Author[] = [
     followers: 78,
   },
   {
-    key: 'u5',
+    id: 'u5',
     name: 'ShaderCat',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=u5',
     bio: '创意编程 & 视觉艺术',
