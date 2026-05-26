@@ -80,8 +80,7 @@ function handleSave() {
             class="w-20 h-20 rounded-full object-cover border-2 border-orange-500/30"
           />
           <button
-            class="h-8 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 font-mono bg-orange-500/12 border border-orange-500/20"
-            style="color: #fb923c"
+            class="h-8 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 font-mono bg-orange-500/12 border border-orange-500/20 text-orange-400"
             @click="triggerAvatarUpload"
           >
             修改头像
@@ -134,8 +133,7 @@ function handleSave() {
             @keyup.enter="addSkill"
           />
           <button
-            class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0 font-mono bg-orange-500/12"
-            style="color: #f97316"
+            class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 shrink-0 font-mono bg-orange-500/12 text-orange"
             @click="addSkill"
           >
             添加
@@ -145,12 +143,11 @@ function handleSave() {
           <span
             v-for="skill in form.skills"
             :key="skill"
-            class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono bg-orange-500/10"
-            style="color: #fb923c"
+            class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono bg-orange-500/10 text-orange-400"
             @click="removeSkill(skill)"
           >
             {{ skill }}
-            <span class="text-xs" style="color: #f97316">×</span>
+            <span class="text-xs text-orange">×</span>
           </span>
         </div>
       </div>
@@ -244,15 +241,13 @@ function handleSave() {
     <template #footer>
       <div class="flex items-center justify-end gap-2">
         <button
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 border border-orange-500/30"
-          style="background: transparent; color: #f97316"
+          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 btn-ghost"
           @click="visible = false"
         >
           取消
         </button>
         <button
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0"
-          style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 btn-primary-gradient"
           @click="handleSave"
         >
           保存

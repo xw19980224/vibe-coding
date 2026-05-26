@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Select from '@/components/custom/select.vue';
-
 defineOptions({ name: 'StepExtended' });
 
 const form = defineModel<Api.VibeCoding.VibeProject>('form', { required: true });
@@ -47,7 +45,7 @@ const licenseOptions = [
     <!-- 开发周期 -->
     <div>
       <label class="block text-base font-500 mb-2 text-slate-400">开发周期</label>
-      <Select v-model="form.duration" :options="durationOptions" placeholder="选择开发周期" />
+      <!--      <Select v-model="form.duration" :options="durationOptions" placeholder="选择开发周期" />-->
       <input
         v-if="isCustomDuration"
         v-model="form.duration"
@@ -60,7 +58,7 @@ const licenseOptions = [
     <!-- 许可证 -->
     <div>
       <label class="block text-base font-500 mb-2 text-slate-400">许可证</label>
-      <Select v-model="form.license" :options="licenseOptions" placeholder="选择许可证" />
+      <!--      <Select v-model="form.license" :options="licenseOptions" placeholder="选择许可证" />-->
     </div>
 
     <!-- 是否上线 -->
@@ -68,7 +66,7 @@ const licenseOptions = [
       <label class="text-base font-500 text-slate-400">是否上线</label>
       <button
         class="relative w-11 h-6 rounded-full cursor-pointer transition-all duration-200"
-        :style="{ background: form.isOnline ? '#f97316' : 'rgba(148, 163, 184, 0.2)' }"
+        :class="form.isOnline ? 'bg-orange' : 'bg-slate-400/20'"
         @click="form.isOnline = !form.isOnline"
       >
         <div
@@ -101,7 +99,6 @@ const licenseOptions = [
             background:
               repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.12)' : 'rgba(30, 41, 59, 0.5)',
             border: `1px solid ${repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.3)' : 'rgba(249, 115, 22, 0.06)'}`,
-            fontFamily: '\'JetBrains Mono\', monospace',
           }"
           @click="repoPlatform = opt.value as 'github' | 'gitee'"
         >
@@ -131,15 +128,13 @@ const licenseOptions = [
 
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15"
-        style="background: transparent"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15 bg-transparent"
         @click="emit('prev')"
       >
         上一步
       </button>
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
-        style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 btn-primary-gradient"
         @click="emit('next')"
       >
         下一步

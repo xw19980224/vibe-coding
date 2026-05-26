@@ -16,26 +16,15 @@ const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
         class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
       />
     </div>
-    <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400">Vibe Prompt (可选)</label>
-      <textarea
-        v-model="form.vibePrompt"
-        rows="3"
-        placeholder="写出创作时使用的 prompt，让大家感受你的灵感..."
-        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15"
-        style="background: transparent"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15 bg-transparent"
         @click="emit('prev')"
       >
         上一步
       </button>
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200"
-        style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 btn-primary-gradient"
         @click="emit('next')"
       >
         下一步

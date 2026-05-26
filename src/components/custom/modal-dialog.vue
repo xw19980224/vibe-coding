@@ -94,7 +94,7 @@ onUnmounted(() => {
                 }
               "
             >
-              <SvgIcon icon="lucide:x" style="font-size: 18px" />
+              <SvgIcon icon="lucide:x" class="text-xl" />
             </button>
           </div>
 

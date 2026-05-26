@@ -88,13 +88,12 @@ watch(visible, (val) => {
     <template #header>
       <div class="flex items-center gap-3 w-full">
         <div
-          class="w-12 h-12 rounded-xl flex-center font-bold text-slate-900"
-          style="background: linear-gradient(135deg, #f97316, #fb923c); font-size: 24px"
+          class="w-12 h-12 rounded-xl flex-center font-bold text-slate-900 bg-linear-135-#f97316-#fb923c text-2xl"
         >
           V
         </div>
         <span class="text-2xl font-700 tracking-wider text-slate-300 font-display">
-          VIBE<span style="color: #f97316">CODING</span>
+          VIBE<span class="text-orange">CODING</span>
         </span>
       </div>
     </template>
@@ -129,13 +128,8 @@ watch(visible, (val) => {
           <ElButton
             :disabled="authStore.loginLoading"
             @click="handleSubmit"
-            class="w-full"
-            :style="{
-              background: 'linear-gradient(135deg, #F97316, #FB923C)',
-              color: '#fff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(249, 115, 22, 0.15)',
-            }"
+            class="w-full btn-primary-gradient border-none"
+            style="box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15)"
           >
             {{ authStore.loginLoading ? '登录中...' : '登录 / 注册' }}
           </ElButton>
@@ -168,7 +162,7 @@ watch(visible, (val) => {
             class="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer bg-slate-900/85"
             @click="sendQrCode()"
           >
-            <SvgIcon icon="lucide:rotate-cw" class="text-slate-400" style="font-size: 24px" />
+            <SvgIcon icon="lucide:rotate-cw" class="text-slate-400 text-2xl" />
             <span class="text-xs text-slate-400 font-mono"> 点击刷新 </span>
           </div>
         </div>
@@ -182,17 +176,11 @@ watch(visible, (val) => {
       >
         <span>登录即代表同意</span>
         <div class="flex-center">
-          <span
-            class="cursor-pointer transition-colors duration-200 hover:underline"
-            style="color: #f97316"
-          >
+          <span class="cursor-pointer transition-colors duration-200 hover:underline text-orange">
             《用户协议》
           </span>
           <span>和</span>
-          <span
-            class="cursor-pointer transition-colors duration-200 hover:underline"
-            style="color: #f97316"
-          >
+          <span class="cursor-pointer transition-colors duration-200 hover:underline text-orange">
             《隐私政策》
           </span>
         </div>

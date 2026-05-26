@@ -90,7 +90,7 @@ async function submit() {
     <div
       class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-green-500/10 border-2 border-green-500/30"
     >
-      <span class="text-3xl" style="color: #4ade80">OK</span>
+      <span class="text-3xl text-green-400">OK</span>
     </div>
     <h2 class="text-2xl font-700 mb-2 text-slate-100 font-display">发布成功!</h2>
     <p class="text-sm text-slate-400">正在跳转回首页...</p>

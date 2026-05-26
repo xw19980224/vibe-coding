@@ -137,7 +137,7 @@ onUnmounted(() => {
             class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
             @click="toggleSortDropdown"
           >
-            <SvgIcon icon="lucide:arrow-up-down" style="font-size: 13px" />
+            <SvgIcon icon="lucide:arrow-up-down" class="text-sm" />
             {{ sortOptions.find((s) => s.key === searchParams.sort)?.label || '推荐' }}
           </button>
           <div
@@ -147,13 +147,8 @@ onUnmounted(() => {
             <button
               v-for="opt in sortOptions"
               :key="opt.key"
-              class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 px-3"
-              :style="{
-                fontFamily: '\'JetBrains Mono\', monospace',
-                color: searchParams.sort === opt.key ? '#F97316' : '#94A3B8',
-                background:
-                  searchParams.sort === opt.key ? 'rgba(249, 115, 22, 0.1)' : 'transparent',
-              }"
+              class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 px-3 font-mono"
+              :class="searchParams.sort === opt.key ? 'text-orange bg-orange/1' : 'text-slate-400'"
               @click="handleSortChange(opt.key)"
             >
               {{ opt.label }}
@@ -166,7 +161,7 @@ onUnmounted(() => {
           class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
           @click="toggleFilterDropdown"
         >
-          <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 13px" />
+          <SvgIcon icon="lucide:sliders-horizontal" class="text-sm" />
           筛选
         </button>
       </div>

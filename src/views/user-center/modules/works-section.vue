@@ -170,7 +170,7 @@ watch(
           class="h-10 px-4 rounded-lg text-xs font-500 cursor-pointer transition-all duration-200 flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/50 border border-orange-500/10"
           @click="openFilterModel"
         >
-          <SvgIcon icon="lucide:sliders-horizontal" style="font-size: 14px" />
+          <SvgIcon icon="lucide:sliders-horizontal" class="text-base" />
           筛选
         </button>
         <Transition name="menu">
@@ -244,8 +244,7 @@ watch(
       <p class="text-sm mb-4 text-slate-400 font-mono">还没有发布作品</p>
       <button
         v-if="props.isSelf"
-        class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-white"
-        style="background: linear-gradient(135deg, #f97316, #fb923c); color: #fff"
+        class="h-10 px-6 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 btn-primary-gradient"
         @click="$router.push('/publish')"
       >
         发布你的第一个作品

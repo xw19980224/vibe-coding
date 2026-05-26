@@ -30,15 +30,11 @@ function goHome() {
       <p class="text-sm mb-8 text-slate-500 font-mono">你访问的页面不存在或已被移除</p>
 
       <button
-        class="h-11 px-8 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 flex-center gap-2"
-        style="
-          background: linear-gradient(135deg, #f97316, #fb923c);
-          color: #fff;
-          box-shadow: 0 2px 12px rgba(249, 115, 22, 0.2);
-        "
+        class="h-11 px-8 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 flex-center gap-2 btn-primary-gradient"
+        style="box-shadow: 0 2px 12px rgba(249, 115, 22, 0.2)"
         @click="goHome"
       >
-        <SvgIcon icon="lucide:home" style="font-size: 16px" />
+        <SvgIcon icon="lucide:home" class="text-lg" />
         返回首页
       </button>
     </div>

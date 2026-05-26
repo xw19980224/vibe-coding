@@ -71,7 +71,7 @@ function handleClick(idx: number) {
       <h3 class="text-base font-600 mb-2 line-clamp-1 text-slate-100 select-text">
         {{ work.title }}
       </h3>
-      <p class="text-xs mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono">
+      <p class="text-sm mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono">
         {{ work.description }}
       </p>
 
@@ -80,11 +80,10 @@ function handleClick(idx: number) {
         <span
           v-for="(tag, ti) in work.tags.slice(0, 3)"
           :key="tag"
-          class="h-5 px-2 rounded text-xs font-500 flex-y-center"
+          class="h-6 px-2 rounded text-sm font-500 flex-y-center"
           :style="{
             background: getTagStyle(ti).bg,
             color: getTagStyle(ti).text,
-            fontFamily: 'JetBrains Mono, monospace',
           }"
         >
           {{ tag }}
@@ -95,13 +94,13 @@ function handleClick(idx: number) {
       <div class="flex-y-center justify-between">
         <div class="flex items-end gap-2" @click.stop="handleUserCenter(work.author?.name)">
           <ElAvatar size="small" :src="work.author?.avatar" />
-          <span class="text-xs text-slate-500">
+          <span class="text-sm text-slate-500">
             {{ work.author.name }}
           </span>
         </div>
         <div class="flex items-center gap-3 text-xs">
           <button
-            class="flex-y-center gap-1 text-xs cursor-pointer tra nsition-colors duration-200 text-slate-500"
+            class="flex-y-center gap-1 text-sm cursor-pointer transition-colors duration-200 text-slate-500"
             @click.stop="handleClick(work.id)"
             @mouseenter="
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
@@ -113,7 +112,7 @@ function handleClick(idx: number) {
             <SvgIcon icon="lucide:heart" />
             {{ formatCompact(work.likes) }}
           </button>
-          <div class="flex-y-center gap-1 text-xs text-slate-600 text-xs">
+          <div class="flex-y-center gap-1 text-sm text-slate-600">
             <SvgIcon icon="lucide:eye" />
             {{ formatCompact(work.views) }}
           </div>

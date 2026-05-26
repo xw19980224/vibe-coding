@@ -68,7 +68,7 @@ onMounted(() => {
           class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-slate-400 font-mono"
         >
           在这里，每一行代码都是一次灵感的碰撞。<br />
-          用 AI 创造，用 Vibe 连接——<span style="color: #f97316">属于创作者的代码星图</span>。
+          用 AI 创造，用 Vibe 连接——<span class="text-orange">属于创作者的代码星图</span>。
         </p>
       </Transition>
 
@@ -83,43 +83,13 @@ onMounted(() => {
           class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <button
-            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 flex items-center gap-2"
-            style="
-              background: linear-gradient(135deg, #f97316, #fb923c);
-              color: #fff;
-              box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
-            "
-            @mouseenter="
-              (e: MouseEvent) => {
-                (e.target as HTMLElement).style.boxShadow = '0 0 50px rgba(249, 115, 22, 0.6)';
-                (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-              }
-            "
-            @mouseleave="
-              (e: MouseEvent) => {
-                (e.target as HTMLElement).style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.4)';
-                (e.target as HTMLElement).style.transform = 'translateY(0)';
-              }
-            "
+            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-300 flex items-center gap-2 text-orange-400 border border-orange/25 bg-orange/10 backdrop-blur-sm hover:(bg-orange/20 border-orange/45 -translate-y-0.5)"
           >
-            <SvgIcon icon="lucide:code" style="font-size: 20px" />
+            <SvgIcon icon="lucide:code" class="text-2xl" />
             开始创作
           </button>
           <button
-            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-200 text-slate-100 font-mono border border-orange-500/30"
-            style="background: transparent"
-            @mouseenter="
-              (e: MouseEvent) => {
-                (e.target as HTMLElement).style.borderColor = '#F97316';
-                (e.target as HTMLElement).style.background = 'rgba(249, 115, 22, 0.08)';
-              }
-            "
-            @mouseleave="
-              (e: MouseEvent) => {
-                (e.target as HTMLElement).style.borderColor = 'rgba(249, 115, 22, 0.3)';
-                (e.target as HTMLElement).style.background = 'transparent';
-              }
-            "
+            class="h-12 px-8 rounded-xl text-base font-600 cursor-pointer transition-all duration-300 text-slate-100 font-mono border border-orange-500/30 bg-transparent hover:(border-orange bg-orange/10)"
           >
             发布作品
           </button>
@@ -137,8 +107,8 @@ onMounted(() => {
         class="w-5 h-8 rounded-full border flex items-start justify-center p-1 border-orange-500/30"
       >
         <div
-          class="w-1 h-2 rounded-full"
-          style="background: #f97316; animation: scrollPulse 1.5s ease-in-out infinite"
+          class="w-1 h-2 rounded-full bg-orange"
+          style="animation: scrollPulse 1.5s ease-in-out infinite"
         />
       </div>
     </div>

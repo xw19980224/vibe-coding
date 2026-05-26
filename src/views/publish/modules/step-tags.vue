@@ -26,8 +26,7 @@ const emit = defineEmits<{
           @keyup.enter="emit('addTag')"
         />
         <button
-          class="h-10 px-4 rounded-lg text-sm cursor-pointer bg-orange-500/12"
-          style="color: #f97316"
+          class="h-10 px-4 rounded-lg text-sm cursor-pointer bg-orange-500/12 text-orange"
           @click="emit('addTag')"
         >
           添加
@@ -37,37 +36,17 @@ const emit = defineEmits<{
         <span
           v-for="tag in form.tags"
           :key="tag"
-          class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono bg-orange-500/10"
-          style="color: #fb923c"
+          class="h-7 px-3 rounded-lg text-xs flex items-center gap-1.5 cursor-pointer transition-all duration-200 font-mono bg-orange-500/10 text-orange-400"
           @click="emit('removeTag', tag)"
         >
           {{ tag }}
-          <span class="text-xs" style="color: #f97316">x</span>
+          <span class="text-xs text-orange">x</span>
         </span>
       </div>
     </div>
-    <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400">代码片段 (可选)</label>
-      <textarea
-        v-model="form.codeSnippet"
-        rows="6"
-        placeholder="粘贴一段核心代码，展示你的作品灵魂..."
-        class="w-full p-4 rounded-xl text-sm outline-none resize-none transition-all duration-200 text-slate-400 font-mono bg-slate-900/80 border border-orange-500/8"
-      />
-    </div>
-    <div>
-      <label class="block text-sm font-500 mb-2 text-slate-400">项目链接 (可选)</label>
-      <input
-        v-model="form.link"
-        type="url"
-        placeholder="https://github.com/..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
     <div class="flex gap-3">
       <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15"
-        style="background: transparent"
+        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15 bg-transparent"
         @click="emit('prev')"
       >
         上一步
@@ -83,8 +62,7 @@ const emit = defineEmits<{
       >
         <div
           v-if="publishing"
-          class="w-4 h-4 rounded-full border-2 border-transparent animate-spin"
-          style="border-top-color: #94a3b8"
+          class="w-4 h-4 rounded-full border-2 border-transparent animate-spin border-t-slate-400"
         />
         {{ publishing ? '发布中...' : '发布作品' }}
       </button>
