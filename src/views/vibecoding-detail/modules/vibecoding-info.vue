@@ -66,6 +66,16 @@ const coverImages = computed(() => {
   return [...new Set([work.coverUrl, ...work.screenshots])];
 });
 
+const showTwoPerSlide = computed(() => !props.isMobile && isWebPlatform.value);
+
+const slideGroups = computed<string[][]>(() => {
+  const groups: string[][] = [];
+  const size = showTwoPerSlide.value ? 2 : 1;
+  for (let i = 0; i < coverImages.value.length; i += size) {
+    groups.push(coverImages.value.slice(i, i + size));
+  }
+  return groups;
+});
 const repoUrl = computed(() => props.workDetail.repoUrl);
 
 const socialPlatforms = computed(() => {
@@ -140,7 +150,7 @@ async function handleShare() {
           <span
             v-for="(tag, ti) in workDetail.tags"
             :key="tag"
-            class="h-6 px-2.5 rounded-md text-xs font-500 flex items-center font-mono"
+            class="h-6 px-2.5 rounded-md text-sm font-500 flex items-center font-mono"
             :style="{
               background: getTagStyle(ti).bg,
               color: getTagStyle(ti).text,
@@ -150,25 +160,37 @@ async function handleShare() {
           </span>
         </div>
         <div class="flex-y-center gap-3">
-          <div class="flex items-center gap-1 text-xs text-slate-500">
-            <SvgIcon icon="lucide:eye" class="text-sm" />
+          <div class="flex items-center gap-1 text-sm text-slate-500">
+            <SvgIcon icon="lucide:eye" class="text-base" />
             {{ formatCompactNumber(workDetail.views) }}
           </div>
-          <div class="flex items-center gap-1 text-xs" style="color: #f97316">
-            <SvgIcon icon="lucide:heart" class="text-sm" />
+          <div class="flex items-center gap-1 text-sm" style="color: #f97316">
+            <SvgIcon icon="lucide:heart" class="text-base" />
             {{ formatCompactNumber(workDetail.likes) }}
           </div>
         </div>
       </div>
 
       <!-- 项目介绍图 -->
-      <!--      <VibecodingCarousel-->
-      <!--        :single="isMobile || !isWebPlatform"-->
-      <!--        :images="coverImages"-->
-      <!--        :show-dots="false"-->
-      <!--        :loop="false"-->
-      <!--        class="mb-6"-->
-      <!--      />-->
+      <ElCarousel class="mb-4 w-full" :autoplay="false" indicator-position="none" height="auto">
+        <ElCarouselItem v-for="(group, index) in slideGroups" :key="index" class="h-auto">
+          <div class="flex-y-center justify-between gap-4">
+            <ElImage
+              v-for="(img, imgIdx) in group"
+              :key="imgIdx"
+              :src="img"
+              :alt="`slide-${index}-img-${imgIdx}`"
+              :preview-src-list="coverImages"
+              :initial-index="coverImages.indexOf(img)"
+              class="rd-3 flex-1 min-w-0"
+              :class="showTwoPerSlide ? 'aspect-9/16' : 'aspect-16/9'"
+              preview-teleported
+              fit="fill"
+              lazy
+            />
+          </div>
+        </ElCarouselItem>
+      </ElCarousel>
 
       <!-- 描述 (Markdown) -->
       <Markdown :source="workDetail.description" class="text-slate-400" />
@@ -178,7 +200,7 @@ async function handleShare() {
     <div class="w-full lg:w-96 shrink-0 space-y-5">
       <!-- 作者卡片 -->
       <div class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6">
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate-500 font-display">
+        <h3 class="text-sm font-700 mb-4 tracking-wider uppercase text-slate-200 font-display">
           创作者
         </h3>
         <div class="flex items-center gap-3">
@@ -284,7 +306,7 @@ async function handleShare() {
 
       <!-- 项目详情 -->
       <div class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6">
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
+        <h3 class="text-sm font-700 mb-4 tracking-wider uppercase text-slate-200 font-display">
           项目详情
         </h3>
         <div class="space-y-3">
@@ -397,7 +419,7 @@ async function handleShare() {
         v-if="workDetail.mcps?.length || workDetail.skills?.length"
         class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
+        <h3 class="text-sm font-700 mb-4 tracking-wider uppercase text-slate-200 font-display">
           MCP / Skills
         </h3>
         <div v-if="workDetail.mcps?.length" class="mb-3">
@@ -431,7 +453,7 @@ async function handleShare() {
         v-if="workDetail.tools?.length"
         class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
       >
-        <h3 class="text-xs font-700 mb-4 tracking-wider uppercase text-slate font-display">
+        <h3 class="text-sm font-700 mb-4 tracking-wider uppercase text-slate-200 font-display">
           开发工具
         </h3>
         <div class="flex flex-wrap gap-1.5">
@@ -447,3 +469,4 @@ async function handleShare() {
     </div>
   </div>
 </template>
+<style scoped></style>
