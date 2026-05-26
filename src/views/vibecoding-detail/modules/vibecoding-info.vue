@@ -171,12 +171,7 @@ async function handleShare() {
       <!--      />-->
 
       <!-- 描述 (Markdown) -->
-      <div>
-        <h3 class="text-lg font-700 mb-3 tracking-wider uppercase font-display text-orange">
-          项目介绍
-        </h3>
-        <div class="text-white" v-html="workDetail.description" />
-      </div>
+      <Markdown :source="workDetail.description" class="text-slate-400" />
     </div>
 
     <!-- 右侧：其他信息 -->

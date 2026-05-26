@@ -1,6 +1,7 @@
 import {
   defineConfig,
   presetIcons,
+  presetTypography,
   presetWind4,
   transformerDirectives,
   transformerVariantGroup,
@@ -66,6 +67,7 @@ export default defineConfig<Theme>({
       warn: true,
       autoInstall: true,
     }),
+    presetTypography(),
     presetScrollbarHide(),
     presetA02(),
   ],

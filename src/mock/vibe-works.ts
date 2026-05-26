@@ -165,14 +165,14 @@ const mockWorksBaseEntries = [
 />
 \`\`\`
 
-\`\`\`ts
+\`\`\`vue
 // 个人中心数据权限：isSelf computed 控制操作按钮显隐
 const isSelf = computed(
   () => authStore.userInfo?.nickname === effectiveNickname.value
 );
 \`\`\`
 
-\`\`\`ts
+\`\`\`html
 // alova usePagination 无限滚动分页
 const { data, page, isLastPage, loading, reload } = usePagination(
   (p, ps) => UserAPI.getUserWorks({ pageNumber: p, pageSize: ps, ...filters }),
