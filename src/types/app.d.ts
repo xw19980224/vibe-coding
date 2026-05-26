@@ -78,15 +78,43 @@ declare namespace App {
     interface ThemeSettingTokenColor {
       'base-text': string;
       nprogress?: string;
+      'text-primary': string;
+      'text-regular': string;
+      'text-secondary': string;
+      'text-placeholder': string;
+      'text-disabled': string;
+      surface: string;
+      'surface-soft': string;
+      'surface-overlay': string;
+      border: string;
+      'border-soft': string;
     }
 
     interface ThemeSettingTokenBoxShadow {
       card?: string;
+      xs?: string;
+      sm?: string;
+      md?: string;
+      lg?: string;
+      xl?: string;
+      '2xl'?: string;
+    }
+
+    interface ThemeSettingTokenRadius {
+      none?: string;
+      xs?: string;
+      sm?: string;
+      md?: string;
+      lg?: string;
+      xl?: string;
+      '2xl'?: string;
+      full?: string;
     }
 
     interface ThemeSettingToken {
       colors: ThemeSettingTokenColor;
       shadow: ThemeSettingTokenBoxShadow;
+      radius: ThemeSettingTokenRadius;
     }
 
     type ThemeTokenColor = ThemePaletteColor & ThemeSettingTokenColor;
@@ -94,6 +122,7 @@ declare namespace App {
     type ThemeTokenCSSVars = {
       colors: ThemeTokenColor & { [key: string]: string };
       shadow: ThemeSettingTokenBoxShadow & { [key: string]: string };
+      radius: ThemeSettingTokenRadius & { [key: string]: string };
     };
   }
 

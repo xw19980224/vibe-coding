@@ -47,6 +47,9 @@ export function createThemeToken(
     shadow: {
       ...light.shadow,
     },
+    radius: {
+      ...(light as any).radius,
+    },
   };
 
   const darkThemeTokens: App.Theme.ThemeTokenCSSVars = {
@@ -55,7 +58,12 @@ export function createThemeToken(
       ...dark?.colors,
     },
     shadow: {
-      ...dark.shadow,
+      ...themeTokens.shadow,
+      ...dark?.shadow,
+    },
+    radius: {
+      ...themeTokens.radius,
+      ...((dark as any)?.radius),
     },
   };
 
@@ -85,6 +93,22 @@ function createThemePaletteColors(colors: App.Theme.ThemeColor) {
   });
 
   return colorPaletteVar;
+}
+
+/**
+ * 根据 themeRadius 生成圆角尺度
+ */
+export function createRadiusTokens(themeRadius: number): App.Theme.ThemeSettingTokenRadius {
+  return {
+    none: '0',
+    xs: `${Math.max(2, Math.round(themeRadius * 0.33))}px`,
+    sm: `${Math.max(4, Math.round(themeRadius * 0.66))}px`,
+    md: `${themeRadius}px`,
+    lg: `${Math.round(themeRadius * 1.33)}px`,
+    xl: `${themeRadius * 2}px`,
+    '2xl': `${Math.round(themeRadius * 2.67)}px`,
+    full: '9999px',
+  };
 }
 
 /**

@@ -17,16 +17,16 @@ html.dark:root {
   --el-color-danger-light-9: rgb(var(--error-color) / 0.1);
 
   // Shared surface tokens
-  --el-bg-glass: rgba(30, 41, 59, 0.92);
-  --el-bg-popup: rgba(30, 41, 59, 0.98);
-  --el-bg-input: rgba(15, 23, 42, 0.5);
-  --el-border-subtle: rgba(148, 163, 184, 0.08);
-  --el-border-medium: rgba(148, 163, 184, 0.12);
+  --el-bg-glass: rgb(var(--surface-soft-color) / 0.92);
+  --el-bg-popup: rgb(var(--surface-overlay-color) / 0.98);
+  --el-bg-input: rgb(var(--surface-color) / 0.5);
+  --el-border-subtle: rgb(var(--border-soft-color) / 0.5);
+  --el-border-medium: rgb(var(--border-color) / 0.5);
 
   // Shared text tokens
-  --el-text-highlight: #f1f5f9;
-  --el-text-input: #cbd5e1;
-  --el-text-regular: #94a3b8;
+  --el-text-highlight: rgb(var(--text-primary-color));
+  --el-text-input: rgb(var(--text-regular-color));
+  --el-text-regular: rgb(var(--text-secondary-color));
 }
 
 .el-dialog {
@@ -48,7 +48,7 @@ html.dark:root {
 
   .el-input__inner {
     color: var(--el-text-input);
-    font-size: 12px !important;
+    font-size: var(--a02-font-size-sm) !important;
   }
 }
 
@@ -67,15 +67,15 @@ html.dark:root {
 .el-tabs__active-bar {
   height: 2px;
   background: var(--el-color-primary);
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 .el-tabs__item {
   color: var(--el-text-regular);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  padding: 0 16px;
-  transition: all 0.2s;
+  font-size: var(--a02-font-size-sm);
+  padding: 0 var(--a02-space-4);
+  transition: all var(--a02-duration-normal);
 
   &:hover {
     color: var(--el-color-primary);
@@ -83,7 +83,7 @@ html.dark:root {
 
   &.is-active {
     color: var(--el-color-primary);
-    font-weight: 600;
+    font-weight: var(--a02-font-weight-semibold);
   }
 }
 
@@ -104,9 +104,9 @@ html.dark:root {
 
   .el-dropdown-menu__item {
     color: var(--el-text-regular);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: var(--a02-font-size-sm);
 
     &:hover {
       background: var(--el-border-subtle);
