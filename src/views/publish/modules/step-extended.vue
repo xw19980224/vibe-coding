@@ -1,144 +1,126 @@
 <script setup lang="ts">
+import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
+
 defineOptions({ name: 'StepExtended' });
 
-const form = defineModel<Api.VibeCoding.VibeProject>('form', { required: true });
-const emit = defineEmits<{ (e: 'next'): void; (e: 'prev'): void }>();
+const { formRef, validate } = useNaiveForm();
+const { defaultRequiredRule } = useFormRules();
+
+const form = defineModel<Api.VibeCoding.publishVibeProjectForm>('form', { required: true });
+
+const rules: Record<string, App.Global.FormRule[]> = {};
+
+const tagGroups = [
+  {
+    label: '前端框架',
+    options: [
+      { value: 'Vue3', label: 'Vue3' },
+      { value: 'React', label: 'React' },
+      { value: 'Svelte', label: 'Svelte' },
+      { value: 'Angular', label: 'Angular' },
+    ],
+  },
+  {
+    label: '开发语言',
+    options: [
+      { value: 'TypeScript', label: 'TypeScript' },
+      { value: 'JavaScript', label: 'JavaScript' },
+      { value: 'Python', label: 'Python' },
+      { value: 'Go', label: 'Go' },
+      { value: 'Rust', label: 'Rust' },
+      { value: 'Java', label: 'Java' },
+      { value: 'Kotlin', label: 'Kotlin' },
+      { value: 'Swift', label: 'Swift' },
+    ],
+  },
+  {
+    label: '工具与框架',
+    options: [
+      { value: 'Vite', label: 'Vite' },
+      { value: 'UnoCSS', label: 'UnoCSS' },
+      { value: 'Tailwind CSS', label: 'Tailwind CSS' },
+      { value: 'Webpack', label: 'Webpack' },
+    ],
+  },
+  {
+    label: '应用领域',
+    options: [
+      { value: 'AI', label: 'AI' },
+      { value: 'Game', label: 'Game' },
+      { value: 'WebGL', label: 'WebGL' },
+      { value: 'Mobile', label: 'Mobile' },
+      { value: 'SaaS', label: 'SaaS' },
+      { value: 'DevTools', label: 'DevTools' },
+      { value: 'Open Source', label: 'Open Source' },
+    ],
+  },
+];
 
 const durationOptions = [
-  { value: '1天', label: '1天' },
-  { value: '3天', label: '3天' },
-  { value: '7天', label: '7天' },
-  { value: '15天', label: '15天' },
-  { value: '3个月', label: '3个月' },
-  { value: '6个月', label: '6个月' },
-  { value: '__custom__', label: '自定义' },
+  { value: '1周', label: '1 周' },
+  { value: '2周', label: '2 周' },
+  { value: '1个月', label: '1 个月' },
+  { value: '3个月', label: '3 个月' },
+  { value: '6个月', label: '6 个月' },
+  { value: '1年', label: '1 年' },
 ];
-
-const repoPlatformOptions = [
-  { value: 'github', label: 'GitHub' },
-  { value: 'gitee', label: 'Gitee' },
-];
-
-const repoPlatform = ref<'github' | 'gitee'>('github');
-const repoUrl = computed({
-  get: () => form.value.repoUrl || '',
-  set: (val: string) => {
-    form.value.repoUrl = val;
-  },
-});
-
-const isCustomDuration = computed(() => form.value.duration === '__custom__');
 
 const licenseOptions = [
   { value: 'MIT', label: 'MIT' },
-  { value: 'Apache-2.0', label: 'Apache-2.0' },
-  { value: 'GPL-3.0', label: 'GPL-3.0' },
-  { value: 'BSD-3-Clause', label: 'BSD-3-Clause' },
-  { value: 'AGPL-3.0', label: 'AGPL-3.0' },
-  { value: 'MPL-2.0', label: 'MPL-2.0' },
+  { value: 'Apache-2.0', label: 'Apache 2.0' },
+  { value: 'GPL-3.0', label: 'GPL 3.0' },
+  { value: 'BSD-3-Clause', label: 'BSD 3-Clause' },
+  { value: 'AGPL-3.0', label: 'AGPL 3.0' },
+  { value: 'MPL-2.0', label: 'MPL 2.0' },
   { value: 'Unlicense', label: 'Unlicense' },
 ];
+
+defineExpose({ validate });
 </script>
 
 <template>
-  <div class="space-y-6">
-    <!-- 开发周期 -->
-    <div>
-      <label class="block text-base font-500 mb-2 text-slate-400">开发周期</label>
-      <!--      <Select v-model="form.duration" :options="durationOptions" placeholder="选择开发周期" />-->
-      <input
-        v-if="isCustomDuration"
-        v-model="form.duration"
-        type="text"
-        placeholder="输入自定义周期，如：2个月、30天..."
-        class="w-full h-10 px-4 rounded-lg text-sm outline-none transition-all duration-200 mt-3 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
+  <ElForm ref="formRef" :model="form" :rules="rules" label-position="top" class="space-y-6">
+    <!-- 标签 -->
+    <ElFormItem label="标签">
+      <ElSelect v-model="form.tags" placeholder="选择标签" multiple>
+        <ElOptionGroup v-for="group in tagGroups" :key="group.label" :label="group.label">
+          <ElOption v-for="opt in group.options" :key="opt.value" :label="opt.label" :value="opt.value" />
+        </ElOptionGroup>
+      </ElSelect>
+    </ElFormItem>
 
-    <!-- 许可证 -->
-    <div>
-      <label class="block text-base font-500 mb-2 text-slate-400">许可证</label>
-      <!--      <Select v-model="form.license" :options="licenseOptions" placeholder="选择许可证" />-->
-    </div>
+    <!-- 开发周期 -->
+    <ElFormItem label="开发周期">
+      <ElSelect v-model="form.duration" placeholder="选择开发周期" clearable>
+        <ElOption v-for="opt in durationOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      </ElSelect>
+    </ElFormItem>
+
+    <!-- 仓库地址 -->
+    <ElFormItem label="仓库地址">
+      <ElInput v-model="form.repoUrl" placeholder="GitHub / Gitee 仓库地址..." />
+    </ElFormItem>
+
+    <!-- 演示地址 -->
+    <ElFormItem label="演示地址">
+      <ElInput v-model="form.demoUrl" placeholder="在线演示地址..." />
+    </ElFormItem>
 
     <!-- 是否上线 -->
-    <div class="flex items-center justify-between">
-      <label class="text-base font-500 text-slate-400">是否上线</label>
-      <button
-        class="relative w-11 h-6 rounded-full cursor-pointer transition-all duration-200"
-        :class="form.isOnline ? 'bg-orange' : 'bg-slate-400/20'"
-        @click="form.isOnline = !form.isOnline"
-      >
-        <div
-          class="absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-200"
-          :class="form.isOnline ? 'right-1' : 'left-1'"
-        />
-      </button>
-    </div>
+    <ElFormItem label="是否上线">
+      <ElSwitch v-model="form.isOnline" />
+    </ElFormItem>
 
-    <!-- 上线时间 -->
-    <div v-if="form.isOnline">
-      <label class="block text-base font-500 mb-2 text-slate-400">上线时间</label>
-      <input
-        v-model="form.onlineDate"
-        type="month"
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
+    <!-- 上线日期 -->
+    <ElFormItem v-if="form.isOnline" label="上线日期">
+      <ElDatePicker v-model="form.onlineDate" type="date" placeholder="选择上线日期" />
+    </ElFormItem>
 
-    <!-- 源码仓库 -->
-    <div>
-      <label class="block text-base font-500 mb-2 text-slate-400">源码仓库</label>
-      <div class="flex gap-2 mb-3">
-        <button
-          v-for="opt in repoPlatformOptions"
-          :key="opt.value"
-          class="h-9 px-4 rounded-lg text-sm cursor-pointer transition-all duration-200"
-          :style="{
-            color: repoPlatform === opt.value ? '#F97316' : '#94A3B8',
-            background:
-              repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.12)' : 'rgba(30, 41, 59, 0.5)',
-            border: `1px solid ${repoPlatform === opt.value ? 'rgba(249, 115, 22, 0.3)' : 'rgba(249, 115, 22, 0.06)'}`,
-          }"
-          @click="repoPlatform = opt.value as 'github' | 'gitee'"
-        >
-          {{ opt.label }}
-        </button>
-      </div>
-      <input
-        v-model="repoUrl"
-        type="url"
-        :placeholder="
-          repoPlatform === 'github' ? 'https://github.com/...' : 'https://gitee.com/...'
-        "
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
-
-    <!-- 在线演示地址 -->
-    <div>
-      <label class="block text-base font-500 mb-2 text-slate-400">在线演示地址</label>
-      <input
-        v-model="form.demoUrl"
-        type="url"
-        placeholder="https://..."
-        class="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200 text-slate-100 font-mono bg-slate-800/50 border border-orange-500/10"
-      />
-    </div>
-
-    <div class="flex gap-3">
-      <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 text-slate-400 border border-orange-500/15 bg-transparent"
-        @click="emit('prev')"
-      >
-        上一步
-      </button>
-      <button
-        class="flex-1 h-12 rounded-xl text-sm font-600 cursor-pointer transition-all duration-200 btn-primary-gradient"
-        @click="emit('next')"
-      >
-        下一步
-      </button>
-    </div>
-  </div>
+    <!-- 许可证 -->
+    <ElFormItem label="许可证">
+      <ElSelect v-model="form.license" placeholder="选择许可证" clearable>
+        <ElOption v-for="opt in licenseOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      </ElSelect>
+    </ElFormItem>
+  </ElForm>
 </template>

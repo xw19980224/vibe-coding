@@ -3,69 +3,77 @@ import { useRouter } from 'vue-router';
 import Steps from '@/components/custom/steps.vue';
 import StepBasic from './modules/step-basic.vue';
 import StepExtended from './modules/step-extended.vue';
+import StepAi from './modules/step-ai.vue';
 import StepDescription from './modules/step-description.vue';
-import StepTags from './modules/step-tags.vue';
+import StepMedia from './modules/step-media.vue';
+import StepOverview from './modules/step-overview.vue';
+import { useRequest } from '@a02/alova/client';
+import { VibeCodingAPI } from '@/service/api/vibe-works.ts';
 
 defineOptions({ name: 'PublishPage' });
 
 const router = useRouter();
 
-const step = ref(1);
-const publishing = ref(false);
-const published = ref(false);
+const step = ref(6);
 
-const form = reactive<Api.VibeCoding.VibeProject>({
-  id: 0,
-  coverUrl: '',
+const form = reactive<Api.VibeCoding.publishVibeProjectForm>({
   title: '',
-  description: '',
+  subtitle: '',
+  languages: [],
+  platform: undefined,
+  coverUrl: '',
+  instructions: '',
   tags: [],
   category: undefined,
-  platform: undefined,
-  likes: 0,
-  views: 0,
   screenshots: [],
   demoUrl: '',
   repoUrl: '',
-  languages: [],
   duration: '',
   tools: [],
   model: '',
   mcps: [],
   skills: [],
-  instructions: '',
   isOnline: false,
   onlineDate: '',
   license: '',
   featured: false,
-  status: 1,
-  createdAt: '',
 });
 
 const steps = [
   { value: 1, label: '基本信息' },
-  { value: 2, label: '补充信息' },
-  { value: 3, label: '描述' },
-  { value: 4, label: '标签' },
+  { value: 2, label: '拓展信息' },
+  { value: 3, label: 'AI 工具' },
+  { value: 4, label: '项目描述' },
+  { value: 5, label: '封面与截图' },
+  { value: 6, label: '总览' },
 ];
 
-const tagInput = ref('');
+/* 步骤组件 ref（调用各步骤的 validate） */
+const stepBasicRef = ref<InstanceType<typeof StepBasic>>();
+const stepExtendedRef = ref<InstanceType<typeof StepExtended>>();
+const stepAiRef = ref<InstanceType<typeof StepAi>>();
+const stepDescRef = ref<InstanceType<typeof StepDescription>>();
+const stepMediaRef = ref<InstanceType<typeof StepMedia>>();
+const stepOverviewRef = ref<InstanceType<typeof StepOverview>>();
 
-function addTag() {
-  const trimmed = tagInput.value.trim();
-  if (trimmed && !form.tags.includes(trimmed)) {
-    form.tags.push(trimmed);
-    tagInput.value = '';
+const stepRefMap = computed(() => ({
+  1: stepBasicRef.value,
+  2: stepExtendedRef.value,
+  3: stepAiRef.value,
+  4: stepDescRef.value,
+  5: stepMediaRef.value,
+  6: stepOverviewRef.value,
+}));
+
+async function nextStep() {
+  const current = stepRefMap.value[step.value as keyof typeof stepRefMap.value];
+  if (current?.validate) {
+    try {
+      await current.validate();
+    } catch {
+      return;
+    }
   }
-}
-
-function removeTag(tag: string) {
-  form.tags = form.tags.filter((t) => t !== tag);
-}
-
-function nextStep() {
-  if (step.value === 1 && !form.title.trim()) return;
-  if (step.value === 3 && !form.description.trim()) return;
   step.value++;
 }
 
@@ -73,11 +81,21 @@ function prevStep() {
   if (step.value > 1) step.value--;
 }
 
-async function submit() {
-  publishing.value = true;
-  await new Promise((r) => setTimeout(r, 1500));
-  publishing.value = false;
-  published.value = true;
+const { send: submit } = useRequest(() => VibeCodingAPI.publish(form), {
+  immediate: false,
+})
+
+async function handleSubmit() {
+  const current = stepRefMap.value[step.value as keyof typeof stepRefMap.value];
+  if (current?.validate) {
+    try {
+      await current.validate();
+    } catch {
+      return;
+    }
+  }
+
+  await submit();
   setTimeout(() => {
     router.push('/');
   }, 2000);
@@ -85,34 +103,17 @@ async function submit() {
 </script>
 
 <template>
-  <!-- Published Success -->
-  <div v-if="published" class="pt-32 flex flex-col items-center">
-    <div
-      class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-green-500/10 border-2 border-green-500/30"
-    >
-      <span class="text-3xl text-green-400">OK</span>
-    </div>
-    <h2 class="text-2xl font-700 mb-2 text-slate-100 font-display">发布成功!</h2>
-    <p class="text-sm text-slate-400">正在跳转回首页...</p>
-  </div>
-
   <!-- Form -->
-  <div v-else class="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-    <Steps :steps="steps" :current="step">
+  <div class="pt-20 pb-12 px-4 max-w-3xl mx-auto">
+    <Steps :steps="steps" :current="step" confirm-label="发布作品" @prev="prevStep" @next="nextStep"
+      @confirm="handleSubmit">
       <template #default="{ index }">
-        <StepBasic v-if="index === 1" v-model:form="form" @next="nextStep" />
-        <StepExtended v-if="index === 2" v-model:form="form" @next="nextStep" @prev="prevStep" />
-        <StepDescription v-if="index === 3" v-model:form="form" @next="nextStep" @prev="prevStep" />
-        <StepTags
-          v-if="index === 4"
-          v-model:form="form"
-          v-model:tag-input="tagInput"
-          v-model:publishing="publishing"
-          @add-tag="addTag"
-          @remove-tag="removeTag"
-          @prev="prevStep"
-          @submit="submit"
-        />
+        <StepBasic v-if="index === 1" ref="stepBasicRef" v-model:form="form" />
+        <StepExtended v-if="index === 2" ref="stepExtendedRef" v-model:form="form" />
+        <StepAi v-if="index === 3" ref="stepAiRef" v-model:form="form" />
+        <StepDescription v-if="index === 4" ref="stepDescRef" v-model:form="form" />
+        <StepMedia v-if="index === 5" ref="stepMediaRef" v-model:form="form" />
+        <StepOverview v-if="index === 6" ref="stepOverviewRef" v-model:form="form" @jump="step = $event" />
       </template>
     </Steps>
   </div>
