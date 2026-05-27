@@ -25,7 +25,7 @@ const markdown = new MarkdownIt({
     if (lang && hljs.getLanguage(lang)) {
       try {
         return hljs.highlight(str, { language: lang }).value;
-      } catch {}
+      } catch { }
     }
 
     return ''; // use external default escaping
@@ -44,7 +44,7 @@ const markdownText = computed(() => {
 });
 </script>
 <template>
-  <div class="prose prose-invert max-w-none" v-html="markdownText" />
+  <div class=" w-full prose prose-invert" v-html="markdownText" />
 </template>
 
 <style scoped>

@@ -77,14 +77,12 @@ declare namespace Api {
     type publishVibeProjectForm = Pick<
       VibeProject,
       | 'title'
+      | 'subtitle'
       | 'category'
       | 'platform'
       | 'languages'
-      | 'description'
       | 'coverUrl'
       | 'tags'
-      | 'likes'
-      | 'views'
       | 'screenshots'
       | 'demoUrl'
       | 'repoUrl'
@@ -104,9 +102,9 @@ declare namespace Api {
 
     type VibeProjectSearchParams = CommonType.RecordNullable<
       Pick<VibeProject, 'title' | 'category' | 'tags'> &
-        Common.CommonSearchParams & {
-          sort?: SortMode;
-        }
+      Common.CommonSearchParams & {
+        sort?: SortMode;
+      }
     >;
 
     /**

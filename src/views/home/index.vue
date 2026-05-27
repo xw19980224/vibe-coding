@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VibeHero from './modules/vibe-hero.vue';
 import { usePagination, useRequest } from '@a02/alova/client';
-import { VibeWorksAPI } from '@/service/api/vibe-works';
+import { VibeCodingAPI } from '@/service/api/vibe-works';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
 import { onClickOutside } from '@vueuse/core';
 import { useAppStore } from '@/stores/modules/app';
@@ -35,7 +35,7 @@ const {
   reload,
 } = usePagination(
   (pageNum, size) => {
-    return VibeWorksAPI.getWorks({ ...searchParams, pageNumber: pageNum, pageSize: size });
+    return VibeCodingAPI.getWorks({ ...searchParams, pageNumber: pageNum, pageSize: size });
   },
   {
     append: true,
@@ -56,7 +56,7 @@ const categories = computed(() => [
   ...(categoriesRes.value?.map((c) => ({ value: c.code, label: c.name })) || []),
 ]);
 
-const { data: categoriesRes } = useRequest(() => VibeWorksAPI.getCategories(), {
+const { data: categoriesRes } = useRequest(() => VibeCodingAPI.getCategories(), {
   immediate: true,
 });
 
@@ -120,12 +120,8 @@ onUnmounted(() => {
       <!-- Left: Categories -->
       <div class="flex-1 min-w-0">
         <ElTabs v-model="searchParams.category" @tabChange="handleCategoryChange">
-          <ElTabPane
-            v-for="(category, index) in categories"
-            :key="index"
-            :label="category.label"
-            :name="category.value"
-          />
+          <ElTabPane v-for="(category, index) in categories" :key="index" :label="category.label"
+            :name="category.value" />
         </ElTabs>
       </div>
 
@@ -135,22 +131,16 @@ onUnmounted(() => {
         <div class="relative" ref="sortDropdownRef">
           <button
             class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
-            @click="toggleSortDropdown"
-          >
+            @click="toggleSortDropdown">
             <SvgIcon icon="lucide:arrow-up-down" class="text-sm" />
-            {{ sortOptions.find((s) => s.key === searchParams.sort)?.label || '推荐' }}
+            {{sortOptions.find((s) => s.key === searchParams.sort)?.label || '推荐'}}
           </button>
-          <div
-            v-if="sortDropdownVisible"
-            class="absolute right-0 top-11 rounded-lg p-1 z-20 bg-slate-800/95 border border-orange-500/12 backdrop-blur-sm"
-          >
-            <button
-              v-for="opt in sortOptions"
-              :key="opt.key"
+          <div v-if="sortDropdownVisible"
+            class="absolute right-0 top-11 rounded-lg p-1 z-20 bg-slate-800/95 border border-orange-500/12 backdrop-blur-sm">
+            <button v-for="opt in sortOptions" :key="opt.key"
               class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 px-3 font-mono"
               :class="searchParams.sort === opt.key ? 'text-orange bg-orange/1' : 'text-slate-400'"
-              @click="handleSortChange(opt.key)"
-            >
+              @click="handleSortChange(opt.key)">
               {{ opt.label }}
             </button>
           </div>
@@ -159,8 +149,7 @@ onUnmounted(() => {
         <!-- Filter button -->
         <button
           class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
-          @click="toggleFilterDropdown"
-        >
+          @click="toggleFilterDropdown">
           <SvgIcon icon="lucide:sliders-horizontal" class="text-sm" />
           筛选
         </button>
@@ -168,19 +157,11 @@ onUnmounted(() => {
     </div>
 
     <div class="full min-h-300px overflow-hidden">
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2">
         <WorkCard :work="item" :key="item.id" :index="index" v-for="(item, index) in data" />
       </div>
-      <div
-        v-if="loading || (!isLastPage && data.length)"
-        class="flex-center py-20"
-        ref="loadingRef"
-      >
-        <div
-          class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500"
-        />
+      <div v-if="loading || (!isLastPage && data.length)" class="flex-center py-20" ref="loadingRef">
+        <div class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500" />
       </div>
 
       <div v-if="!loading && isLastPage" class="flex-center py-10">
