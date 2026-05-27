@@ -41,6 +41,12 @@ html.dark:root {
   border: 1px solid var(--el-border-subtle);
 }
 
+.el-form-item__label {
+  color: var(--el-text-regular);
+  font-size: var(--a02-font-size-sm);
+  font-weight: var(--a02-font-weight-medium);
+}
+
 .el-input__wrapper {
   background: var(--el-bg-input) !important;
   border: 1px solid var(--el-border-medium);
@@ -49,6 +55,112 @@ html.dark:root {
   .el-input__inner {
     color: var(--el-text-input);
     font-size: var(--a02-font-size-sm) !important;
+
+    &::placeholder {
+      color: rgb(var(--text-placeholder-color));
+    }
+  }
+  .el-input__count-inner {
+    color: rgb(var(--text-placeholder-color));
+    background: var(--el-bg-input) !important;
+  }
+}
+
+.el-textarea__inner {
+  background: var(--el-bg-input) !important;
+  border: 1px solid var(--el-border-medium) !important;
+  color: var(--el-text-input);
+  font-size: var(--a02-font-size-sm) !important;
+
+  &::placeholder {
+    color: rgb(var(--text-placeholder-color));
+  }
+
+  &:focus {
+    border-color: var(--el-color-primary) !important;
+  }
+
+  &:disabled {
+    border-color: var(--el-border-medium) !important;
+  }
+}
+
+.el-textarea {
+  .el-input__count {
+    color: rgb(var(--text-placeholder-color));
+    background: var(--el-bg-input) !important;
+  }
+}
+
+/* Select — 输入框与下拉面板 */
+.el-select__wrapper {
+  background: var(--el-bg-input) !important;
+  border: 1px solid var(--el-border-medium);
+  box-shadow: none !important;
+
+  &.is-focused {
+    border-color: var(--el-color-primary);
+  }
+
+  .el-select__selected-item {
+    color: var(--el-text-highlight);
+
+    &.el-select__placeholder:not(.is-transparent) {
+      color: var(--el-color-primary);
+    }
+  }
+
+  .el-select__placeholder {
+    color: rgb(var(--text-placeholder-color));
+  }
+}
+
+.el-select-dropdown {
+  background: var(--el-bg-popup);
+  border: 1px solid var(--el-border-medium);
+}
+
+.el-select-dropdown__item {
+  color: var(--el-text-secondary);
+  font-size: var(--a02-font-size-sm);
+
+  &:hover {
+    background: var(--el-border-subtle);
+    color: var(--el-text-highlight);
+  }
+
+  &.is-selected {
+    color: var(--el-color-primary);
+    font-weight: var(--a02-font-weight-semibold);
+    background: rgba(249, 115, 22, 0.08);
+  }
+
+  &.hover {
+    background: var(--el-border-subtle);
+  }
+}
+
+.el-select-group__title {
+  color: var(--el-text-regular);
+  font-size: var(--a02-font-size-xs);
+  font-weight: var(--a02-font-weight-semibold);
+  padding: 8px 12px 4px;
+}
+
+/* Select — 多选标签 */
+.el-select__tags {
+  .el-tag {
+    background: rgba(249, 115, 22, 0.12);
+    border-color: rgba(249, 115, 22, 0.25);
+    color: #fb923c;
+
+    .el-tag__close {
+      color: #f97316;
+
+      &:hover {
+        background: rgba(249, 115, 22, 0.2);
+      }
+    }
   }
 }
 
@@ -115,6 +227,180 @@ html.dark:root {
 
     &:not(.is-disabled) {
       &:focus {
+        background: var(--el-border-subtle);
+        color: var(--el-text-highlight);
+      }
+    }
+  }
+
+  /* Select 下拉面板（teleported 到 body） */
+  .el-select-dropdown__item {
+    color: var(--el-text-secondary);
+    font-size: var(--a02-font-size-sm);
+
+    &:hover {
+      background: var(--el-border-subtle);
+      color: var(--el-text-highlight);
+    }
+
+    &.is-selected {
+      color: var(--el-color-primary);
+      font-weight: var(--a02-font-weight-semibold);
+      background: rgba(249, 115, 22, 0.08);
+    }
+
+    &.hover {
+      background: var(--el-border-subtle);
+    }
+  }
+
+  .el-select-group__title {
+    color: var(--el-text-regular);
+    font-size: var(--a02-font-size-xs);
+    font-weight: var(--a02-font-weight-semibold);
+    padding: 8px 12px 4px;
+  }
+}
+
+/* Upload 图片上传 */
+.el-upload--picture-card {
+  background: var(--el-bg-input);
+  border: 1px dashed var(--el-border-medium);
+  border-radius: var(--radius-lg);
+
+  &:hover {
+    border-color: var(--el-color-primary);
+  }
+}
+
+.el-upload-list--picture-card {
+  .el-upload-list__item {
+    background: var(--el-bg-input);
+    border: 1px solid var(--el-border-medium);
+    border-radius: var(--radius-lg);
+  }
+
+  .el-upload-list__item-thumbnail {
+    object-fit: cover;
+  }
+}
+
+/* Switch 开关 */
+.el-switch {
+  --el-switch-on-color: var(--el-color-primary);
+  --el-switch-off-color: rgb(var(--border-soft-color));
+
+  .el-switch__label {
+    color: var(--el-text-regular);
+    font-size: var(--a02-font-size-sm);
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+  }
+}
+
+.el-switch__core {
+  border-color: rgb(var(--border-soft-color));
+  background: rgb(var(--border-soft-color));
+
+  .el-switch__action {
+    background: var(--el-text-highlight);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* DatePicker 日历 */
+.el-picker-panel {
+  background: var(--el-bg-popup);
+  border: 1px solid var(--el-border-medium);
+}
+
+.el-date-picker__header {
+  .el-date-picker__header-label {
+    color: var(--el-text-highlight);
+    font-size: var(--a02-font-size-sm);
+
+    &:hover {
+      color: var(--el-color-primary);
+    }
+  }
+
+  .el-icon {
+    color: var(--el-text-regular);
+
+    &:hover {
+      color: var(--el-color-primary);
+    }
+  }
+}
+
+.el-date-table {
+  th {
+    color: var(--el-text-regular);
+    font-size: var(--a02-font-size-xs);
+    font-weight: var(--a02-font-weight-medium);
+    border-bottom-color: var(--el-border-medium);
+  }
+
+  td {
+    &.next-month,
+    &.prev-month {
+      .cell {
+        color: rgb(var(--text-disabled-color));
+      }
+    }
+
+    &.today .cell {
+      color: var(--el-color-primary);
+    }
+
+    &.current:not(.disabled) .cell {
+      background: var(--el-color-primary);
+      color: var(--el-text-highlight);
+    }
+
+    &.available:hover .cell {
+      background: var(--el-border-subtle);
+      color: var(--el-text-highlight);
+    }
+
+    .cell {
+      color: var(--el-text-secondary);
+      font-size: var(--a02-font-size-sm);
+    }
+  }
+}
+
+.el-month-table {
+  td {
+    &.current .cell {
+      background: var(--el-color-primary);
+      color: var(--el-text-highlight);
+    }
+
+    .cell {
+      color: var(--el-text-secondary);
+
+      &:hover {
+        background: var(--el-border-subtle);
+        color: var(--el-text-highlight);
+      }
+    }
+  }
+}
+
+.el-year-table {
+  td {
+    &.current .cell {
+      background: var(--el-color-primary);
+      color: var(--el-text-highlight);
+    }
+
+    .cell {
+      color: var(--el-text-secondary);
+
+      &:hover {
         background: var(--el-border-subtle);
         color: var(--el-text-highlight);
       }
