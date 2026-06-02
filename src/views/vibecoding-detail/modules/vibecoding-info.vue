@@ -435,6 +435,25 @@ async function handleShare() {
         </div>
       </div>
 
+      <!-- Agent -->
+      <div
+        v-if="vibeCoding.agents?.length"
+        class="p-5 rounded-2xl bg-slate-800/40 border border-orange-500/6"
+      >
+        <h3 class="text-base font-700 mb-4 tracking-wider uppercase text-slate-200 font-display">
+          AI Agent
+        </h3>
+        <div class="flex flex-wrap gap-1.5">
+          <span
+            v-for="agent in vibeCoding.agents"
+            :key="agent"
+            class="h-6 px-2 rounded-md text-xs flex items-center font-mono bg-green-500/10 text-green-400"
+          >
+            {{ agent }}
+          </span>
+        </div>
+      </div>
+
       <!-- 开发工具 -->
       <div
         v-if="vibeCoding.tools?.length"

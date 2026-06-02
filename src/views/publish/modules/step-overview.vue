@@ -101,6 +101,9 @@ defineExpose({ validate });
       <ElFormItem label="Agent 工具" prop="tools">
         <ElSelect disabled v-model="form.tools" multiple />
       </ElFormItem>
+      <ElFormItem label="AI Agent">
+        <ElSelect disabled v-model="form.agents" multiple />
+      </ElFormItem>
       <ElFormItem label="MCP 服务">
         <ElSelect disabled v-model="form.mcps" multiple />
       </ElFormItem>
