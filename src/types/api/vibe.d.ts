@@ -58,7 +58,7 @@ declare namespace Api {
       /** 开发工具 */
       tools?: string[];
       /** 使用的 AI 模型 */
-      model?: string;
+      agents?: string[];
       /** 使用的 MCP 工具 */
       mcps?: string[];
       /** 使用的 Skills */
@@ -73,7 +73,7 @@ declare namespace Api {
       status: WorkStatus;
       authorId: number;
       authorNickname: string;
-      athorAvatar: string;
+      authorAvatar: string;
       createdAt: string;
     };
 
@@ -92,7 +92,7 @@ declare namespace Api {
       | 'repoUrl'
       | 'duration'
       | 'tools'
-      | 'model'
+      | 'agents'
       | 'mcps'
       | 'skills'
       | 'instructions'
