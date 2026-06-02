@@ -29,7 +29,7 @@ const form = reactive<Api.VibeCoding.publishVibeCodingForm>({
   repoUrl: '',
   duration: '',
   tools: [],
-  model: [],
+  agents: [],
   mcps: [],
   skills: [],
   isOnline: false,
