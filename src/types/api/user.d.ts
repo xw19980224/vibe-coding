@@ -23,11 +23,9 @@ declare namespace Api {
     type UserInfo = Pick<
       UserDetail,
       | 'id'
-      | 'email'
       | 'nickname'
-      | 'introduction'
       | 'avatar'
-      | 'phone'
+      | 'introduction'
       | 'githubUrl'
       | 'rednoteUrl'
       | 'bilibiliUrl'
@@ -36,8 +34,8 @@ declare namespace Api {
       | 'portalUrl'
     >;
 
-    type UserWorksSearchParams = CommonType.RecordNullable<
-      Pick<VibeProject, 'status'> & Common.CommonSearchParams
+    type UserVibeCodingSearchParams = CommonType.RecordNullable<
+      Pick<VibeCodingInfo, 'status'> & Common.CommonSearchParams
     >;
 
     type UserDetailSearchParams = CommonType.RecordNullable<Pick<UserInfo, 'nickname'>>;

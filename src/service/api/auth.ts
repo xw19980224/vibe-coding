@@ -3,6 +3,10 @@ import { alova } from '@/service/request';
 const AUTH_BASE_URL = '/auth';
 
 export const AuthAPI = {
+  getUserInfo() {
+    return alova.Get<Api.User.UserInfo>(`${AUTH_BASE_URL}/info`);
+  },
+
   login(data: Api.Auth.LoginParams) {
     return alova.Post<Api.Auth.LoginToken>(`${AUTH_BASE_URL}/login`, data);
   },

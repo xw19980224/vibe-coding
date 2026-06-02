@@ -26,9 +26,34 @@ declare namespace Api {
     /**
      * enable status
      *
-     * - "1": enabled
-     * - "2": disabled
+     * - 0: disabled
+     * - 1: enabled
      */
-    type EnableStatus = '1' | '2';
+    type EnableStatus = 0 | 1;
+
+    /**
+     * sort type
+     *
+     * - asc: ascending
+     * - desc: descending
+     */
+    type SortType = 'ASC' | 'DESC';
+
+    type CommonRecord<ID = number, T = any> = {
+      /** record id */
+      id: ID;
+      /** record creator */
+      createBy: string;
+      /** record create time */
+      createTime: number;
+      /** record updater */
+      updateBy: string;
+      /** record update time */
+      updateTime: number;
+      /** record status */
+      status: EnableStatus | undefined;
+      /** record version */
+      version: number;
+    } & T;
   }
 }

@@ -3,7 +3,7 @@ import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
 
 defineOptions({ name: 'StepOverview' });
 
-const form = defineModel<Api.VibeCoding.publishVibeProjectForm>('form', { required: true });
+const form = defineModel<Api.VibeCoding.publishVibeCodingForm>('form', { required: true });
 const emit = defineEmits<{ (e: 'jump', step: number): void }>();
 
 const { formRef, validate } = useNaiveForm();
@@ -11,8 +11,14 @@ const { defaultRequiredRule } = useFormRules();
 
 const showDescPreview = ref(false);
 
-type Model = Pick<Api.VibeCoding.publishVibeProjectForm, 'title' | 'subtitle' | 'platform' | 'tools' | 'instructions' | 'coverUrl'>;
-type RuleKey = Extract<keyof Model, 'title' | 'subtitle' | 'platform' | 'tools' | 'instructions' | 'coverUrl'>;
+type Model = Pick<
+  Api.VibeCoding.publishVibeCodingForm,
+  'title' | 'subtitle' | 'platform' | 'tools' | 'instructions' | 'coverUrl'
+>;
+type RuleKey = Extract<
+  keyof Model,
+  'title' | 'subtitle' | 'platform' | 'tools' | 'instructions' | 'coverUrl'
+>;
 
 const rules: Record<RuleKey, App.Global.FormRule[]> = {
   title: [defaultRequiredRule],
@@ -32,7 +38,8 @@ defineExpose({ validate });
     <div class="p-5 rounded-xl bg-slate-800/40 border border-orange-500/6">
       <h3
         class="text-base font-700 mb-4 text-slate-200 font-display cursor-pointer hover:text-orange transition-colors duration-200"
-        @click="emit('jump', 1)">
+        @click="emit('jump', 1)"
+      >
         基本信息
       </h3>
       <ElFormItem label="作品名称" prop="title">
@@ -56,7 +63,8 @@ defineExpose({ validate });
     <div class="p-5 rounded-xl bg-slate-800/40 border border-orange-500/6">
       <h3
         class="text-base font-700 mb-4 text-slate-200 font-display cursor-pointer hover:text-orange transition-colors duration-200"
-        @click="emit('jump', 2)">
+        @click="emit('jump', 2)"
+      >
         拓展信息
       </h3>
       <ElFormItem label="标签">
@@ -86,7 +94,8 @@ defineExpose({ validate });
     <div class="p-5 rounded-xl bg-slate-800/40 border border-orange-500/6">
       <h3
         class="text-base font-700 mb-4 text-slate-200 font-display cursor-pointer hover:text-orange transition-colors duration-200"
-        @click="emit('jump', 3)">
+        @click="emit('jump', 3)"
+      >
         AI 工具
       </h3>
       <ElFormItem label="Agent 工具" prop="tools">
@@ -104,7 +113,8 @@ defineExpose({ validate });
     <div class="p-5 rounded-xl bg-slate-800/40 border border-orange-500/6">
       <h3
         class="text-base font-700 mb-4 text-slate-200 font-display cursor-pointer hover:text-orange transition-colors duration-200"
-        @click="emit('jump', 4)">
+        @click="emit('jump', 4)"
+      >
         项目说明书
       </h3>
       <div class="flex items-center gap-2 mb-4">
@@ -112,7 +122,13 @@ defineExpose({ validate });
         <ElSwitch v-model="showDescPreview" size="small" />
       </div>
       <ElFormItem label="作品说明书" prop="instructions">
-        <ElInput disabled v-if="!showDescPreview" v-model="form.instructions" type="textarea" :rows="5" />
+        <ElInput
+          disabled
+          v-if="!showDescPreview"
+          v-model="form.instructions"
+          type="textarea"
+          :rows="5"
+        />
         <Markdown v-else :source="form.instructions" class="text-slate-400 text-sm" />
       </ElFormItem>
     </div>
@@ -121,23 +137,48 @@ defineExpose({ validate });
     <div class="p-5 rounded-xl bg-slate-800/40 border border-orange-500/6">
       <h3
         class="text-base font-700 mb-4 text-slate-200 font-display cursor-pointer hover:text-orange transition-colors duration-200"
-        @click="emit('jump', 4)">
+        @click="emit('jump', 4)"
+      >
         封面与截图
       </h3>
       <ElFormItem label="封面图" prop="coverUrl">
-        <ElUpload :file-list="form.coverUrl ? [{ name: 'cover.png', url: form.coverUrl }] : []" :limit="1"
-          list-type="picture-card" disabled :on-preview="() => { }">
+        <ElUpload
+          :file-list="form.coverUrl ? [{ name: 'cover.png', url: form.coverUrl }] : []"
+          :limit="1"
+          list-type="picture-card"
+          disabled
+          :on-preview="() => {}"
+        >
           <template #file="{ file }">
-            <ElImage :src="file.url" :preview-src-list="[file.url]" fit="cover" class="size-full" preview-teleported />
+            <ElImage
+              :src="file.url"
+              :preview-src-list="[file.url]"
+              fit="cover"
+              class="size-full"
+              preview-teleported
+            />
           </template>
         </ElUpload>
       </ElFormItem>
       <ElFormItem label="项目截图">
-        <ElUpload :file-list="form.screenshots.map((url, i) => ({ name: `shot-${i + 1}.png`, url, uid: i }))" :limit="9"
-          list-type="picture-card" disabled :on-preview="() => { }">
+        <ElUpload
+          :file-list="
+            form.screenshots.map((url, i) => ({ name: `shot-${i + 1}.png`, url, uid: i }))
+          "
+          :limit="9"
+          list-type="picture-card"
+          disabled
+          :on-preview="() => {}"
+        >
           <template #file="{ file }">
-            <ElImage :src="file.url" :preview-src-list="form.screenshots" :initial-index="Number(file.uid)" fit="cover"
-              class="size-full" preview-teleported />
+            <ElImage
+              :src="file.url"
+              :preview-src-list="form.screenshots"
+              :initial-index="Number(file.uid)"
+              fit="cover"
+              class="size-full"
+              preview-teleported
+            />
           </template>
         </ElUpload>
       </ElFormItem>

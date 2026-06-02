@@ -68,6 +68,10 @@ function handleTabsChange() {}
       <p class="text-sm text-slate-500 font-mono">暂无收藏的作品</p>
     </div>
 
-    <UserOperationDialog v-model:visible="editDialogVisible" :user-info="userDetail" />
+    <UserOperationDialog
+      v-model:visible="editDialogVisible"
+      :user-info="userDetail"
+      @submitted="fetchUserDetail()"
+    />
   </div>
 </template>

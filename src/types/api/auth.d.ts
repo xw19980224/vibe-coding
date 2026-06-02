@@ -1,8 +1,10 @@
 declare namespace Api {
   namespace Auth {
     interface LoginParams {
+      clientType: string;
+      loginType: string;
       email: string;
-      code: string;
+      emailCode: string;
     }
 
     interface LoginToken {

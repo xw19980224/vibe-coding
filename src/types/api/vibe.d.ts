@@ -19,7 +19,7 @@ declare namespace Api {
       followers?: number;
     }
 
-    type VibeProject = {
+    type VibeCodingInfo = {
       id: number;
       /** 作品名称 */
       title: string;
@@ -31,6 +31,8 @@ declare namespace Api {
       platform: RuntimePlatform;
       /** 开发语言 */
       languages?: string[];
+      /** 技术栈 */
+      techStack?: string[];
       /** 作品描述 */
       description: string;
       /** 使用说明 */
@@ -69,18 +71,20 @@ declare namespace Api {
       license?: string;
       /** 作品状态 */
       status: WorkStatus;
-      /** 作者 */
-      author?: Author;
+      authorId: number;
+      authorNickname: string;
+      athorAvatar: string;
       createdAt: string;
     };
 
-    type publishVibeProjectForm = Pick<
-      VibeProject,
+    type publishVibeCodingForm = Pick<
+      VibeCodingInfo,
       | 'title'
       | 'subtitle'
       | 'category'
       | 'platform'
       | 'languages'
+      | 'techStack'
       | 'coverUrl'
       | 'tags'
       | 'screenshots'
@@ -98,12 +102,13 @@ declare namespace Api {
       | 'featured'
     >;
 
-    type VibeProjectPage = Common.PaginatingQueryRecord<VibeProject>;
+    type VibeCodingPage = Common.PaginatingQueryRecord<VibeCodingInfo>;
 
-    type VibeProjectSearchParams = CommonType.RecordNullable<
-      Pick<VibeProject, 'title' | 'category' | 'tags'> &
+    type VibeCodingSearchParams = CommonType.RecordNullable<
+      Pick<VibeCodingInfo, 'title' | 'category' | 'tags' | 'featured' | "sort"> &
       Common.CommonSearchParams & {
-        sort?: SortMode;
+        field: string;
+        sort: string;
       }
     >;
 
@@ -138,14 +143,6 @@ declare namespace Api {
       code: string;
       name: string;
       nameEn: string;
-    }
-
-    type SortMode = 'recommended' | 'latest' | 'popular';
-
-    interface WorkFilters {
-      category: string;
-      sort: SortMode;
-      search: string;
     }
 
     interface Comment {

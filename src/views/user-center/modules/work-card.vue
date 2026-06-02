@@ -5,7 +5,7 @@ import { formatCompact } from '@/utils/common.ts';
 defineOptions({ name: 'WorkCard' });
 
 interface Props {
-  work: Api.VibeCoding.VibeProject;
+  vibeCoding: Api.VibeCoding.VibeCodingInfo;
   isSelf: boolean;
 }
 
@@ -45,11 +45,11 @@ function goToWork(id: number) {
 <template>
   <div
     class="rounded-xl overflow-hidden cursor-pointer transition-all duration-300 bg-slate-800/30 border border-slate-400/4 hover:(border-orange/50 -translate-y-1 shadow-[0_0_30px_orange/8])"
-    @click="goToWork(work.id)"
+    @click="goToWork(vibeCoding.id)"
   >
     <!-- Cover -->
     <div class="relative aspect-16/9 overflow-hidden bg-slate-900/60">
-      <ElImage :src="work.coverUrl" :alt="work.title" class="size-full" />
+      <ElImage :src="vibeCoding.coverUrl" :alt="vibeCoding.title" class="size-full" />
 
       <ElDropdown
         v-if="props.isSelf"
@@ -84,11 +84,11 @@ function goToWork(id: number) {
       >
         <span class="flex-center gap-1">
           <SvgIcon icon="lucide:heart" />
-          {{ formatCompact(work.likes) }}
+          {{ formatCompact(vibeCoding.likes) }}
         </span>
         <span class="flex-center gap-1">
           <SvgIcon icon="lucide:eye" />
-          {{ formatCompact(work.views) }}
+          {{ formatCompact(vibeCoding.views) }}
         </span>
       </div>
     </div>
@@ -96,16 +96,16 @@ function goToWork(id: number) {
     <!-- Info -->
     <div class="p-4">
       <h3 class="text-base font-600 mb-1 truncate text-slate-300">
-        {{ work.title }}
+        {{ vibeCoding.title }}
       </h3>
       <p class="text-xs line-clamp-2 mb-3 leading-relaxed text-slate-500 font-mono">
-        {{ work.description }}
+        {{ vibeCoding.subtitle }}
       </p>
 
       <!-- Tags -->
       <div class="flex flex-wrap gap-1.5">
         <span
-          v-for="tag in work.tags?.slice(0, 3)"
+          v-for="tag in vibeCoding.tags?.slice(0, 3)"
           :key="tag"
           class="h-5 px-2 rd text-xs flex-y-center font-mono bg-orange/20 text-orange"
         >

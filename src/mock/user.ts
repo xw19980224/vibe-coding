@@ -141,4 +141,9 @@ export default [
       return wrapData(paginate(list, query));
     },
   },
+  {
+    url: '/user',
+    method: 'put',
+    response: () => wrapData(true),
+  },
 ] as MockMethod[];

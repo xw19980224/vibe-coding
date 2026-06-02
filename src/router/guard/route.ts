@@ -8,7 +8,7 @@ export function createRouteGuard(router: Router) {
 
     const isLogin = Boolean(localStg.get('token'));
 
-    if (isLogin && !authStore.userInfo?.key) {
+    if (isLogin && !authStore.userInfo?.id) {
       await authStore.initUserInfo();
     }
 

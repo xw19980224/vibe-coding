@@ -21,6 +21,7 @@ const filterRef = ref<HTMLElement>();
 
 const searchParams = reactive({
   keyword: '',
+  nickname: props.nickname,
   status: undefined as number | undefined,
   category: undefined as string | undefined,
   sort: 'latest' as string,
@@ -72,8 +73,8 @@ const sortOptions = [
 const loadingRef = ref<HTMLElement>();
 
 const {
-  send: sendGetUserWorks,
-  data: works,
+  send: sendFindUserVibeCoding,
+  data: vibeCodings,
   page,
   pageSize,
   isLastPage,
@@ -81,7 +82,7 @@ const {
   reload,
 } = usePagination(
   (p, ps) =>
-    UserAPI.getUserWorks({
+    UserAPI.findUserVibeCoding({
       pageNumber: p,
       pageSize: ps,
       ...searchParams,
@@ -98,13 +99,13 @@ const { observe, unobserve } = useIntersectionObserver(loadingRef, (isIntersecti
   if (isIntersecting) {
     if (!isLastPage.value && !loading.value) {
       page.value++;
-      sendGetUserWorks(page.value, pageSize.value);
+      sendFindUserVibeCoding(page.value, pageSize.value);
     }
   }
 });
 
 function handleSearch() {
-  sendGetUserWorks(1, pageSize);
+  sendFindUserVibeCoding(1, pageSize);
 }
 
 watch(
@@ -116,7 +117,7 @@ watch(
 
 onMounted(() => {
   observe();
-  sendGetUserWorks();
+  sendFindUserVibeCoding();
   onClickOutside(filterRef, () => {
     closeFilterModel();
   });
@@ -129,7 +130,7 @@ onUnmounted(() => {
 watch(
   searchParams,
   () => {
-    handleSearch();
+    reload();
   },
   {
     deep: true,
@@ -145,7 +146,7 @@ watch(
         v-model="searchParams.keyword"
         placeholder="搜索作品名称、描述..."
         class="w-86"
-        @keyup.enter="sendGetUserWorks"
+        @keyup.enter="sendFindUserVibeCoding"
       >
         <template #prefix>
           <SvgIcon icon="lucide:search" class="text-slate-500 text-base" />
@@ -239,7 +240,7 @@ watch(
     </div>
 
     <!-- Empty -->
-    <div v-if="!works.length" class="flex flex-col items-center py-16">
+    <div v-if="!vibeCodings.length" class="flex flex-col items-center py-16">
       <div class="text-5xl mb-4" style="opacity: 0.15">(´･_･`)</div>
       <p class="text-sm mb-4 text-slate-400 font-mono">还没有发布作品</p>
       <button
@@ -257,10 +258,15 @@ watch(
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
         >
-          <WorkCard v-for="work in works" :key="work.id" :work="work" :is-self="props.isSelf" />
+          <WorkCard
+            v-for="vibeCoding in vibeCodings"
+            :key="vibeCoding.id"
+            :vibe-coding="vibeCoding"
+            :is-self="props.isSelf"
+          />
         </div>
         <div
-          v-if="loading || (!isLastPage && works.length)"
+          v-if="loading || (!isLastPage && vibeCodings.length)"
           class="flex-center py-8"
           ref="loadingRef"
         >

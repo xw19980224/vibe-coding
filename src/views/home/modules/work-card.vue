@@ -7,7 +7,7 @@ defineOptions({ name: 'WorkCard' });
 const router = useRouter();
 
 interface Props {
-  work: Api.VibeCoding.VibeProject;
+  vibeCoding: Api.VibeCoding.VibeCodingInfo;
   index: number;
 }
 
@@ -46,7 +46,7 @@ function handleClick(idx: number) {
       animation: cardEnter 0.5s ease-out both;
     "
     :style="{ animationDelay: `${index * 60}ms` }"
-    @click="handleCardClick(work.id)"
+    @click="handleCardClick(vibeCoding.id)"
   >
     <!-- Cover image -->
     <div
@@ -55,11 +55,11 @@ function handleClick(idx: number) {
         background: linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%);
       "
     >
-      <ElImage :src="work.coverUrl" :alt="work.title" lazy fit="cover" />
+      <ElImage :src="vibeCoding.coverUrl" :alt="vibeCoding.title" lazy fit="cover" />
 
       <!-- Featured badge -->
       <div
-        v-if="work.featured"
+        v-if="vibeCoding.featured"
         class="absolute top-3 left-3 h-6 px-2 rounded text-xs font-700 flex-y-center font-display text-slate-900 bg-gradient-to-br from-orange to-orange-400 tracking-wider"
       >
         FEATURED
@@ -69,16 +69,16 @@ function handleClick(idx: number) {
     <!-- Content -->
     <div class="p-4">
       <h3 class="text-base font-600 mb-2 line-clamp-1 text-slate-100 select-text">
-        {{ work.title }}
+        {{ vibeCoding.title }}
       </h3>
       <p class="text-sm mb-3 line-clamp-2 leading-relaxed text-slate-500 font-mono">
-        {{ work.description }}
+        {{ vibeCoding.subtitle }}
       </p>
 
       <!-- Tags -->
       <div class="flex flex-wrap gap-1.5 mb-3">
         <span
-          v-for="(tag, ti) in work.tags.slice(0, 3)"
+          v-for="(tag, ti) in vibeCoding.tags.slice(0, 3)"
           :key="tag"
           class="h-6 px-2 rounded text-sm font-500 flex-y-center"
           :style="{
@@ -92,16 +92,16 @@ function handleClick(idx: number) {
 
       <!-- Meta -->
       <div class="flex-y-center justify-between">
-        <div class="flex items-end gap-2" @click.stop="handleUserCenter(work.author?.name)">
-          <ElAvatar size="small" :src="work.author?.avatar" />
+        <div class="flex items-end gap-2" @click.stop="handleUserCenter(vibeCoding.authorNickname)">
+          <ElAvatar size="small" :src="vibeCoding.athorAvatar" />
           <span class="text-sm text-slate-500">
-            {{ work.author.name }}
+            {{ vibeCoding.authorNickname }}
           </span>
         </div>
         <div class="flex items-center gap-3 text-xs">
           <button
             class="flex-y-center gap-1 text-sm cursor-pointer transition-colors duration-200 text-slate-500"
-            @click.stop="handleClick(work.id)"
+            @click.stop="handleClick(vibeCoding.id)"
             @mouseenter="
               (e: MouseEvent) => ((e.currentTarget as HTMLElement).style.color = '#F97316')
             "
@@ -110,11 +110,11 @@ function handleClick(idx: number) {
             "
           >
             <SvgIcon icon="lucide:heart" />
-            {{ formatCompact(work.likes) }}
+            {{ formatCompact(vibeCoding.likes) }}
           </button>
           <div class="flex-y-center gap-1 text-sm text-slate-600">
             <SvgIcon icon="lucide:eye" />
-            {{ formatCompact(work.views) }}
+            {{ formatCompact(vibeCoding.views) }}
           </div>
         </div>
       </div>

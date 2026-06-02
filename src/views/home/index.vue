@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import VibeHero from './modules/vibe-hero.vue';
 import { usePagination, useRequest } from '@a02/alova/client';
-import { VibeCodingAPI } from '@/service/api/vibe-works';
+import { VibeCodingAPI } from '@/service/api/vibecoding.ts';
 import { useBoolean, useIntersectionObserver } from '@a02/hooks';
 import { onClickOutside } from '@vueuse/core';
 import { useAppStore } from '@/stores/modules/app';
 import WorkCard from './modules/work-card.vue';
+import { CategoryAPI } from '@/service/api/category.ts';
 
 defineOptions({ name: 'HomePage' });
 
@@ -19,14 +20,15 @@ const {
   toggle: toggleSortDropdown,
   setBool: setSortDropdownVisible,
 } = useBoolean(false);
-const { bool: filterDropdownVisible, toggle: toggleFilterDropdown } = useBoolean(false);
 const searchParams = reactive({
   category: 'all',
-  sort: 'recommended' as Api.VibeCoding.SortMode,
+  featured: false,
+  field: 'create_time',
+  order: 'DESC' as Api.Common.SortType,
 });
 
 const {
-  send: sendGetWorks,
+  send: sendGetVibeCoding,
   data,
   page,
   pageSize,
@@ -35,20 +37,27 @@ const {
   reload,
 } = usePagination(
   (pageNum, size) => {
-    return VibeCodingAPI.getWorks({ ...searchParams, pageNumber: pageNum, pageSize: size });
+    const params = {
+      ...searchParams,
+      pageNumber: pageNum,
+      pageSize: size,
+    };
+    if (params.category === 'all') {
+      delete params.category;
+    }
+    return VibeCodingAPI.findVibeCodingPage(params as Api.VibeCoding.VibeCodingSearchParams);
   },
   {
     append: true,
-    data: (res) => (res as Api.VibeCoding.VibeProjectPage).records,
-    total: (res) => (res as Api.VibeCoding.VibeProjectPage).total,
+    data: (res) => (res as Api.VibeCoding.VibeCodingPage).records,
+    total: (res) => (res as Api.VibeCoding.VibeCodingPage).total,
     initialPageSize: isMobile.value ? 3 : 9,
   },
 );
 
 const sortOptions = [
-  { key: 'recommended' as Api.VibeCoding.SortMode, label: '推荐' },
-  { key: 'latest' as Api.VibeCoding.SortMode, label: '最新' },
-  { key: 'popular' as Api.VibeCoding.SortMode, label: '最热' },
+  { key: 'createTime', label: '最新' },
+  { key: 'views', label: '最热' },
 ];
 
 const categories = computed(() => [
@@ -56,7 +65,7 @@ const categories = computed(() => [
   ...(categoriesRes.value?.map((c) => ({ value: c.code, label: c.name })) || []),
 ]);
 
-const { data: categoriesRes } = useRequest(() => VibeCodingAPI.getCategories(), {
+const { data: categoriesRes } = useRequest(() => CategoryAPI.getCategories(), {
   immediate: true,
 });
 
@@ -64,8 +73,8 @@ function handleCategoryChange() {
   reload();
 }
 
-function handleSortChange(sort: Api.VibeCoding.SortMode) {
-  searchParams.sort = sort;
+function handleSortChange(sort: string) {
+  searchParams.field = sort;
   setSortDropdownVisible(false);
   reload();
 }
@@ -76,7 +85,7 @@ const { observe, unobserve } = useIntersectionObserver(
     if (isIntersecting) {
       if (!isLastPage.value && !loading.value) {
         page.value++;
-        sendGetWorks(page.value, pageSize.value);
+        sendGetVibeCoding(page.value, pageSize.value);
       }
     }
   },
@@ -120,8 +129,12 @@ onUnmounted(() => {
       <!-- Left: Categories -->
       <div class="flex-1 min-w-0">
         <ElTabs v-model="searchParams.category" @tabChange="handleCategoryChange">
-          <ElTabPane v-for="(category, index) in categories" :key="index" :label="category.label"
-            :name="category.value" />
+          <ElTabPane
+            v-for="(category, index) in categories"
+            :key="index"
+            :label="category.label"
+            :name="category.value"
+          />
         </ElTabs>
       </div>
 
@@ -131,16 +144,22 @@ onUnmounted(() => {
         <div class="relative" ref="sortDropdownRef">
           <button
             class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
-            @click="toggleSortDropdown">
+            @click="toggleSortDropdown"
+          >
             <SvgIcon icon="lucide:arrow-up-down" class="text-sm" />
-            {{sortOptions.find((s) => s.key === searchParams.sort)?.label || '推荐'}}
+            {{ sortOptions.find((s) => s.key === searchParams.order)?.label || '最新' }}
           </button>
-          <div v-if="sortDropdownVisible"
-            class="absolute right-0 top-11 rounded-lg p-1 z-20 bg-slate-800/95 border border-orange-500/12 backdrop-blur-sm">
-            <button v-for="opt in sortOptions" :key="opt.key"
+          <div
+            v-if="sortDropdownVisible"
+            class="absolute right-0 top-11 rounded-lg p-1 z-20 bg-slate-800/95 border border-orange-500/12 backdrop-blur-sm"
+          >
+            <button
+              v-for="opt in sortOptions"
+              :key="opt.key"
               class="w-full h-9 rounded-md text-sm cursor-pointer transition-all duration-150 px-3 font-mono"
-              :class="searchParams.sort === opt.key ? 'text-orange bg-orange/1' : 'text-slate-400'"
-              @click="handleSortChange(opt.key)">
+              :class="searchParams.order === opt.key ? 'text-orange bg-orange/1' : 'text-slate-400'"
+              @click="handleSortChange(opt.key)"
+            >
               {{ opt.label }}
             </button>
           </div>
@@ -148,8 +167,9 @@ onUnmounted(() => {
 
         <!-- Filter button -->
         <button
+          v-if="false"
           class="h-10 px-3 rounded-lg text-sm cursor-pointer transition-all duration-200 flex items-center gap-1.5 font-mono text-slate-200 bg-slate-800/60 border border-slate-400/12"
-          @click="toggleFilterDropdown">
+        >
           <SvgIcon icon="lucide:sliders-horizontal" class="text-sm" />
           筛选
         </button>
@@ -157,11 +177,19 @@ onUnmounted(() => {
     </div>
 
     <div class="full min-h-300px overflow-hidden">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2">
-        <WorkCard :work="item" :key="item.id" :index="index" v-for="(item, index) in data" />
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 py-2"
+      >
+        <WorkCard :vibe-coding="item" :key="item.id" :index="index" v-for="(item, index) in data" />
       </div>
-      <div v-if="loading || (!isLastPage && data.length)" class="flex-center py-20" ref="loadingRef">
-        <div class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500" />
+      <div
+        v-if="loading || (!isLastPage && data.length)"
+        class="flex-center py-20"
+        ref="loadingRef"
+      >
+        <div
+          class="w-10 h-10 rounded-full border-2 border-transparent animate-spin border-t-orange-500"
+        />
       </div>
 
       <div v-if="!loading && isLastPage" class="flex-center py-10">

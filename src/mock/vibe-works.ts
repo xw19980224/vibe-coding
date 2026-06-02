@@ -765,9 +765,9 @@ const mockWorksBase = mockWorksBaseEntries.map((work) => ({
   platform: platformFor(work.category, work.id),
   screenshots: screenshotsFor(work.id),
   status: work.status as Api.VibeCoding.WorkStatus,
-})) satisfies Api.VibeCoding.VibeProject[];
+})) satisfies Api.VibeCoding.VibeCodingInfo[];
 
-export const mockWorks: Api.VibeCoding.VibeProject[] = mockWorksBase.map((work, index) => {
+export const mockWorks: Api.VibeCoding.VibeCodingInfo[] = mockWorksBase.map((work, index) => {
   const { width, height } = COVER_SIZE_PRESETS[index % COVER_SIZE_PRESETS.length];
   return {
     ...work,
@@ -831,12 +831,12 @@ function paginate<T>(list: T[], query: Record<string, string | string[] | undefi
 
 export default [
   {
-    url: '/vibe-works/categories',
+    url: '/vibecoding/categories',
     method: 'get',
     response: () => wrapData(mockCategories),
   },
   {
-    url: '/vibe-works/:id',
+    url: '/vibecoding/:id',
     method: 'get',
     response: ({ query }: { query: Record<string, string> }) => {
       const id = Number(query.id);
@@ -852,11 +852,16 @@ export default [
     },
   },
   {
-    url: '/vibe-works',
+    url: '/vibecoding',
     method: 'get',
     response: ({ query }: { query: Record<string, string | string[] | undefined> }) => {
       const list = filterWorks(query);
       return wrapData(paginate(list, query));
     },
+  },
+  {
+    url: '/vibecoding/sumbit',
+    method: 'post',
+    response: () => wrapData(true),
   },
 ] as MockMethod[];
