@@ -297,12 +297,6 @@ async function handleShare() {
           项目详情
         </h3>
         <div class="space-y-3">
-          <div v-if="vibeCoding.model" class="flex items-center justify-between">
-            <span class="text-sm text-slate font-mono">模型</span>
-            <span class="text-sm font-500 text-slate-400 font-mono">
-              {{ vibeCoding.model }}
-            </span>
-          </div>
           <div v-if="vibeCoding.languages?.length" class="flex items-center justify-between">
             <span class="text-sm text-slate font-mono">开发语言</span>
             <span class="text-sm font-500 text-slate-400 font-mono">

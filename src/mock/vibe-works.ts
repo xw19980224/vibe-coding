@@ -193,7 +193,7 @@ const { data, page, isLastPage, loading, reload } = usePagination(
       '```bash\npnpm install\npnpm dev\n```\n\n1. 克隆仓库\n2. 安装依赖 `pnpm install`\n3. 启动开发服务器 `pnpm dev`',
     license: 'MIT',
     languages: ['TypeScript', 'Vue 3', 'CSS'],
-    model: 'Claude Opus 4.7',
+    agents: ['Claude Opus 4.7'],
     duration: '2025-12 ~ 2026-05',
     isOnline: true,
     onlineDate: '2026-03',
