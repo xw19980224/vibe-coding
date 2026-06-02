@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { formatCompact } from '@/utils/common.ts';
+import { useAppStore } from '@/stores/modules/app';
 
 defineOptions({ name: 'ProfileHeader' });
+
+const { isMobile } = useAppStore();
 
 interface Props {
   userDetail: Api.User.UserDetail;
@@ -34,12 +37,12 @@ function openLink(url: string) {
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row items-start gap-8 mb-5">
+  <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-5">
     <!-- Avatar -->
     <ElAvatar :src="props.userDetail?.avatar" class="size-24 shrink-0" />
 
     <!-- Info -->
-    <div class="flex-1 min-w-0">
+    <div class="flex-1 min-w-0 text-center md:text-left">
       <div class="flex items-start justify-between gap-4">
         <div>
           <h1 class="text-2xl font-700 mb-1 text-slate-100 font-display">
@@ -48,7 +51,7 @@ function openLink(url: string) {
           <p class="text-sm mb-1 text-slate-500 font-mono">
             {{ props.userDetail?.introduction }}
           </p>
-          <div v-if="socialPlatforms.length" class="flex-y-center gap-2 mb-2">
+          <div v-if="socialPlatforms.length" class="flex-y-center justify-center md:justify-start gap-2 mb-2">
             <button
               v-for="platform in socialPlatforms"
               :key="platform.key"
@@ -62,17 +65,23 @@ function openLink(url: string) {
         </div>
         <button
           v-if="props.isSelf"
-          class="h-9 px-5 rounded-lg text-sm font-600 cursor-pointer transition-all duration-200 shrink-0 btn-ghost"
+          :class="[
+            'rounded-lg flex-center cursor-pointer transition-all duration-200 shrink-0',
+            isMobile
+              ? 'w-8 h-8 text-slate-400 hover:text-slate-200'
+              : 'h-9 px-5 text-sm font-600 btn-ghost',
+          ]"
           @click="emit('editUserProfile')"
         >
-          编辑资料
+          <SvgIcon v-if="isMobile" icon="lucide:pencil" class="size-4" />
+          <span v-else>编辑资料</span>
         </button>
       </div>
 
       <!-- Social Links -->
 
       <!-- Stats -->
-      <div class="flex-y-center gap-8">
+      <div class="flex-y-center justify-center md:justify-start gap-8">
         <div class="text-center">
           <div class="text-xl font-700 text-slate-100 font-display">
             {{ formatCompact(props.userDetail?.works ?? 0) }}
