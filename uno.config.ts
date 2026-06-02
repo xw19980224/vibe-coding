@@ -21,7 +21,6 @@ const { VITE_ICON_PREFIX, VITE_ICON_LOCAL_PREFIX } = env;
 const localIconPath = path.join(process.cwd(), 'src/assets/svg-icon');
 const collectionName = VITE_ICON_LOCAL_PREFIX.replace(`${VITE_ICON_PREFIX}-`, '');
 
-console.log(themeVars);
 export default defineConfig<Theme>({
   content: {
     pipeline: {
