@@ -1,5 +1,6 @@
 import { useCountDown, useLoading } from '@a02/hooks';
 import { REG_EMAIL } from '@/constants/reg.ts';
+import { AuthAPI } from '@/service/api/auth';
 
 export function useCaptcha() {
   const { loading, startLoading, endLoading } = useLoading();
@@ -45,16 +46,16 @@ export function useCaptcha() {
 
     startLoading();
 
-    // request
-    await new Promise((resolve) => {
-      setTimeout(resolve, 500);
-    });
+    try {
+      await AuthAPI.sendCode(email);
+      window.$message?.success?.('验证码发送成功');
+      start();
+    } catch (error) {
+      window.$message?.error?.('验证码发送失败');
+    } finally {
+      endLoading();
+    }
 
-    window.$message?.success?.('验证码发送成功');
-
-    start();
-
-    endLoading();
   }
 
   return {

@@ -12,6 +12,7 @@ defineOptions({ name: 'LoginDialog' });
 const appStore = useAppStore();
 const authStore = useAuthStore();
 const { formRef, validate, restoreValidation } = useNaiveForm();
+const { defaultRequiredRule } = useFormRules();
 const isMobile = computed(() => appStore.isMobile);
 const {
   label: emailLabel,
@@ -24,14 +25,18 @@ const { start: startCountdown, isCounting: isQrCodeCounting } = useCountDown(60)
 const visible = defineModel<boolean>('visible', { required: true });
 
 interface FormModel {
+  loginType: string;
+  clientType: string;
   email: string;
-  code: string;
+  emailCode: string;
 }
 
 function initFormModelValue() {
   return {
+    loginType: 'email_code',
+    clientType: 'web',
     email: '1035071992xw@gmail.com',
-    code: '123456',
+    emailCode: '123456',
   };
 }
 
@@ -40,7 +45,12 @@ const model = ref<FormModel>(initFormModelValue());
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   const { formRules } = useFormRules();
 
-  return { email: formRules.email, code: formRules.code };
+  return {
+    email: formRules.email,
+    loginType: [defaultRequiredRule],
+    clientType: [defaultRequiredRule],
+    emailCode: formRules.code,
+  };
 });
 
 const {
@@ -59,11 +69,13 @@ sendQrCodeSuccess(() => {
 
 async function handleSubmit() {
   await validate();
-  const result = await authStore.login(model.value, false, true);
-  if (!result) {
-    window.$message?.error?.('账号或密码错误');
-  } else {
-    visible.value = false;
+  try {
+    const result = await authStore.login(model.value, false, true);
+    if (result) {
+      visible.value = false;
+    }
+  } catch {
+    // 登录失败时异常已被底层捕获并提示，此处仅阻止关闭弹窗
   }
 }
 
@@ -112,14 +124,15 @@ watch(visible, (val) => {
           <ElFormItem prop="email">
             <ElInput v-model="model.email" placeholder="请输入邮箱" />
           </ElFormItem>
-          <ElFormItem prop="code">
+          <ElFormItem prop="emailCode">
             <div class="w-full flex-y-center gap-3">
-              <ElInput v-model="model.code" placeholder="请输入验证码" maxlength="6" />
+              <ElInput v-model="model.emailCode" placeholder="请输入验证码" maxlength="6" />
               <ElButton
+                type="info"
                 :disabled="isEmailCounting"
                 :loading="emailLoading"
                 @click="getEmailCaptcha(model.email)"
-                class="text-slate-400 font-mono bg-slate-400/6 border border-slate-400/15"
+                class="font-mono"
               >
                 {{ emailLabel }}
               </ElButton>
@@ -128,8 +141,8 @@ watch(visible, (val) => {
           <ElButton
             :disabled="authStore.loginLoading"
             @click="handleSubmit"
-            class="w-full btn-primary-gradient border-none"
-            style="box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15)"
+            class="w-full border-none"
+            type="primary"
           >
             {{ authStore.loginLoading ? '登录中...' : '登录 / 注册' }}
           </ElButton>
@@ -159,7 +172,7 @@ watch(visible, (val) => {
           <!-- Refresh overlay when expired -->
           <div
             v-if="!isQrCodeCounting"
-            class="absolute inset-0 flex flex-col items-center justify-center gap-2 cursor-pointer bg-slate-900/85"
+            class="absolute inset-0 flex-center flex-col gap-2 cursor-pointer bg-slate-900/85"
             @click="sendQrCode()"
           >
             <SvgIcon icon="lucide:rotate-cw" class="text-slate-400 text-2xl" />

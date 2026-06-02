@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/modules/auth';
+import { useAppStore } from '@/stores/modules/app';
+import { clearAuthStorage } from '@/stores/modules/auth/shared';
 import LoginDialog from '@/layouts/modules/global-header/components/login-dialog.vue';
 import { useBoolean } from '@a02/hooks';
 
@@ -8,6 +10,7 @@ defineOptions({ name: 'GlobalHeader' });
 
 const router = useRouter();
 const auth = useAuthStore();
+const { isMobile } = useAppStore();
 const { bool: visible, setTrue: openDialog } = useBoolean();
 const searchQuery = ref('');
 
@@ -21,6 +24,12 @@ function goToPublish() {
 
 function goToUser() {
   router.push('/user-center');
+}
+
+function handleLogout() {
+  clearAuthStorage();
+  auth.resetStore();
+  router.push('/');
 }
 
 let debounceTimer: ReturnType<typeof setTimeout>;
@@ -75,12 +84,47 @@ function onSearchInput() {
             <SvgIcon icon="lucide:plus" class="text-lg" />
             <span class="hidden sm:inline">发布作品</span>
           </button>
-          <button
-            class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400 bg-slate-800/60 border border-orange-500/12"
-            @click="goToUser"
-          >
-            <SvgIcon icon="lucide:user" class="text-xl" />
-          </button>
+
+          <!-- Mobile: dropdown menu -->
+          <template v-if="isMobile">
+            <ElDropdown trigger="click">
+              <button
+                class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400 bg-slate-800/60 border border-orange-500/12"
+              >
+                <SvgIcon icon="lucide:ellipsis-vertical" class="text-xl" />
+              </button>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem @click="goToUser">
+                    <SvgIcon icon="lucide:user" class="text-lg mr-2" />
+                    个人中心
+                  </ElDropdownItem>
+                  <ElDropdownItem @click="handleLogout">
+                    <SvgIcon icon="lucide:log-out" class="text-lg mr-2" />
+                    注销登录
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+          </template>
+
+          <!-- Desktop: separate icon buttons -->
+          <template v-else>
+            <button
+              class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400 bg-slate-800/60 border border-orange-500/12"
+              title="个人中心"
+              @click="goToUser"
+            >
+              <SvgIcon icon="lucide:user" class="text-xl" />
+            </button>
+            <button
+              class="h-9 w-9 rounded-lg cursor-pointer transition-all duration-200 flex-center text-slate-400 bg-slate-800/60 border border-orange-500/12"
+              title="注销登录"
+              @click="handleLogout"
+            >
+              <SvgIcon icon="lucide:log-out" class="text-xl" />
+            </button>
+          </template>
         </template>
         <button
           v-else

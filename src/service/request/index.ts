@@ -46,28 +46,49 @@ export const alova = createAlovaRequest(
       if (response) {
         const data: Partial<App.Service.Response> = await response?.clone().json();
         responseCode = data.code;
-        message = data.message;
+        message = data.message || error.message;
       }
-
       function handleLogout() {
         showErrorMsg(state, message);
         authStore.resetStore();
       }
 
+      function logoutAndCleanup() {
+        handleLogout();
+        state.errMsgStack = state.errMsgStack.filter((msg) => msg !== message);
+      }
+
       // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
       const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
-      if (logoutCodes.includes(responseCode)) {
+      if (logoutCodes.includes(String(responseCode))) {
         handleLogout();
         throw error;
       }
 
       // when the backend response code is in `modalLogoutCodes`, it means the user will be logged out by displaying a modal
       const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
-      if (modalLogoutCodes.includes(responseCode) && !state.errMsgStack?.includes(message)) {
+      if (
+        modalLogoutCodes.includes(String(responseCode)) &&
+        !state.errMsgStack?.includes(message)
+      ) {
         state.errMsgStack = [...(state.errMsgStack || []), message];
 
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
+
+        window.$messageBox
+          .confirm(message, '错误', {
+            confirmButtonText: '确定',
+            type: 'error',
+            closeOnClickModal: false,
+            closeOnPressEscape: false,
+          })
+          .then(() => {
+            logoutAndCleanup();
+          })
+          .catch(() => {
+            logoutAndCleanup();
+          });
         throw error;
       }
       showErrorMsg(state, message);
