@@ -5,13 +5,13 @@ export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'dark',
   themeColor: '#f97316',
   otherColor: {
-    info: '#2080f0',
+    info: '#64748b',
     success: '#52c41a',
     warning: '#faad14',
     error: '#f5222d',
   },
   themeRadius: 6,
-  isInfoFollowPrimary: true,
+  isInfoFollowPrimary: false,
   tokens: {
     light: {
       colors: {

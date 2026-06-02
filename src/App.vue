@@ -7,7 +7,7 @@ import { useThemeStore } from '@/stores/modules/theme';
 defineOptions({ name: 'App' });
 
 const appStore = useAppStore();
-const themeStore = useThemeStore();
+useThemeStore();
 const locale = computed(() => {
   return UILocales[appStore.locale];
 });
