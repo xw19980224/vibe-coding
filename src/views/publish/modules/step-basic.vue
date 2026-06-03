@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
-import { useDict } from '@/hooks/common/dict.ts';
-import { DictTypes } from '@/enum/dict.ts';
+import { TagDictAPI } from '@/service/api/tag-dict.ts';
 
 defineOptions({ name: 'StepBasic' });
 
@@ -22,11 +21,20 @@ const rules: Record<RuleKey, App.Global.FormRule[]> = {
   platform: [defaultRequiredRule],
 };
 
-const dict = useDict(DictTypes.LANGUAGE, DictTypes.TECH_STACK, DictTypes.PLATFORM);
+const languageOptions = ref<string[]>([]);
+const techStackOptions = ref<string[]>([]);
+const platformOptions = ref<string[]>([]);
 
-const languageOptions = computed(() => dict[DictTypes.LANGUAGE]?.value ?? []);
-const techStackOptions = computed(() => dict[DictTypes.TECH_STACK]?.value ?? []);
-const platformOptions = computed(() => dict[DictTypes.PLATFORM]?.value ?? []);
+onMounted(async () => {
+  const [languages, techStacks, platforms] = await Promise.all([
+    TagDictAPI.listByType('LANGUAGE'),
+    TagDictAPI.listByType('TECH_STACK'),
+    TagDictAPI.listByType('PLATFORM'),
+  ]);
+  languageOptions.value = languages;
+  techStackOptions.value = techStacks;
+  platformOptions.value = platforms;
+});
 
 defineExpose({ validate });
 </script>
@@ -56,12 +64,19 @@ defineExpose({ validate });
 
     <!-- 开发语言 -->
     <ElFormItem label="开发语言" prop="languages">
-      <ElSelect v-model="form.languages" placeholder="选择开发语言" multiple>
+      <ElSelect
+        v-model="form.languages"
+        placeholder="输入或选择开发语言..."
+        multiple
+        filterable
+        allow-create
+        default-first-option
+      >
         <ElOption
           v-for="opt in languageOptions"
-          :key="opt.value"
-          :label="opt.label"
-          :value="opt.value"
+          :key="opt"
+          :label="opt"
+          :value="opt"
         />
       </ElSelect>
     </ElFormItem>
@@ -70,28 +85,35 @@ defineExpose({ validate });
     <ElFormItem label="技术栈">
       <ElSelect
         v-model="form.techStack"
-        placeholder="输入技术栈名称..."
+        placeholder="输入或选择技术栈..."
         multiple
         allow-create
         filterable
+        default-first-option
       >
         <ElOption
           v-for="opt in techStackOptions"
-          :key="opt.value"
-          :label="opt.label"
-          :value="opt.value"
+          :key="opt"
+          :label="opt"
+          :value="opt"
         />
       </ElSelect>
     </ElFormItem>
 
     <!-- 运行平台 -->
     <ElFormItem label="运行平台" prop="platform">
-      <ElSelect v-model="form.platform" placeholder="选择运行平台">
+      <ElSelect
+        v-model="form.platform"
+        placeholder="输入或选择运行平台..."
+        filterable
+        allow-create
+        default-first-option
+      >
         <ElOption
           v-for="opt in platformOptions"
-          :key="opt.value"
-          :label="opt.label"
-          :value="opt.value"
+          :key="opt"
+          :label="opt"
+          :value="opt"
         />
       </ElSelect>
     </ElFormItem>
