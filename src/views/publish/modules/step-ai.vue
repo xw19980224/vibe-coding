@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
 import { useTagDict } from '@/hooks/common/tag-dict.ts';
+import { TagDictTypes } from '@/enum/tag-dict.ts';
 
 defineOptions({ name: 'StepAi' });
 
@@ -16,7 +17,7 @@ const rules: Record<RuleKey, App.Global.FormRule[]> = {
   tools: [{ ...defaultRequiredRule, type: 'array', message: '请选择 AI 开发工具' }],
 };
 
-const { DEV_TOOL: toolOptions, MCP: mcpOptions, SKILL: skillOptions, AGENT: agentOptions } = useTagDict('DEV_TOOL', 'MCP', 'SKILL', 'AGENT');
+const { DEV_TOOL: toolOptions, MCP: mcpOptions, SKILL: skillOptions, AGENT: agentOptions } = useTagDict(TagDictTypes.DEV_TOOL, TagDictTypes.MCP, TagDictTypes.SKILL, TagDictTypes.AGENT);
 
 defineExpose({ validate });
 </script>

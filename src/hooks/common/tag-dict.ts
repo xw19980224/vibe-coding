@@ -1,8 +1,9 @@
 import { useTagDictStore } from '@/stores/modules/tag-dict';
 import { useLoading } from '@a02/hooks';
 import { TagDictAPI } from '@/service/api/tag-dict.ts';
+import { TagDictTypes } from '@/enum/tag-dict.ts';
 
-export const useTagDict = (...args: string[]) => {
+export const useTagDict = (...args: TagDictTypes[]) => {
   const store = useTagDictStore();
   const dictObject = reactive<Record<string, string[]>>({});
   const { loading: tagLoading, endLoading } = useLoading(true);

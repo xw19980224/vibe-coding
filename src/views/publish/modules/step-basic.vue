@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
 import { useTagDict } from '@/hooks/common/tag-dict.ts';
+import { TagDictTypes } from '@/enum/tag-dict.ts';
 
 defineOptions({ name: 'StepBasic' });
 
@@ -25,7 +26,7 @@ const {
   LANGUAGE: languageOptions,
   TECH_STACK: techStackOptions,
   PLATFORM: platformOptions,
-} = useTagDict('LANGUAGE', 'TECH_STACK', 'PLATFORM');
+} = useTagDict(TagDictTypes.LANGUAGE, TagDictTypes.TECH_STACK, TagDictTypes.PLATFORM);
 
 defineExpose({ validate });
 </script>
