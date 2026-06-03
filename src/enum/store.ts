@@ -4,4 +4,5 @@ export enum SetupStoreId {
   Theme = 'theme-store',
   Vibe = 'vibe-store',
   Dict = 'dict-store',
+  TagDict = 'tag-dict-store',
 }

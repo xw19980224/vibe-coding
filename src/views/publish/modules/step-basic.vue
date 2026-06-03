@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFormRules, useNaiveForm } from '@/hooks/common/form.ts';
-import { TagDictAPI } from '@/service/api/tag-dict.ts';
+import { useTagDict } from '@/hooks/common/tag-dict.ts';
 
 defineOptions({ name: 'StepBasic' });
 
@@ -21,20 +21,11 @@ const rules: Record<RuleKey, App.Global.FormRule[]> = {
   platform: [defaultRequiredRule],
 };
 
-const languageOptions = ref<string[]>([]);
-const techStackOptions = ref<string[]>([]);
-const platformOptions = ref<string[]>([]);
-
-onMounted(async () => {
-  const [languages, techStacks, platforms] = await Promise.all([
-    TagDictAPI.listByType('LANGUAGE'),
-    TagDictAPI.listByType('TECH_STACK'),
-    TagDictAPI.listByType('PLATFORM'),
-  ]);
-  languageOptions.value = languages;
-  techStackOptions.value = techStacks;
-  platformOptions.value = platforms;
-});
+const {
+  LANGUAGE: languageOptions,
+  TECH_STACK: techStackOptions,
+  PLATFORM: platformOptions,
+} = useTagDict('LANGUAGE', 'TECH_STACK', 'PLATFORM');
 
 defineExpose({ validate });
 </script>
@@ -72,12 +63,7 @@ defineExpose({ validate });
         allow-create
         default-first-option
       >
-        <ElOption
-          v-for="opt in languageOptions"
-          :key="opt"
-          :label="opt"
-          :value="opt"
-        />
+        <ElOption v-for="opt in languageOptions" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
 
@@ -91,12 +77,7 @@ defineExpose({ validate });
         filterable
         default-first-option
       >
-        <ElOption
-          v-for="opt in techStackOptions"
-          :key="opt"
-          :label="opt"
-          :value="opt"
-        />
+        <ElOption v-for="opt in techStackOptions" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
 
@@ -109,12 +90,7 @@ defineExpose({ validate });
         allow-create
         default-first-option
       >
-        <ElOption
-          v-for="opt in platformOptions"
-          :key="opt"
-          :label="opt"
-          :value="opt"
-        />
+        <ElOption v-for="opt in platformOptions" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
   </ElForm>
