@@ -17,7 +17,7 @@ const rules: Record<RuleKey, App.Global.FormRule[]> = {
   tools: [{ ...defaultRequiredRule, type: 'array', message: '请选择 AI 开发工具' }],
 };
 
-const { DEV_TOOL: toolOptions, MCP: mcpOptions, SKILL: skillOptions, AGENT: agentOptions } = useTagDict(TagDictTypes.DEV_TOOL, TagDictTypes.MCP, TagDictTypes.SKILL, TagDictTypes.AGENT);
+const { dev_tool, mcp, skill, agent } = useTagDict(TagDictTypes.dev_tool, TagDictTypes.mcp, TagDictTypes.skill, TagDictTypes.agent);
 
 defineExpose({ validate });
 </script>
@@ -35,7 +35,7 @@ defineExpose({ validate });
         default-first-option
       >
         <ElOption
-          v-for="opt in toolOptions"
+          v-for="opt in dev_tool"
           :key="opt"
           :label="opt"
           :value="opt"
@@ -54,7 +54,7 @@ defineExpose({ validate });
         default-first-option
       >
         <ElOption
-          v-for="opt in agentOptions"
+          v-for="opt in agent"
           :key="opt"
           :label="opt"
           :value="opt"
@@ -73,7 +73,7 @@ defineExpose({ validate });
         default-first-option
       >
         <ElOption
-          v-for="opt in mcpOptions"
+          v-for="opt in mcp"
           :key="opt"
           :label="opt"
           :value="opt"
@@ -92,7 +92,7 @@ defineExpose({ validate });
         default-first-option
       >
         <ElOption
-          v-for="opt in skillOptions"
+          v-for="opt in skill"
           :key="opt"
           :label="opt"
           :value="opt"

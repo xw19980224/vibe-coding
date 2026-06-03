@@ -22,11 +22,7 @@ const rules: Record<RuleKey, App.Global.FormRule[]> = {
   platform: [defaultRequiredRule],
 };
 
-const {
-  LANGUAGE: languageOptions,
-  TECH_STACK: techStackOptions,
-  PLATFORM: platformOptions,
-} = useTagDict(TagDictTypes.LANGUAGE, TagDictTypes.TECH_STACK, TagDictTypes.PLATFORM);
+const { language, tech_stack, platform } = useTagDict(TagDictTypes.language, TagDictTypes.tech_stack, TagDictTypes.platform);
 
 defineExpose({ validate });
 </script>
@@ -64,7 +60,7 @@ defineExpose({ validate });
         allow-create
         default-first-option
       >
-        <ElOption v-for="opt in languageOptions" :key="opt" :label="opt" :value="opt" />
+        <ElOption v-for="opt in language" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
 
@@ -78,7 +74,7 @@ defineExpose({ validate });
         filterable
         default-first-option
       >
-        <ElOption v-for="opt in techStackOptions" :key="opt" :label="opt" :value="opt" />
+        <ElOption v-for="opt in tech_stack" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
 
@@ -91,7 +87,7 @@ defineExpose({ validate });
         allow-create
         default-first-option
       >
-        <ElOption v-for="opt in platformOptions" :key="opt" :label="opt" :value="opt" />
+        <ElOption v-for="opt in platform" :key="opt" :label="opt" :value="opt" />
       </ElSelect>
     </ElFormItem>
   </ElForm>

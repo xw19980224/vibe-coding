@@ -1,9 +1,9 @@
 export enum TagDictTypes {
-  MCP = 'MCP',
-  SKILL = 'SKILL',
-  DEV_TOOL = 'DEV_TOOL',
-  AGENT = 'AGENT',
-  LANGUAGE = 'LANGUAGE',
-  PLATFORM = 'PLATFORM',
-  TECH_STACK = 'TECH_STACK',
+  mcp = 'mcp',
+  skill = 'skill',
+  dev_tool = 'dev_tool',
+  agent = 'agent',
+  language = 'language',
+  platform = 'platform',
+  tech_stack = 'tech_stack',
 }
